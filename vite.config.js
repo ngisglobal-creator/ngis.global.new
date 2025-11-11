@@ -8,4 +8,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    base: '/', // مهم لتوليد روابط صحيحة في public/build
+    server: {
+        // فقط إذا كنت تستخدم سيرفر تطوير محلي عبر HTTPS
+        https: false, // ضع true إذا تريد تشغيل السيرفر المحلي عبر https
+        host: 'localhost',
+        port: 5173,
+    },
 });
