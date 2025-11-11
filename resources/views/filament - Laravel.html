@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://192.168.0.103:8000/app/aaaa@gmail.com -->
+<html lang="en" dir="ltr" class="fi min-h-screen"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+
+        
+        <meta name="csrf-token" content="j09al1KeUnlbk5oeBeTP0Tmtzo8g9Q01nK36Q4MF">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <title>
+            Dashboard - 
+            Laravel
+        </title>
+
+        
+
+        <style>
+            [x-cloak=''],
+            [x-cloak='x-cloak'],
+            [x-cloak='1'] {
+                display: none !important;
+            }
+
+            @media (max-width: 1023px) {
+                [x-cloak='-lg'] {
+                    display: none !important;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                [x-cloak='lg'] {
+                    display: none !important;
+                }
+            }
+        </style>
+
+        <link href="./filament - Laravel_files/forms.css" rel="stylesheet" data-navigate-track="">
+                <link href="./filament - Laravel_files/support.css" rel="stylesheet" data-navigate-track="">
+    
+<style>
+    :root {
+         --danger-50:254, 242, 242;  --danger-100:254, 226, 226;  --danger-200:254, 202, 202;  --danger-300:252, 165, 165;  --danger-400:248, 113, 113;  --danger-500:239, 68, 68;  --danger-600:220, 38, 38;  --danger-700:185, 28, 28;  --danger-800:153, 27, 27;  --danger-900:127, 29, 29;  --danger-950:69, 10, 10;  --gray-50:248, 250, 252;  --gray-100:241, 245, 249;  --gray-200:226, 232, 240;  --gray-300:203, 213, 225;  --gray-400:148, 163, 184;  --gray-500:100, 116, 139;  --gray-600:71, 85, 105;  --gray-700:51, 65, 85;  --gray-800:30, 41, 59;  --gray-900:15, 23, 42;  --gray-950:2, 6, 23;  --info-50:239, 246, 255;  --info-100:219, 234, 254;  --info-200:191, 219, 254;  --info-300:147, 197, 253;  --info-400:96, 165, 250;  --info-500:59, 130, 246;  --info-600:37, 99, 235;  --info-700:29, 78, 216;  --info-800:30, 64, 175;  --info-900:30, 58, 138;  --info-950:23, 37, 84;  --primary-50:255, 251, 235;  --primary-100:254, 243, 199;  --primary-200:253, 230, 138;  --primary-300:252, 211, 77;  --primary-400:251, 191, 36;  --primary-500:245, 158, 11;  --primary-600:217, 119, 6;  --primary-700:180, 83, 9;  --primary-800:146, 64, 14;  --primary-900:120, 53, 15;  --primary-950:69, 26, 3;  --success-50:236, 253, 245;  --success-100:209, 250, 229;  --success-200:167, 243, 208;  --success-300:110, 231, 183;  --success-400:52, 211, 153;  --success-500:16, 185, 129;  --success-600:5, 150, 105;  --success-700:4, 120, 87;  --success-800:6, 95, 70;  --success-900:6, 78, 59;  --success-950:2, 44, 34;  --warning-50:255, 247, 237;  --warning-100:255, 237, 213;  --warning-200:254, 215, 170;  --warning-300:253, 186, 116;  --warning-400:251, 146, 60;  --warning-500:249, 115, 22;  --warning-600:234, 88, 12;  --warning-700:194, 65, 12;  --warning-800:154, 52, 18;  --warning-900:124, 45, 18;  --warning-950:67, 20, 7;     }
+</style>
+        <link href="./filament - Laravel_files/app.css" rel="stylesheet" data-navigate-track="">
+        
+            <link rel="preconnect" href="https://fonts.bunny.net/">
+            <link href="./filament - Laravel_files/css" rel="stylesheet">
+        
+
+        <style>
+            :root {
+                --font-family: Inter;
+                --sidebar-width: 20rem;
+                --collapsed-sidebar-width: 4.5rem;
+            }
+        </style>
+
+        
+
+                    <script>
+                const theme = localStorage.getItem('theme') ?? 'system'
+
+                if (
+                    theme === 'dark' ||
+                    (theme === 'system' &&
+                        window.matchMedia('(prefers-color-scheme: dark)')
+                            .matches)
+                ) {
+                    document.documentElement.classList.add('dark')
+                }
+            </script>
+        
+        
+    <!-- Livewire Styles --><style>[wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {display:none;}[wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}[x-cloak] {display: none;}</style><style>/* Make clicks pass-through */
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+    //   background: #FC70A9;
+      background: #29d;
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: #29d;
+      border-left-color: #29d;
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>
+
+    <body class="fi-body min-h-screen overscroll-y-none bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white">
+        
+
+        <div class="fi-layout flex min-h-screen w-full overflow-x-clip">
+        <div x-data="{}" x-on:click="$store.sidebar.close()" x-show="$store.sidebar.isOpen" x-transition.opacity.300ms="" class="fi-sidebar-close-overlay fixed inset-0 z-30 bg-gray-950/50 transition duration-500 dark:bg-gray-950/75 lg:hidden" style="display: none;"></div>
+
+        <aside x-data="{}" x-bind:class="$store.sidebar.isOpen ? &#39;fi-sidebar-open max-w-none translate-x-0 shadow-xl ring-1 ring-gray-950\/5 rtl:-translate-x-0 dark:ring-white\/10&#39; : &#39;-translate-x-full rtl:translate-x-full&#39;" class="fi-sidebar fixed inset-y-0 start-0 z-30 grid h-screen w-[--sidebar-width] content-start bg-white transition-all dark:bg-gray-900 lg:z-0 lg:bg-transparent lg:shadow-none lg:ring-0 dark:lg:bg-transparent lg:translate-x-0 rtl:lg:-translate-x-0 -translate-x-full rtl:translate-x-full">
+    <header class="fi-sidebar-header flex h-16 items-center bg-white px-6 ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 lg:shadow-sm">
+        
+        <div>
+                            <a href="http://192.168.0.103:8000/app/aaaa@gmail.com">
+                    <img src="./filament - Laravel_files/logo-transparent.png" alt="Logo" class="h-10">
+                </a>
+                    </div>
+        
+
+        
+            </header>
+
+    <nav class="fi-sidebar-nav flex flex-col gap-y-7 overflow-y-auto overflow-x-hidden px-6 py-8">
+        
+
+                    <div class="-mx-2">
+                <div x-data="{
+        toggle: function (event) {
+            $refs.panel.toggle(event)
+        },
+
+        open: function (event) {
+            $refs.panel.open(event)
+        },
+
+        close: function (event) {
+            $refs.panel.close(event)
+        },
+    }" class="fi-dropdown fi-tenant-menu">
+    <div x-on:click="toggle" class="fi-dropdown-trigger flex cursor-pointer">
+        <button type="button" class="fi-tenant-menu-trigger group flex w-full items-center justify-center gap-x-3 rounded-lg p-2 text-sm font-medium outline-none transition duration-75 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-white/5 dark:focus:bg-white/5">
+            <div style="background-image: url(&#39;https://ui-avatars.com/api/?name=a&amp;color=FFFFFF&amp;background=020617&#39;);" class="fi-avatar bg-cover bg-center h-9 w-9 fi-tenant-avatar rounded-md shrink-0"></div>
+
+            <span class="grid justify-items-start text-start">
+                
+                <span class="text-gray-950 dark:text-white">
+                    aaaa@gmail.com
+                </span>
+            </span>
+
+            <svg icon-alias="panels::tenant-menu.toggle-button" class="ms-auto h-5 w-5 shrink-0 text-gray-400 transition duration-75 group-hover:text-gray-500 group-focus:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400 dark:group-focus:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path>
+</svg>        </button>
+    </div>
+
+    <div x-float.placement.bottom-start.flip.teleport.offset="{ offset: 8 }" x-ref="panel" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0" class="fi-dropdown-panel absolute z-10 w-screen divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-gray-950/5 transition dark:divide-white/5 dark:bg-gray-900 dark:ring-white/10 max-w-[14rem]" style="position: fixed; display: none;">
+        <div class="fi-dropdown-list p-1">
+    <a style=";" class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-dropdown-list-item-color-gray hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5" href="http://192.168.0.103:8000/app/aaaa@gmail.com/profile">
+                    <svg class="fi-dropdown-list-item-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+</svg>        
+        
+        <span class="fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200">
+            Team profile
+        </span>
+
+            </a>
+</div>
+    
+    
+    
+            <div class="fi-dropdown-list p-1">
+    <a style=";" class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-dropdown-list-item-color-gray hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5" href="http://192.168.0.103:8000/app/new">
+                    <svg class="fi-dropdown-list-item-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+</svg>        
+        
+        <span class="fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200">
+            Register team
+        </span>
+
+            </a>
+</div>
+    </div>
+</div>
+
+
+            </div>
+        
+                    <ul class="-mx-2 flex flex-col gap-y-7">
+                                    <li x-data="{ label: null }" data-group-label="" class="fi-sidebar-group flex flex-col gap-y-1">
+    
+    <ul x-show="! ($store.sidebar.groupIsCollapsed(label) &amp;&amp; ($store.sidebar.isOpen || true))" x-collapse.duration.200ms="" class="fi-sidebar-group-items flex flex-col gap-y-1">
+                    <li class="fi-sidebar-item fi-active fi-sidebar-item-active">
+    <a href="http://192.168.0.103:8000/app/aaaa@gmail.com" x-on:click="window.matchMedia(`(max-width: 1024px)`).matches &amp;&amp; $store.sidebar.close()" class="fi-sidebar-item-button relative flex items-center justify-center gap-x-3 rounded-lg px-2 py-2 text-sm outline-none transition duration-75 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-white/5 dark:focus:bg-white/5 bg-gray-100 dark:bg-white/5">
+                    <svg class="fi-sidebar-item-icon h-6 w-6 text-primary-600 dark:text-primary-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+</svg>        
+        <span class="fi-sidebar-item-label flex-1 truncate text-primary-600 dark:text-primary-400 font-semibold">
+            Dashboard
+        </span>
+
+            </a>
+</li>
+                    <li class="fi-sidebar-item">
+    <a href="http://192.168.0.103:8000/app/aaaa@gmail.com/departments" x-on:click="window.matchMedia(`(max-width: 1024px)`).matches &amp;&amp; $store.sidebar.close()" class="fi-sidebar-item-button relative flex items-center justify-center gap-x-3 rounded-lg px-2 py-2 text-sm outline-none transition duration-75 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-white/5 dark:focus:bg-white/5">
+                    <svg class="fi-sidebar-item-icon h-6 w-6 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122"></path>
+</svg>        
+        <span class="fi-sidebar-item-label flex-1 truncate text-gray-700 dark:text-gray-200 font-semibold">
+            Departments
+        </span>
+
+            </a>
+</li>
+                    <li class="fi-sidebar-item">
+    <a href="http://192.168.0.103:8000/app/aaaa@gmail.com/employees" x-on:click="window.matchMedia(`(max-width: 1024px)`).matches &amp;&amp; $store.sidebar.close()" class="fi-sidebar-item-button relative flex items-center justify-center gap-x-3 rounded-lg px-2 py-2 text-sm outline-none transition duration-75 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-white/5 dark:focus:bg-white/5">
+                    <svg class="fi-sidebar-item-icon h-6 w-6 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122"></path>
+</svg>        
+        <span class="fi-sidebar-item-label flex-1 truncate text-gray-700 dark:text-gray-200 font-semibold">
+            Employees
+        </span>
+
+            </a>
+</li>
+            </ul>
+</li>
+                            </ul>
+
+            
+            <script>
+                let collapsedGroups = JSON.parse(
+                    localStorage.getItem('collapsedGroups'),
+                )
+
+                if (collapsedGroups === null || collapsedGroups === 'null') {
+                    localStorage.setItem(
+                        'collapsedGroups',
+                        JSON.stringify([]),
+                    )
+                }
+
+                collapsedGroups = JSON.parse(
+                    localStorage.getItem('collapsedGroups'),
+                )
+
+                document
+                    .querySelectorAll('.fi-sidebar-group')
+                    .forEach((group) => {
+                        if (
+                            !collapsedGroups.includes(group.dataset.groupLabel)
+                        ) {
+                            return
+                        }
+
+                        // Alpine.js loads too slow, so attempt to hide a
+                        // collapsed sidebar group earlier.
+                        group.querySelector(
+                            '.fi-sidebar-group-items',
+                        ).style.display = 'none'
+                        group
+                            .querySelector('.fi-sidebar-group-collapse-button')
+                            .classList.add('rotate-180')
+                    })
+            </script>
+        
+        
+    </nav>
+
+    
+</aside>
+
+        <div class="fi-main-ctn w-screen flex-1 flex-col flex lg:ps-[--sidebar-width]">
+            <div class="fi-topbar sticky top-0 z-20 overflow-x-clip">
+    <nav class="flex h-16 items-center gap-x-4 bg-white px-4 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 md:px-6 lg:px-8">
+        
+
+        <button style="--c-300:var(--gray-300);--c-400:var(--gray-400);--c-500:var(--gray-500);--c-600:var(--gray-600);" class="fi-icon-btn relative flex items-center justify-center rounded-lg outline-none transition duration-75 focus:ring-2 disabled:pointer-events-none disabled:opacity-70 h-9 w-9 text-gray-400 hover:text-gray-500 focus:ring-primary-600 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:ring-primary-500 -ms-1.5 lg:hidden" title="Expand sidebar" type="button" x-data="{}" x-on:click="$store.sidebar.open()" x-show="! $store.sidebar.isOpen">
+                    <span class="sr-only">
+                Expand sidebar
+            </span>
+        
+        <svg class="fi-icon-btn-icon h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+</svg>
+        
+            </button>
+
+        <button style="--c-300: var(--gray-300); --c-400: var(--gray-400); --c-500: var(--gray-500); --c-600: var(--gray-600); display: none;" class="fi-icon-btn relative flex items-center justify-center rounded-lg outline-none transition duration-75 focus:ring-2 disabled:pointer-events-none disabled:opacity-70 h-9 w-9 text-gray-400 hover:text-gray-500 focus:ring-primary-600 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:ring-primary-500 -ms-1.5 lg:hidden" title="Collapse sidebar" type="button" x-data="{}" x-on:click="$store.sidebar.close()" x-show="$store.sidebar.isOpen">
+                    <span class="sr-only">
+                Collapse sidebar
+            </span>
+        
+        <svg class="fi-icon-btn-icon h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+</svg>
+        
+            </button>
+
+        
+        <div class="ms-auto flex items-center gap-x-4">
+            
+
+            
+            
+
+            
+            <div x-data="{
+        toggle: function (event) {
+            $refs.panel.toggle(event)
+        },
+
+        open: function (event) {
+            $refs.panel.open(event)
+        },
+
+        close: function (event) {
+            $refs.panel.close(event)
+        },
+    }" class="fi-dropdown fi-user-menu">
+    <div x-on:click="toggle" class="fi-dropdown-trigger flex cursor-pointer">
+        <button aria-label="User menu" type="button">
+            <div style="background-image: url(&#39;https://ui-avatars.com/api/?name=a&amp;color=FFFFFF&amp;background=020617&#39;);" class="fi-avatar bg-cover bg-center h-9 w-9 fi-user-avatar rounded-full"></div>
+        </button>
+    </div>
+
+    <div x-float.placement.bottom-end.flip.teleport.offset="{ offset: 8 }" x-ref="panel" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0" class="fi-dropdown-panel absolute z-10 w-screen divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-gray-950/5 transition dark:divide-white/5 dark:bg-gray-900 dark:ring-white/10 max-w-[14rem]" style="position: fixed; display: none;">
+        <div class="fi-dropdown-list p-1">
+    <a style=";" class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-dropdown-list-item-color-gray hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5" href="http://192.168.0.103:8000/app/profile">
+                    <svg class="fi-dropdown-list-item-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clip-rule="evenodd"></path>
+</svg>        
+        
+        <span class="fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200">
+            Profile
+        </span>
+
+            </a>
+</div>
+        
+        
+    
+            <div class="fi-dropdown-list p-1">
+    <div x-data="{
+        theme: null,
+
+        init: function () {
+            this.theme = localStorage.getItem(&#39;theme&#39;) || &#39;system&#39;
+
+            $dispatch(&#39;theme-changed&#39;, theme)
+
+            $watch(&#39;theme&#39;, (theme) =&gt; {
+                $dispatch(&#39;theme-changed&#39;, theme)
+            })
+        },
+    }" class="fi-theme-switcher grid grid-flow-col gap-x-1">
+    <button aria-label="Enable light theme" type="button" x-bind:class="
+        theme === &#39;light&#39;            ? &#39;bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400&#39;
+            : &#39;text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400&#39;
+    " x-on:click="(theme = &#39;light&#39;) &amp;&amp; close()" x-tooltip="{
+        content: &#39;Enable light theme&#39;,
+        theme: $store.theme,
+    }" class="flex justify-center rounded-lg p-2 outline-none transition duration-75 hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5 bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400">
+    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z"></path>
+</svg></button>
+
+    <button aria-label="Enable dark theme" type="button" x-bind:class="
+        theme === &#39;dark&#39;            ? &#39;bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400&#39;
+            : &#39;text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400&#39;
+    " x-on:click="(theme = &#39;dark&#39;) &amp;&amp; close()" x-tooltip="{
+        content: &#39;Enable dark theme&#39;,
+        theme: $store.theme,
+    }" class="flex justify-center rounded-lg p-2 outline-none transition duration-75 hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5 text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400">
+    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z" clip-rule="evenodd"></path>
+</svg></button>
+
+    <button aria-label="Enable system theme" type="button" x-bind:class="
+        theme === &#39;system&#39;            ? &#39;bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400&#39;
+            : &#39;text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400&#39;
+    " x-on:click="(theme = &#39;system&#39;) &amp;&amp; close()" x-tooltip="{
+        content: &#39;Enable system theme&#39;,
+        theme: $store.theme,
+    }" class="flex justify-center rounded-lg p-2 outline-none transition duration-75 hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5 text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400">
+    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z" clip-rule="evenodd"></path>
+</svg></button>
+</div>
+</div>
+    
+    <div class="fi-dropdown-list p-1">
+    <a style=";" class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-dropdown-list-item-color-gray hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5" href="http://192.168.0.103:8000/admin">
+                    <svg class="fi-dropdown-list-item-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"></path>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+</svg>        
+        
+        <span class="fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200">
+            Admin
+        </span>
+
+            </a>
+        
+        <form action="http://192.168.0.103:8000/app/logout" method="post">
+        <input type="hidden" name="_token" value="j09al1KeUnlbk5oeBeTP0Tmtzo8g9Q01nK36Q4MF">
+        <button type="submit" style=";" class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-dropdown-list-item-color-gray hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5">
+                            <svg class="fi-dropdown-list-item-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd"></path>
+  <path fill-rule="evenodd" d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-.943a.75.75 0 10-1.004-1.114l-2.5 2.25a.75.75 0 000 1.114l2.5 2.25a.75.75 0 101.004-1.114l-1.048-.943h9.546A.75.75 0 0019 10z" clip-rule="evenodd"></path>
+</svg>            
+            <span class="fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200">
+                Sign out
+            </span>
+
+                    </button>
+    </form>
+</div>
+    </div>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+</div>
+
+            <main class="fi-main mx-auto w-full px-4 md:px-6 lg:px-8 max-w-7xl">
+                
+
+                <div wire:snapshot="{&quot;data&quot;:{&quot;mountedActions&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedActionsArguments&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedActionsData&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;componentFileAttachments&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedFormComponentActions&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedFormComponentActionsArguments&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedFormComponentActionsData&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;mountedFormComponentActionsComponents&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;mWBvlK44Z83Ki3UjzgeQ&quot;,&quot;name&quot;:&quot;filament.pages.dashboard&quot;,&quot;path&quot;:&quot;app\/aaaa@gmail.com&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:{&quot;3&quot;:[&quot;div&quot;,&quot;i8Pl0cZ8ojyDT3dVhyS7&quot;],&quot;4&quot;:[&quot;div&quot;,&quot;1I1ni3wJqWzdxfmKq8Si&quot;],&quot;2&quot;:[&quot;div&quot;,&quot;qaLDfBTuGfHj96NeKgGB&quot;],&quot;5&quot;:[&quot;div&quot;,&quot;xf5ajte4Xvw70cCHGQZH&quot;],&quot;1&quot;:[&quot;div&quot;,&quot;nETFJOxYPtslaU7PxPk6&quot;]},&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;2123ca3167b2a87ce72c623f8d7461d5494189db8d56ba1e3afd45300c088071&quot;}" wire:effects="[]" wire:id="mWBvlK44Z83Ki3UjzgeQ" class="fi-page fi-dashboard-page">
+    
+
+    <section class="grid auto-cols-fr gap-y-8 py-8">
+        <!-- __BLOCK__ -->            <header class="fi-header flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
+            Dashboard
+        </h1>
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</header>
+         <!-- __ENDBLOCK__ -->
+
+        
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        
+
+        <div style="--cols-default: repeat(1, minmax(0, 1fr)); --cols-lg: repeat(2, minmax(0, 1fr));" class="grid grid-cols-[--cols-default] lg:grid-cols-[--cols-lg] fi-wi gap-6">
+    <!-- __BLOCK__ -->        <div wire:id="i8Pl0cZ8ojyDT3dVhyS7" style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
+    <section class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div class="fi-section-content-ctn">
+        <div class="fi-section-content p-6">
+            <div class="flex items-center gap-x-3">
+            <div style="background-image: url(&#39;https://ui-avatars.com/api/?name=a&amp;color=FFFFFF&amp;background=020617&#39;);" class="fi-avatar bg-cover bg-center h-10 w-10 fi-user-avatar rounded-full"></div>
+
+            <div class="flex-1">
+                <h2 class="grid flex-1 text-base font-semibold leading-6 text-gray-950 dark:text-white">
+                    Welcome
+                </h2>
+
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    aaaa@gmail.com
+                </p>
+            </div>
+
+            <form action="http://192.168.0.103:8000/app/logout" method="post" class="my-auto -me-2.5 sm:me-0">
+                <input type="hidden" name="_token" value="j09al1KeUnlbk5oeBeTP0Tmtzo8g9Q01nK36Q4MF">
+                <!-- __BLOCK__ -->    <button style="--c-300:var(--gray-300);--c-400:var(--gray-400);--c-500:var(--gray-500);--c-600:var(--gray-600);" class="fi-icon-btn relative flex items-center justify-center rounded-lg outline-none transition duration-75 focus:ring-2 disabled:pointer-events-none disabled:opacity-70 h-9 w-9 text-gray-400 hover:text-gray-500 focus:ring-primary-600 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:ring-primary-500 sm:hidden" title="Sign out" type="submit">
+                    <span class="sr-only">
+                Sign out
+            </span>
+        
+        <svg class="fi-icon-btn-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd"></path>
+  <path fill-rule="evenodd" d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-.943a.75.75 0 10-1.004-1.114l-2.5 2.25a.75.75 0 000 1.114l2.5 2.25a.75.75 0 101.004-1.114l-1.048-.943h9.546A.75.75 0 0019 10z" clip-rule="evenodd"></path>
+</svg>
+        
+            </button>
+ <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ -->    <button style=";" class="fi-btn fi-btn-size-md relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray gap-1.5 px-3 py-2 text-sm hidden sm:inline-grid shadow-sm bg-white text-gray-950 hover:bg-gray-50 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 ring-1 ring-gray-950/10 dark:ring-white/20" type="submit" wire:loading.attr="disabled">
+        <!-- __BLOCK__ -->            <!-- __BLOCK__ -->                <svg class="fi-btn-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd"></path>
+  <path fill-rule="evenodd" d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-.943a.75.75 0 10-1.004-1.114l-2.5 2.25a.75.75 0 000 1.114l2.5 2.25a.75.75 0 101.004-1.114l-1.048-.943h9.546A.75.75 0 0019 10z" clip-rule="evenodd"></path>
+</svg>             <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+         <!-- __ENDBLOCK__ -->
+
+        <span class="fi-btn-label">
+            Sign out
+        </span>
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </button>
+ <!-- __ENDBLOCK__ -->
+            </form>
+        </div>
+        </div>
+    </div>
+</section>
+</div>
+            <div wire:id="1I1ni3wJqWzdxfmKq8Si" style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
+    <section class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div class="fi-section-content-ctn">
+        <div class="fi-section-content p-6">
+            <div class="flex items-center gap-x-3">
+            <div class="flex-1">
+                <a href="https://filamentphp.com/" rel="noopener noreferrer" target="_blank">
+                    <svg aria-label="Filament" fill="currentColor" role="img" viewBox="0 0 303 61" xmlns="http://www.w3.org/2000/svg" class="h-5 text-gray-950 dark:text-white">
+                        <path d="M11.739 58.266c.598-2.782 1.17-5.473 1.716-8.073.455-2.167.964-4.568 1.527-7.204l.345-1.61 2.786-13.26h10.669l1.872-8.775H19.5l.351-1.736c.156-.767.286-1.41.39-1.93.416-2.002 1.17-3.504 2.262-4.505 1.092-1 2.6-1.501 4.524-1.501 1.092 0 2.171.13 3.237.39 1.066.26 2.08.624 3.042 1.092l2.808-9.36c-.832-.364-1.8-.683-2.905-.956a28.228 28.228 0 0 0-3.491-.623A31.515 31.515 0 0 0 26.052 0c-1.924 0-3.77.228-5.538.682a13.837 13.837 0 0 0-4.836 2.301c-1.456 1.08-2.724 2.542-3.803 4.388-1.079 1.846-1.904 4.147-2.476 6.903-.364 1.742-.76 3.633-1.19 5.675l.128-.605H1.872L0 28.119h6.474l-.095.447-.512 2.405-.251 1.185c-.416 1.962-.793 3.75-1.131 5.362l-.819 3.9c-.676 3.224-1.293 6.142-1.853 8.755a1037.9 1037.9 0 0 0-1.696 8.093h11.622Z"></path>
+                        <path d="M11.739 58.266c.598-2.782 1.17-5.473 1.716-8.073.455-2.167.964-4.568 1.527-7.204l.345-1.61 2.786-13.26h10.669l1.872-8.775H19.5l.351-1.736c.156-.767.286-1.41.39-1.93.416-2.002 1.17-3.504 2.262-4.505 1.092-1 2.6-1.501 4.524-1.501 1.092 0 2.171.13 3.237.39 1.066.26 2.08.624 3.042 1.092l2.808-9.36c-.832-.364-1.8-.683-2.905-.956a28.228 28.228 0 0 0-3.491-.623A31.515 31.515 0 0 0 26.052 0c-1.924 0-3.77.228-5.538.682a13.837 13.837 0 0 0-4.836 2.301c-1.456 1.08-2.724 2.542-3.803 4.388-1.079 1.846-1.904 4.147-2.476 6.903-.364 1.742-.76 3.633-1.19 5.675l.128-.605H1.872L0 28.119h6.474l-.095.447-.512 2.405-.251 1.185c-.416 1.962-.793 3.75-1.131 5.362l-.819 3.9c-.676 3.224-1.293 6.142-1.853 8.755a1037.9 1037.9 0 0 0-1.696 8.093h11.622zm50.58 0a1959.83 1959.83 0 0 1 3.55-16.887l4.562-21.606c.754-3.588 1.476-7 2.165-10.237.689-3.237 1.358-6.39 2.008-9.458L62.748 1.092c-.65 3.12-1.3 6.227-1.95 9.321a896.385 896.385 0 0 1-2.028 9.399l-4.524 21.606c-.702 3.224-1.326 6.142-1.872 8.755-.546 2.613-1.118 5.311-1.716 8.093H62.32zM39.103 19.483l-.732 2.512-.019.108c-.042.364.111.725.398.918l4.02 2.702-4.7.305c-.37.024-.683.312-.773.71l-.358 1.58-.018.11c-.042.363.11.724.398.917l4.019 2.702-4.7.305c-.37.024-.682.312-.772.71l-.358 1.581-.019.11c-.042.362.111.724.398.917l4.019 2.701-4.7.306c-.369.024-.682.311-.772.71l-.358 1.58-.018.11c-.043.363.11.724.398.917l4.018 2.701-4.7.306c-.368.024-.681.312-.772.71l-.357 1.58-.02.11c-.041.363.112.724.399.917l4.02 2.701-4.7.306c-.37.024-.683.312-.773.71l-1.627 6.231h5.262l.82-3.391 6.593-.56c.369-.025.682-.313.772-.71l.358-1.582.018-.109c.043-.363-.11-.724-.397-.917l-4.02-2.703 4.7-.304c.37-.024.682-.312.773-.71l.358-1.581.018-.11c.042-.362-.11-.724-.398-.917l-4.019-2.702 4.7-.305c.369-.023.682-.311.772-.71l.358-1.58.019-.11c.042-.363-.111-.724-.398-.917l-4.02-2.702 4.7-.305c.37-.024.683-.312.773-.71l.358-1.58.018-.11c.043-.363-.11-.724-.398-.917l-4.02-2.703 4.701-.304c.37-.024.682-.312.772-.71l.358-1.581.019-.11c.042-.362-.111-.724-.398-.917l-5.325-3.61 1.136-2.821-5.804.215ZM46.303 13.338c2.184 0 4.01-.396 5.48-1.19 1.468-.793 2.437-2.32 2.905-4.582.416-1.976.104-3.672-.936-5.09C52.712 1.06 51.113.352 48.955.352s-3.985.455-5.48 1.365c-1.495.91-2.463 2.405-2.905 4.485-.468 2.288-.163 4.05.916 5.285 1.08 1.234 2.685 1.852 4.817 1.852zm48.448 4.953c3.744 0 6.825.624 9.243 1.872 2.418 1.248 4.095 3.023 5.031 5.323.936 2.302 1.053 5.038.351 8.21-.26 1.3-.533 2.62-.819 3.959l-.897 4.192-.702 3.276c-.416 1.95-.851 4.004-1.306 6.162a948.634 948.634 0 0 1-1.502 6.981H94.088l.507-5.187h-.897c-.962 1.378-2.021 2.515-3.178 3.413a12.74 12.74 0 0 1-3.764 2.028c-1.352.454-2.808.682-4.368.682-2.47 0-4.537-.605-6.2-1.813-1.665-1.21-2.822-2.815-3.472-4.817-.65-2.002-.715-4.186-.195-6.552.39-1.82 1.02-3.341 1.892-4.563a11.194 11.194 0 0 1 3.159-3.003c1.235-.78 2.6-1.398 4.095-1.852a31.55 31.55 0 0 1 4.66-1.034l12.207-1.911c.26-1.17.163-2.19-.292-3.061-.455-.872-1.268-1.547-2.438-2.029-1.17-.48-2.665-.721-4.485-.721-.936 0-1.93.072-2.983.215a33.843 33.843 0 0 0-3.296.623c-1.144.273-2.32.611-3.53 1.014-1.208.404-2.45.878-3.724 1.424l1.833-10.218a43.732 43.732 0 0 1 3.198-.916 75.564 75.564 0 0 1 3.783-.839 50.322 50.322 0 0 1 4.076-.624 36.562 36.562 0 0 1 4.075-.234zm2.34 20.631c-.364.26-.806.514-1.326.76-.52.247-1.235.494-2.145.741-.91.247-2.145.54-3.705.878a21.975 21.975 0 0 0-2.769.819c-.832.312-1.52.754-2.067 1.326-.546.572-.91 1.313-1.092 2.223-.26 1.43-.013 2.542.741 3.335.754.793 1.781 1.189 3.081 1.189.936 0 1.879-.201 2.828-.604.949-.404 1.859-.982 2.73-1.736a14.629 14.629 0 0 0 2.398-2.691zm56.696-13.686c-.41-1.957-1.242-3.518-2.498-4.683-1.625-1.508-3.893-2.262-6.805-2.262-1.794 0-3.517.312-5.168.936a17.493 17.493 0 0 0-4.563 2.555c-1.39 1.078-2.567 2.281-3.53 3.607h-.974l.819-6.63-9.828.585c-.676 3.25-1.34 6.39-1.99 9.418a858.45 858.45 0 0 0-1.832 8.756l-.82 3.9c-.701 3.224-1.325 6.142-1.871 8.755-.546 2.613-1.118 5.311-1.716 8.093h11.66c.573-2.782 1.132-5.46 1.678-8.034.546-2.574 1.13-5.317 1.755-8.229l1.677-8.073a27.92 27.92 0 0 1 2.515-2.574 11.36 11.36 0 0 1 2.652-1.794 6.731 6.731 0 0 1 2.945-.663c1.82 0 2.983.709 3.49 2.125.507 1.417.514 3.296.02 5.636l-1.131 5.382a858.89 858.89 0 0 0-1.716 8.19 966.047 966.047 0 0 1-1.677 8.034H148.5c.598-2.782 1.176-5.48 1.735-8.093.56-2.613 1.177-5.531 1.853-8.755.312-1.508.617-2.964.916-4.368l.8-3.744-.055.254.082-.09a29.133 29.133 0 0 1 1.69-1.69l.428-.385a12.286 12.286 0 0 1 2.671-1.814 6.572 6.572 0 0 1 2.945-.682c1.82 0 2.983.709 3.49 2.125.507 1.417.514 3.296.02 5.636l-1.131 5.382c-.598 2.938-1.164 5.675-1.697 8.21-.533 2.534-1.098 5.206-1.696 8.014h11.66a1578.075 1578.075 0 0 1 3.549-16.848c.313-1.508.618-2.964.917-4.368l.8-3.744c.988-4.55.676-8.19-.936-10.92-1.612-2.73-4.407-4.095-8.385-4.095-1.794 0-3.523.319-5.187.956a18.181 18.181 0 0 0-4.622 2.593 18.554 18.554 0 0 0-3.646 3.705h-.855l-.06-.309zm50.415-6.945c4.082 0 7.41.741 9.984 2.223 2.574 1.482 4.316 3.562 5.226 6.24.91 2.678.923 5.798.04 9.36a53.053 53.053 0 0 1-.644 2.418 33.67 33.67 0 0 1-.53 1.653l-.192.531h-23.875l-.008.154c-.055 1.488.165 2.782.659 3.883.74 1.65 1.97 2.886 3.685 3.705 1.716.819 3.822 1.228 6.318 1.228 1.092 0 2.308-.097 3.647-.292a27.224 27.224 0 0 0 3.997-.898 18.584 18.584 0 0 0 3.666-1.54l-1.56 9.906c-.702.416-1.664.806-2.886 1.17-1.222.364-2.632.663-4.231.897a35.747 35.747 0 0 1-5.168.351c-4.68 0-8.586-.904-11.72-2.71-3.132-1.807-5.342-4.375-6.63-7.703-1.286-3.328-1.462-7.28-.526-11.856.78-3.77 2.106-7.059 3.978-9.867 1.872-2.808 4.225-4.985 7.06-6.532 2.833-1.547 6.07-2.321 9.71-2.321zm.234 8.229c-1.326 0-2.62.351-3.88 1.053-1.261.702-2.386 1.794-3.374 3.276-.592.89-1.101 1.933-1.525 3.13l-.117.343 14.094-.294.044-.335c.193-1.711-.059-3.244-.757-4.599-.884-1.716-2.379-2.574-4.485-2.574zm29.383 31.746c.572-2.782 1.13-5.453 1.677-8.014l1.755-8.249 1.677-8.073a25.182 25.182 0 0 1 2.554-2.574 11.767 11.767 0 0 1 2.73-1.794c.95-.442 1.983-.663 3.1-.663 2.055 0 3.355.709 3.9 2.125.547 1.417.56 3.296.04 5.636l-1.131 5.382a2287.206 2287.206 0 0 1-3.393 16.224h11.66c.599-2.782 1.177-5.48 1.736-8.093a763.396 763.396 0 0 0 1.814-8.755c.338-1.508.656-2.964.955-4.368l.8-3.744c.962-4.55.624-8.19-1.014-10.92-1.638-2.73-4.563-4.095-8.775-4.095-1.846 0-3.62.312-5.324.936a17.45 17.45 0 0 0-4.66 2.555c-1.404 1.078-2.587 2.281-3.55 3.607h-.974l.819-6.63-9.828.585c-.676 3.25-1.34 6.396-1.99 9.438-.65 3.042-1.26 5.954-1.832 8.736l-.82 3.9a4169.42 4169.42 0 0 1-3.588 16.848h11.662zm51.582 1.053c.936 0 1.95-.085 3.042-.254a24.8 24.8 0 0 0 3.062-.662c.949-.273 1.696-.592 2.242-.956l1.248-9.555c-1.014.702-2.021 1.196-3.022 1.482-1.001.286-1.918.429-2.75.429-1.898 0-3.191-.65-3.88-1.95-.69-1.3-.76-3.198-.215-5.694l2.946-14.04h11.601l1.872-8.775H289.93l.078-.366c.169-.787.33-1.548.486-2.282l.153-.726c.403-1.91.8-3.77 1.19-5.577.39-1.807.792-3.724 1.208-5.752l-11.934 2.067c-.546 2.574-1.072 5.07-1.58 7.488-.303 1.45-.633 3-.989 4.647l-.108.501h-6.293l-1.872 8.775h6.313l-.049.236-.14.68c-.417 2.015-.813 3.9-1.19 5.655a795.333 795.333 0 0 0-1.073 5.07 719.362 719.362 0 0 1-1.053 4.973c-.702 3.302-.624 6.032.234 8.19.858 2.158 2.334 3.764 4.427 4.816 2.093 1.053 4.647 1.58 7.663 1.58z"></path>
+                    </svg>
+                </a>
+
+                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    v3.0.39
+                </p>
+            </div>
+
+            <div class="flex flex-col items-end gap-y-1">
+                <!-- __BLOCK__ -->    <a style=";" class="fi-link fi-link-size-md relative inline-flex items-center justify-center font-semibold outline-none transition duration-75 hover:underline focus:underline gap-1.5 text-sm text-gray-700 dark:text-gray-200" href="https://filamentphp.com/docs" rel="noopener noreferrer" target="_blank">
+        <!-- __BLOCK__ -->            <svg class="fi-link-icon h-5 w-5 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path d="M10.75 16.82A7.462 7.462 0 0115 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0018 15.06v-11a.75.75 0 00-.546-.721A9.006 9.006 0 0015 3a8.963 8.963 0 00-4.25 1.065V16.82zM9.25 4.065A8.963 8.963 0 005 3c-.85 0-1.673.118-2.454.339A.75.75 0 002 4.06v11a.75.75 0 00.954.721A7.506 7.506 0 015 15.5c1.579 0 3.042.487 4.25 1.32V4.065z"></path>
+</svg>         <!-- __ENDBLOCK__ -->
+
+        Documentation
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </a>
+ <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ -->    <a style=";" class="fi-link fi-link-size-md relative inline-flex items-center justify-center font-semibold outline-none transition duration-75 hover:underline focus:underline gap-1.5 text-sm text-gray-700 dark:text-gray-200" href="https://github.com/filamentphp/filament" rel="noopener noreferrer" target="_blank">
+        <!-- __BLOCK__ -->            <div class="fi-link-icon h-5 w-5 text-gray-400 dark:text-gray-500" style=";">
+        <svg viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill="currentColor" fill-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path>
+                        </svg>
+    </div>
+         <!-- __ENDBLOCK__ -->
+
+        GitHub
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </a>
+ <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+</div>
+            <div wire:id="qaLDfBTuGfHj96NeKgGB" style="--col-span-default: 1 / -1;" class="col-[--col-span-default]">
+    <div wire:poll.5s="" class="fi-wi-stats-overview grid gap-6 md:grid-cols-3">
+        <!-- __BLOCK__ -->            <div class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
+    <div class="grid gap-y-2">
+        <div class="flex items-center gap-x-2">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Users
+            </span>
+        </div>
+
+        <div class="text-3xl font-semibold tracking-tight text-gray-950 dark:text-white">
+            1
+        </div>
+
+        <!-- __BLOCK__ -->            <div class="flex items-center gap-x-1">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <span class="fi-wi-stats-overview-stat-description text-sm text-custom-600 dark:text-custom-400" style="--c-400:var(--success-400);--c-600:var(--success-600);">
+                    All users from the database
+                </span>
+
+                <!-- __BLOCK__ -->                    <svg style="--c-500:var(--success-500);" class="fi-wi-stats-overview-stat-description-icon h-5 w-5 text-custom-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M12.577 4.878a.75.75 0 01.919-.53l4.78 1.281a.75.75 0 01.531.919l-1.281 4.78a.75.75 0 01-1.449-.387l.81-3.022a19.407 19.407 0 00-5.594 5.203.75.75 0 01-1.139.093L7 10.06l-4.72 4.72a.75.75 0 01-1.06-1.061l5.25-5.25a.75.75 0 011.06 0l3.074 3.073a20.923 20.923 0 015.545-4.931l-3.042-.815a.75.75 0 01-.53-.919z" clip-rule="evenodd"></path>
+</svg>                 <!-- __ENDBLOCK__ -->
+            </div>
+         <!-- __ENDBLOCK__ -->
+    </div>
+
+    <!-- __BLOCK__ -->        
+        <div x-data="{ statsOverviewStatChart: function () {} }" data-has-alpine-state="true">
+            <div ax-load="" ax-load-src="http://192.168.0.103:8000/js/filament/widgets/components/stats-overview/stat/chart.js?v=3.0.39.0" x-data="statsOverviewStatChart({
+                            dataChecksum: &#39;62bba20df0061e78975a9110587b1374&#39;,
+                            labels: JSON.parse(&#39;[0,1,2,3,4,5,6]&#39;),
+                            values: JSON.parse(&#39;[7,2,10,3,15,4,17]&#39;),
+                        })" class="fi-wi-stats-overview-stat-chart absolute inset-x-0 bottom-0 overflow-hidden rounded-b-xl" style="--c-50:var(--success-50);--c-400:var(--success-400);--c-500:var(--success-500);" data-has-alpine-state="true">
+                <canvas x-ref="canvas" class="h-6" width="320" style="display: block; box-sizing: border-box; height: 18.8889px; width: 355.556px;" height="17"></canvas>
+
+                <span x-ref="backgroundColorElement" class="text-custom-50 dark:text-custom-400/10"></span>
+
+                <span x-ref="borderColorElement" class="text-custom-500 dark:text-custom-400"></span>
+            </div>
+        </div>
+     <!-- __ENDBLOCK__ -->
+</div>
+
+                    <div class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
+    <div class="grid gap-y-2">
+        <div class="flex items-center gap-x-2">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Departments
+            </span>
+        </div>
+
+        <div class="text-3xl font-semibold tracking-tight text-gray-950 dark:text-white">
+            0
+        </div>
+
+        <!-- __BLOCK__ -->            <div class="flex items-center gap-x-1">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <span class="fi-wi-stats-overview-stat-description text-sm text-custom-600 dark:text-custom-400" style="--c-400:var(--danger-400);--c-600:var(--danger-600);">
+                    All teams from the database
+                </span>
+
+                <!-- __BLOCK__ -->                    <svg style="--c-500:var(--danger-500);" class="fi-wi-stats-overview-stat-description-icon h-5 w-5 text-custom-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M1.22 5.222a.75.75 0 011.06 0L7 9.942l3.768-3.769a.75.75 0 011.113.058 20.908 20.908 0 013.813 7.254l1.574-2.727a.75.75 0 011.3.75l-2.475 4.286a.75.75 0 01-1.025.275l-4.287-2.475a.75.75 0 01.75-1.3l2.71 1.565a19.422 19.422 0 00-3.013-6.024L7.53 11.533a.75.75 0 01-1.06 0l-5.25-5.25a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
+</svg>                 <!-- __ENDBLOCK__ -->
+            </div>
+         <!-- __ENDBLOCK__ -->
+    </div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+
+                    <div class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
+    <div class="grid gap-y-2">
+        <div class="flex items-center gap-x-2">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Employees
+            </span>
+        </div>
+
+        <div class="text-3xl font-semibold tracking-tight text-gray-950 dark:text-white">
+            0
+        </div>
+
+        <!-- __BLOCK__ -->            <div class="flex items-center gap-x-1">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <span class="fi-wi-stats-overview-stat-description text-sm text-custom-600 dark:text-custom-400" style="--c-400:var(--success-400);--c-600:var(--success-600);">
+                    All employees from the database
+                </span>
+
+                <!-- __BLOCK__ -->                    <svg style="--c-500:var(--success-500);" class="fi-wi-stats-overview-stat-description-icon h-5 w-5 text-custom-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M12.577 4.878a.75.75 0 01.919-.53l4.78 1.281a.75.75 0 01.531.919l-1.281 4.78a.75.75 0 01-1.449-.387l.81-3.022a19.407 19.407 0 00-5.594 5.203.75.75 0 01-1.139.093L7 10.06l-4.72 4.72a.75.75 0 01-1.06-1.061l5.25-5.25a.75.75 0 011.06 0l3.074 3.073a20.923 20.923 0 015.545-4.931l-3.042-.815a.75.75 0 01-.53-.919z" clip-rule="evenodd"></path>
+</svg>                 <!-- __ENDBLOCK__ -->
+            </div>
+         <!-- __ENDBLOCK__ -->
+    </div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+
+         <!-- __ENDBLOCK__ -->
+    </div>
+</div>
+            <div wire:id="xf5ajte4Xvw70cCHGQZH" style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
+    <section class="fi-section rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 fi-wi-chart">
+    <!-- __BLOCK__ -->        <header class="flex items-center gap-x-3 overflow-hidden px-6 py-4">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ -->                <div class="grid flex-1 gap-y-1">
+                    <!-- __BLOCK__ -->                        <h3 class="fi-section-header-heading text-base font-semibold leading-6 text-gray-950 dark:text-white">
+    Employees Chart
+</h3>
+                     <!-- __ENDBLOCK__ -->
+
+                    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+                </div>
+             <!-- __ENDBLOCK__ -->
+
+            
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+        </header>
+     <!-- __ENDBLOCK__ -->
+
+    <div class="fi-section-content-ctn border-t border-gray-200 dark:border-white/10">
+        <div class="fi-section-content p-6">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <div wire:poll.5s="updateChartData">
+            <div ax-load="" ax-load-src="http://192.168.0.103:8000/js/filament/widgets/components/chart.js?v=3.0.39.0" wire:ignore="" x-data="chart({
+                            cachedData: JSON.parse(&#39;{\u0022datasets\u0022:[{\u0022label\u0022:\u0022Employees\u0022,\u0022data\u0022:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}],\u0022labels\u0022:[\u00222025-05-01\u0022,\u00222025-05-02\u0022,\u00222025-05-03\u0022,\u00222025-05-04\u0022,\u00222025-05-05\u0022,\u00222025-05-06\u0022,\u00222025-05-07\u0022,\u00222025-05-08\u0022,\u00222025-05-09\u0022,\u00222025-05-10\u0022,\u00222025-05-11\u0022,\u00222025-05-12\u0022,\u00222025-05-13\u0022,\u00222025-05-14\u0022,\u00222025-05-15\u0022,\u00222025-05-16\u0022,\u00222025-05-17\u0022,\u00222025-05-18\u0022,\u00222025-05-19\u0022,\u00222025-05-20\u0022,\u00222025-05-21\u0022,\u00222025-05-22\u0022,\u00222025-05-23\u0022,\u00222025-05-24\u0022,\u00222025-05-25\u0022,\u00222025-05-26\u0022,\u00222025-05-27\u0022,\u00222025-05-28\u0022,\u00222025-05-29\u0022,\u00222025-05-30\u0022,\u00222025-05-31\u0022]}&#39;),
+                            options: null,
+                            type: &#39;line&#39;,
+                        })" style="--c-50:var(--warning-50);--c-400:var(--warning-400);--c-500:var(--warning-500);">
+                <canvas x-ref="canvas" style="box-sizing: border-box; display: block; height: 247.778px; width: 496.667px;" width="447" height="223"></canvas>
+
+                <span x-ref="backgroundColorElement" class="text-custom-50 dark:text-custom-400/10"></span>
+
+                <span x-ref="borderColorElement" class="text-custom-500 dark:text-custom-400"></span>
+
+                <span x-ref="gridColorElement" class="text-gray-200 dark:text-gray-800"></span>
+
+                <span x-ref="textColorElement" class="text-gray-500 dark:text-gray-400"></span>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+</div>
+            <div wire:id="nETFJOxYPtslaU7PxPk6" style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
+    <div x-data="{
+        collapsedGroups: [],
+
+        isLoading: false,
+
+        selectedRecords: [],
+
+        shouldCheckUniqueSelection: true,
+
+        init: function () {
+            this.$wire.$on(&#39;deselectAllTableRecords&#39;, () =&gt;
+                this.deselectAllRecords(),
+            )
+
+            $watch(&#39;selectedRecords&#39;, () =&gt; {
+                if (! this.shouldCheckUniqueSelection) {
+                    this.shouldCheckUniqueSelection = true
+
+                    return
+                }
+
+                this.selectedRecords = [...new Set(this.selectedRecords)]
+
+                this.shouldCheckUniqueSelection = false
+            })
+        },
+
+        mountBulkAction: function (name) {
+            $wire.set(&#39;selectedTableRecords&#39;, this.selectedRecords, false)
+            $wire.mountTableBulkAction(name)
+        },
+
+        toggleSelectRecordsOnPage: function () {
+            const keys = this.getRecordsOnPage()
+
+            if (this.areRecordsSelected(keys)) {
+                this.deselectRecords(keys)
+
+                return
+            }
+
+            this.selectRecords(keys)
+        },
+
+        getRecordsOnPage: function () {
+            const keys = []
+
+            for (checkbox of $el.getElementsByClassName(&#39;fi-ta-record-checkbox&#39;)) {
+                keys.push(checkbox.value)
+            }
+
+            return keys
+        },
+
+        selectRecords: function (keys) {
+            for (key of keys) {
+                if (this.isRecordSelected(key)) {
+                    continue
+                }
+
+                this.selectedRecords.push(key)
+            }
+        },
+
+        deselectRecords: function (keys) {
+            for (key of keys) {
+                let index = this.selectedRecords.indexOf(key)
+
+                if (index === -1) {
+                    continue
+                }
+
+                this.selectedRecords.splice(index, 1)
+            }
+        },
+
+        selectAllRecords: async function () {
+            this.isLoading = true
+
+            this.selectedRecords = await $wire.getAllSelectableTableRecordKeys()
+
+            this.isLoading = false
+        },
+
+        deselectAllRecords: function () {
+            this.selectedRecords = []
+        },
+
+        isRecordSelected: function (key) {
+            return this.selectedRecords.includes(key)
+        },
+
+        areRecordsSelected: function (keys) {
+            return keys.every((key) =&gt; this.isRecordSelected(key))
+        },
+
+        toggleCollapseGroup: function (group) {
+            if (this.isGroupCollapsed(group)) {
+                this.collapsedGroups.splice(this.collapsedGroups.indexOf(group), 1)
+
+                return
+            }
+
+            this.collapsedGroups.push(group)
+        },
+
+        isGroupCollapsed: function (group) {
+            return this.collapsedGroups.includes(group)
+        },
+
+        resetCollapsedGroups: function () {
+            this.collapsedGroups = []
+        },
+    }" class="fi-ta">
+    <div class="fi-ta-ctn divide-y divide-gray-200 overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:divide-white/10 dark:bg-gray-900 dark:ring-white/10">
+    <div x-bind:hidden="! (true || (selectedRecords.length &amp;&amp; 0))" x-show="true || (selectedRecords.length &amp;&amp; 0)" class="fi-ta-header-ctn divide-y divide-gray-200 dark:divide-white/10">
+            <!-- __BLOCK__ -->                <div class="fi-ta-header flex flex-col justify-start gap-3 p-4 sm:px-6 sm:flex-row sm:items-center sm:justify-between">
+    <!-- __BLOCK__ -->        <div class="grid gap-y-1">
+            <!-- __BLOCK__ -->                <h3 class="fi-ta-header-heading text-base font-semibold leading-6">
+                    Latest App Employees
+                </h3>
+             <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+        </div>
+     <!-- __ENDBLOCK__ -->
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+             <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <div x-show="false || (selectedRecords.length &amp;&amp; 0)" class="fi-ta-header-toolbar flex items-center justify-between gap-3 px-4 py-3 sm:px-6" style="display: none;">
+                <div class="flex shrink-0 items-center gap-x-3">
+                    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+                </div>
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <div class="fi-ta-content relative divide-y divide-gray-200 overflow-x-auto dark:divide-white/10 dark:border-t-white/10">
+            <!-- __BLOCK__ -->                
+                    
+                        <div class="fi-ta-empty-state px-6 py-12">
+    <div class="fi-ta-empty-state-content mx-auto grid max-w-lg justify-items-center text-center">
+        <div class="fi-ta-empty-state-icon-ctn mb-4 rounded-full bg-gray-100 p-3 dark:bg-gray-500/20">
+            <svg class="fi-ta-empty-state-icon h-6 w-6 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+</svg>        </div>
+
+        <h4 class="fi-ta-empty-state-heading text-base font-semibold leading-6 text-gray-950 dark:text-white">
+    No employees
+</h4>
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </div>
+</div>
+                    
+                
+             <!-- __ENDBLOCK__ -->
+        </div>
+
+        <!-- __BLOCK__ -->            <nav aria-label="Pagination navigation" role="navigation" class="fi-pagination grid grid-cols-3 items-center px-3 py-3 sm:px-6">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <!-- __BLOCK__ -->
+            <div class="col-start-2 justify-self-center">
+            <label class="sm:hidden">
+                <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white focus-within:ring-2 dark:bg-white/5 ring-gray-950/10 focus-within:ring-primary-600 dark:ring-white/20 dark:focus-within:ring-primary-500">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div class="min-w-0 flex-1">
+        <select class="fi-select-input block w-full border-none bg-transparent py-1.5 pe-8 text-base text-gray-950 transition duration-75 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] dark:text-white dark:disabled:text-gray-400 dark:disabled:[-webkit-text-fill-color:theme(colors.gray.400)] sm:text-sm sm:leading-6 [&amp;_optgroup]:bg-white [&amp;_optgroup]:dark:bg-gray-900 [&amp;_option]:bg-white [&amp;_option]:dark:bg-gray-900 ps-3" wire:model.live="tableRecordsPerPage">
+    <!-- __BLOCK__ -->                            <option value="5">
+                                5
+                            </option>
+                                                    <option value="10">
+                                10
+                            </option>
+                                                    <option value="25">
+                                25
+                            </option>
+                                                    <option value="50">
+                                50
+                            </option>
+                                                    <option value="all">
+                                All
+                            </option>
+                         <!-- __ENDBLOCK__ -->
+</select>
+    </div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+
+                <span class="sr-only">
+                    Per page
+                </span>
+            </label>
+
+            <label class="hidden sm:inline">
+                <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white focus-within:ring-2 dark:bg-white/5 ring-gray-950/10 focus-within:ring-primary-600 dark:ring-white/20 dark:focus-within:ring-primary-500">
+    <!-- __BLOCK__ -->        <div class="items-center gap-x-3 ps-3 flex border-e border-gray-200 pe-3 ps-3 dark:border-white/10">
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+            <!-- __BLOCK__ -->                <span class="fi-input-wrp-label whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    Per page
+                </span>
+             <!-- __ENDBLOCK__ -->
+        </div>
+     <!-- __ENDBLOCK__ -->
+
+    <div class="min-w-0 flex-1">
+        <select class="fi-select-input block w-full border-none bg-transparent py-1.5 pe-8 text-base text-gray-950 transition duration-75 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] dark:text-white dark:disabled:text-gray-400 dark:disabled:[-webkit-text-fill-color:theme(colors.gray.400)] sm:text-sm sm:leading-6 [&amp;_optgroup]:bg-white [&amp;_optgroup]:dark:bg-gray-900 [&amp;_option]:bg-white [&amp;_option]:dark:bg-gray-900 ps-3" wire:model.live="tableRecordsPerPage">
+    <!-- __BLOCK__ -->                            <option value="5">
+                                5
+                            </option>
+                                                    <option value="10">
+                                10
+                            </option>
+                                                    <option value="25">
+                                25
+                            </option>
+                                                    <option value="50">
+                                50
+                            </option>
+                                                    <option value="all">
+                                All
+                            </option>
+                         <!-- __ENDBLOCK__ -->
+</select>
+    </div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+            </label>
+        </div>
+     <!-- __ENDBLOCK__ -->
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</nav>
+         <!-- __ENDBLOCK__ -->
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+</div>
+
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ -->    <form wire:submit.prevent="callMountedTableAction">
+        
+        <div aria-modal="true" role="dialog" x-data="{
+        isOpen: false,
+
+        livewire: null,
+
+        close: function () {
+            this.isOpen = false
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-closed&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-action&#39; }),
+            )
+        },
+
+        open: function () {
+            this.isOpen = true
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-opened&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-action&#39; }),
+            )
+        },
+    }" x-on:close-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-table-action&#39;) close()" x-on:open-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-table-action&#39;) open()" x-trap.noscroll="isOpen" wire:ignore.self="" class="fi-modal block">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div x-show="isOpen" x-transition.duration.300ms.opacity="" class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center" style="display: none;">
+        <div aria-hidden="true" x-on:click="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-action&#39; })" class="fi-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 cursor-pointer" style="will-change: transform"></div>
+
+        <div x-ref="modalContainer" class="pointer-events-none relative w-full transition my-auto p-4" x-on:closed-form-component-action-modal.window="if (($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6&#39;) &amp;&amp; $wire.mountedTableActions.length) open()" x-on:modal-closed.stop="const mountedTableActionShouldOpenModal = false
+
+
+                if (! mountedTableActionShouldOpenModal) {
+                    return
+                }
+
+                if ($wire.mountedFormComponentActions.length) {
+                    return
+                }
+
+                $wire.unmountTableAction(false)" x-on:opened-form-component-action-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6&#39;) close()">
+            <div x-data="{ isShown: false }" x-init="
+                    $nextTick(() =&gt; {
+                        isShown = isOpen
+                        $watch(&#39;isOpen&#39;, () =&gt; (isShown = isOpen))
+                    })
+                " x-on:keydown.window.escape="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-action&#39; })" x-show="isShown" x-transition:enter="duration-300" x-transition:leave="duration-300" x-transition:enter-start="scale-95" x-transition:enter-end="scale-100" x-transition:leave-start="scale-95" x-transition:leave-end="scale-100" class="fi-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 mx-auto rounded-xl hidden max-w-sm" style="display: none;">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+
+    <form wire:submit.prevent="callMountedTableBulkAction">
+        
+        <div aria-modal="true" role="dialog" x-data="{
+        isOpen: false,
+
+        livewire: null,
+
+        close: function () {
+            this.isOpen = false
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-closed&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39; }),
+            )
+        },
+
+        open: function () {
+            this.isOpen = true
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-opened&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39; }),
+            )
+        },
+    }" x-on:close-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39;) close()" x-on:open-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39;) open()" x-trap.noscroll="isOpen" wire:ignore.self="" class="fi-modal block">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div x-show="isOpen" x-transition.duration.300ms.opacity="" class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center" style="display: none;">
+        <div aria-hidden="true" x-on:click="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39; })" class="fi-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 cursor-pointer" style="will-change: transform"></div>
+
+        <div x-ref="modalContainer" class="pointer-events-none relative w-full transition my-auto p-4" x-on:closed-form-component-action-modal.window="if (($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6&#39;) &amp;&amp; $wire.mountedTableBulkAction) open()" x-on:modal-closed.stop="const mountedTableBulkActionShouldOpenModal = false
+
+
+                if (! mountedTableBulkActionShouldOpenModal) {
+                    return
+                }
+
+                if ($wire.mountedFormComponentActions.length) {
+                    return
+                }
+
+                $wire.mountedTableBulkAction = null" x-on:opened-form-component-action-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6&#39;) close()">
+            <div x-data="{ isShown: false }" x-init="
+                    $nextTick(() =&gt; {
+                        isShown = isOpen
+                        $watch(&#39;isOpen&#39;, () =&gt; (isShown = isOpen))
+                    })
+                " x-on:keydown.window.escape="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-table-bulk-action&#39; })" x-show="isShown" x-transition:enter="duration-300" x-transition:leave="duration-300" x-transition:enter-start="scale-95" x-transition:enter-end="scale-100" x-transition:leave-start="scale-95" x-transition:leave-end="scale-100" class="fi-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 mx-auto rounded-xl hidden max-w-sm" style="display: none;">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+
+     <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ -->    
+    <form wire:submit.prevent="callMountedFormComponentAction">
+        <div aria-modal="true" role="dialog" x-data="{
+        isOpen: false,
+
+        livewire: null,
+
+        close: function () {
+            this.isOpen = false
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-closed&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39; }),
+            )
+        },
+
+        open: function () {
+            this.isOpen = true
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-opened&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39; }),
+            )
+        },
+    }" x-on:close-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39;) close()" x-on:open-modal.window="if ($event.detail.id === &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39;) open()" x-trap.noscroll="isOpen" wire:ignore.self="" class="fi-modal block">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div x-show="isOpen" x-transition.duration.300ms.opacity="" class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center" style="display: none;">
+        <div aria-hidden="true" x-on:click="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39; })" class="fi-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 cursor-pointer" style="will-change: transform"></div>
+
+        <div x-ref="modalContainer" class="pointer-events-none relative w-full transition my-auto p-4" x-on:modal-closed.stop="const mountedFormComponentActionShouldOpenModal = false
+
+
+                if (mountedFormComponentActionShouldOpenModal) {
+                    $wire.unmountFormComponentAction(false)
+                }">
+            <div x-data="{ isShown: false }" x-init="
+                    $nextTick(() =&gt; {
+                        isShown = isOpen
+                        $watch(&#39;isOpen&#39;, () =&gt; (isShown = isOpen))
+                    })
+                " x-on:keydown.window.escape="$dispatch(&#39;close-modal&#39;, { id: &#39;nETFJOxYPtslaU7PxPk6-form-component-action&#39; })" x-show="isShown" x-transition:enter="duration-300" x-transition:leave="duration-300" x-transition:enter-start="scale-95" x-transition:enter-end="scale-100" x-transition:leave-start="scale-95" x-transition:leave-end="scale-100" class="fi-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 mx-auto rounded-xl hidden max-w-sm" style="display: none;">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+
+     <!-- __ENDBLOCK__ -->
+</div>
+</div>
+     <!-- __ENDBLOCK__ -->
+</div>
+
+        
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+        
+
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </section>
+
+    <!-- __BLOCK__ -->        <!-- __BLOCK__ -->    <form wire:submit.prevent="callMountedAction">
+        
+        <div aria-modal="true" role="dialog" x-data="{
+        isOpen: false,
+
+        livewire: null,
+
+        close: function () {
+            this.isOpen = false
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-closed&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39; }),
+            )
+        },
+
+        open: function () {
+            this.isOpen = true
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-opened&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39; }),
+            )
+        },
+    }" x-on:close-modal.window="if ($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39;) close()" x-on:open-modal.window="if ($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39;) open()" x-trap.noscroll="isOpen" wire:ignore.self="" class="fi-modal block">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div x-show="isOpen" x-transition.duration.300ms.opacity="" class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center" style="display: none;">
+        <div aria-hidden="true" x-on:click="$dispatch(&#39;close-modal&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39; })" class="fi-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 cursor-pointer" style="will-change: transform"></div>
+
+        <div x-ref="modalContainer" class="pointer-events-none relative w-full transition my-auto p-4" x-on:closed-form-component-action-modal.window="if (($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ&#39;) &amp;&amp; $wire.mountedActions.length) open()" x-on:modal-closed.stop="const mountedActionShouldOpenModal = false
+
+
+                if (! mountedActionShouldOpenModal) {
+                    return
+                }
+
+                if ($wire.mountedFormComponentActions.length) {
+                    return
+                }
+
+                $wire.unmountAction(false)" x-on:opened-form-component-action-modal.window="if ($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ&#39;) close()">
+            <div x-data="{ isShown: false }" x-init="
+                    $nextTick(() =&gt; {
+                        isShown = isOpen
+                        $watch(&#39;isOpen&#39;, () =&gt; (isShown = isOpen))
+                    })
+                " x-on:keydown.window.escape="$dispatch(&#39;close-modal&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-action&#39; })" x-show="isShown" x-transition:enter="duration-300" x-transition:leave="duration-300" x-transition:enter-start="scale-95" x-transition:enter-end="scale-100" x-transition:leave-start="scale-95" x-transition:leave-end="scale-100" class="fi-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 mx-auto rounded-xl hidden max-w-sm" style="display: none;">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+
+     <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+<!-- __BLOCK__ -->    
+    <form wire:submit.prevent="callMountedFormComponentAction">
+        <div aria-modal="true" role="dialog" x-data="{
+        isOpen: false,
+
+        livewire: null,
+
+        close: function () {
+            this.isOpen = false
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-closed&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39; }),
+            )
+        },
+
+        open: function () {
+            this.isOpen = true
+
+            this.$refs.modalContainer.dispatchEvent(
+                new CustomEvent(&#39;modal-opened&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39; }),
+            )
+        },
+    }" x-on:close-modal.window="if ($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39;) close()" x-on:open-modal.window="if ($event.detail.id === &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39;) open()" x-trap.noscroll="isOpen" wire:ignore.self="" class="fi-modal block">
+    <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+    <div x-show="isOpen" x-transition.duration.300ms.opacity="" class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center" style="display: none;">
+        <div aria-hidden="true" x-on:click="$dispatch(&#39;close-modal&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39; })" class="fi-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 cursor-pointer" style="will-change: transform"></div>
+
+        <div x-ref="modalContainer" class="pointer-events-none relative w-full transition my-auto p-4" x-on:modal-closed.stop="const mountedFormComponentActionShouldOpenModal = false
+
+
+                if (mountedFormComponentActionShouldOpenModal) {
+                    $wire.unmountFormComponentAction(false)
+                }">
+            <div x-data="{ isShown: false }" x-init="
+                    $nextTick(() =&gt; {
+                        isShown = isOpen
+                        $watch(&#39;isOpen&#39;, () =&gt; (isShown = isOpen))
+                    })
+                " x-on:keydown.window.escape="$dispatch(&#39;close-modal&#39;, { id: &#39;mWBvlK44Z83Ki3UjzgeQ-form-component-action&#39; })" x-show="isShown" x-transition:enter="duration-300" x-transition:leave="duration-300" x-transition:enter-start="scale-95" x-transition:enter-end="scale-100" x-transition:leave-start="scale-95" x-transition:leave-end="scale-100" class="fi-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 mx-auto rounded-xl hidden max-w-sm" style="display: none;">
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+
+                <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+
+     <!-- __ENDBLOCK__ -->
+     <!-- __ENDBLOCK__ -->
+
+    
+</div>
+
+                
+            </main>
+
+            
+        </div>
+    </div>
+
+        <div wire:snapshot="{&quot;data&quot;:{&quot;isFilamentNotificationsComponent&quot;:true,&quot;notifications&quot;:[[],{&quot;class&quot;:&quot;Filament\\Notifications\\Collection&quot;,&quot;s&quot;:&quot;wrbl&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;5Ws96udUoqZLpytzcO27&quot;,&quot;name&quot;:&quot;filament.livewire.notifications&quot;,&quot;path&quot;:&quot;app\/aaaa@gmail.com&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;0b3c6db55d699435a187d57b02a83a8a7ce0471c2767caed19b35f13258d65d1&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;notificationsSent&quot;,&quot;notificationSent&quot;,&quot;notificationClosed&quot;]}" wire:id="5Ws96udUoqZLpytzcO27">
+    <div class="fi-no pointer-events-none fixed inset-4 z-50 mx-auto flex gap-3 items-end flex-col-reverse justify-end" role="status">
+        <!-- __BLOCK__ --> <!-- __ENDBLOCK__ -->
+    </div>
+
+    <!-- __BLOCK__ -->        <div x-data="{}" x-init="
+        window.addEventListener(&#39;EchoLoaded&#39;, () =&gt; {
+            window.Echo.private(&#39;App.Models.User.2&#39;).notification((notification) =&gt; {
+                setTimeout(() =&gt; $wire.handleBroadcastNotification(notification), 500)
+            })
+        })
+
+        if (window.Echo) {
+            window.dispatchEvent(new CustomEvent(&#39;EchoLoaded&#39;))
+        }
+    "></div>
+     <!-- __ENDBLOCK__ -->
+</div>
+
+        
+
+        <script>
+        window.filamentData = []    </script>
+
+            
+            <script src="./filament - Laravel_files/forms.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/notifications.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/async-alpine.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/support.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/tables.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/echo.js.download" data-navigate-track=""></script>
+        
+                
+            <script src="./filament - Laravel_files/app.js.download" data-navigate-track=""></script>
+        
+    
+<style>
+    :root {
+            }
+</style>
+
+        
+        
+        
+
+        
+    <!-- Livewire Scripts -->
+<script src="./filament - Laravel_files/livewire.js.download" data-csrf="j09al1KeUnlbk5oeBeTP0Tmtzo8g9Q01nK36Q4MF" data-uri="/livewire/update" data-navigate-once="true"></script>
+
+</body></html>
