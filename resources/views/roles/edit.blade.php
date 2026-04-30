@@ -10,7 +10,7 @@
 <section class="content">
   <div class="box box-warning">
     <div class="box-body">
-      <form action="{{ route('roles.update', $role->id) }}" method="POST">
+      <form action="{{ route('admin.roles.update', $role->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -31,7 +31,7 @@
         </div>
 
         <button class="mt-2 btn btn-success"><i class="fa fa-save"></i> حفظ</button>
-        <a href="{{ route('roles.index') }}" class="mt-2 btn btn-default">رجوع</a>
+        <a href="{{ route('admin.roles.index') }}" class="mt-2 btn btn-default">رجوع</a>
       </form>
     </div>
   </div>

@@ -10,7 +10,7 @@
 <section class="content">
   <div class="box box-success">
     <div class="box-body">
-      <form action="{{ route('roles.store') }}" method="POST">
+      <form action="{{ route('admin.roles.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
@@ -28,7 +28,7 @@
         </div>
 
         <button class="mt-2 btn btn-success"><i class="fa fa-save"></i> حفظ</button>
-        <a href="{{ route('roles.index') }}" class="mt-2 btn btn-default">رجوع</a>
+        <a href="{{ route('admin.roles.index') }}" class="mt-2 btn btn-default">رجوع</a>
       </form>
     </div>
   </div>

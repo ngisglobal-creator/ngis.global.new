@@ -43,7 +43,7 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm">
+      <a href="{{ route('admin.roles.create') }}" class="btn btn-primary btn-sm">
         <i class="fa fa-plus"></i> إضافة دور
       </a>
     </div>
@@ -66,10 +66,10 @@
               @endforeach
             </td>
             <td>
-              <a href="{{ route('roles.edit', $role->id) }}" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">
+              <a href="{{ route('admin.roles.edit', $role->id) }}" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">
                 <i class="fa fa-edit"></i>
               </a>
-              <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline-block">
+              <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" style="display:inline-block">
                 @csrf
                 @method('DELETE')
                 <button onclick="return confirm('هل تريد الحذف؟')" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">

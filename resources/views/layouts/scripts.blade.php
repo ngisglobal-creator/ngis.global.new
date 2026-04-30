@@ -134,6 +134,73 @@
         //Timepicker
         $('.timepicker').timepicker({ showInputs: false });
     });
+
+    // Global Numeral Conversion
+    function toWesternNums(str) {
+        // Includes both Arabic (U+0660-U+0669) and Farsi/Persian (U+06F0-U+06F9) numerals
+        const arabicNumerals = [
+            /٠|۰/g, /١|۱/g, /٢|۲/g, /٣|۳/g, /٤|۴/g, /٥|۵/g, /٦|۶/g, /٧|۷/g, /٨|۸/g, /٩|۹/g
+        ];
+        const westernNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if (typeof str === 'string') {
+            for (let i = 0; i < 10; i++) {
+                str = str.replace(arabicNumerals[i], westernNumerals[i]);
+            }
+        }
+        return str;
+    }
+
+    function purgeArabicNumerals(node) {
+        if (!node) return;
+        if (node.nodeName === 'SCRIPT' || node.nodeName === 'STYLE') return;
+
+        if (node.nodeType === 3) {
+            const originalValue = node.nodeValue;
+            const convertedValue = toWesternNums(originalValue);
+            if (originalValue !== convertedValue) {
+                node.nodeValue = convertedValue;
+            }
+        } else if (node.nodeType === 1) {
+            // Convert attributes that might contain numbers
+            ['placeholder', 'value', 'title', 'data-content', 'alt'].forEach(function(attr) {
+                if (node.hasAttribute(attr)) {
+                    var oldVal = node.getAttribute(attr);
+                    var newVal = toWesternNums(oldVal);
+                    if (oldVal !== newVal) node.setAttribute(attr, newVal);
+                }
+            });
+
+            // Special handling for Select2 and other dropdowns if they exist
+            if (node.tagName === 'OPTION') {
+                node.text = toWesternNums(node.text);
+            }
+            for (var i = 0; i < node.childNodes.length; i++) {
+                purgeArabicNumerals(node.childNodes[i]);
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        purgeArabicNumerals(document.body);
+        
+        var numObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    purgeArabicNumerals(node);
+                });
+            });
+        });
+        numObserver.observe(document.body, { childList: true, subtree: true });
+
+        $(document).on('input', 'input, textarea', function() {
+            var start = this.selectionStart, end = this.selectionEnd;
+            var newVal = toWesternNums(this.value);
+            if (this.value !== newVal) {
+                this.value = newVal;
+                if (start !== null) this.setSelectionRange(start, end);
+            }
+        });
+    });
 </script>
 
 

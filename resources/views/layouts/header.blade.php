@@ -1,10 +1,12 @@
 <header class="main-header">
     <!-- الشعار -->
-    <a href="index2.html" class="logo">
+    <a href="{{ url('/') }}" class="logo">
       <!-- شعار مصغّر يظهر في القائمة الجانبية (حجمه 50x50 بكسل) -->
-      <span class="logo-mini">لوحة</span>
+      <span class="logo-mini">
+        <img src="{{ \App\Models\Setting::logoUrl() }}" style="height: 30px;">
+      </span>
       <!-- الشعار الكامل للعرض العادي والجوال -->
-      <span class="logo-lg"><b>لوحة تحكم الإدارة</b></span>
+      <span class="logo-lg"><b>{{ \App\Models\Setting::get('site_name', 'لوحة تحكم') }}</b></span>
     </a>
 
     <!-- شريط التنقل العلوي -->
@@ -14,15 +16,55 @@
         <span class="sr-only">تبديل القائمة</span>
       </a>
 
-      <!-- زر مؤقت (احذفه بعد التحميل) -->
-      <a href="https://github.com/hosseinizadeh/AdminLTE_Persian" class="btn hidden-xs"
-         style="margin:6px 100px;padding:9px 50px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF">
-         تحميل القالب مجاناً
-      </a>
-      <!-- نهاية الزر -->
-
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+
+          <!-- المحفظة -->
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" title="المحفظة" style="display: flex; align-items: center; gap: 10px; padding: 10px 15px;">
+              <i class="fa fa-google-wallet" style="font-size: 24px; color: #fff;"></i>
+              <span class="wallet-balance" style="font-size: 18px; font-weight: bold; font-family: 'Arial', sans-serif; color: #fff; direction: ltr;">
+                @if(auth()->user()->hasRole('admin') && request()->routeIs('admin.wallets.*'))
+                  {{ number_format(\App\Models\User::sum('wallet_balance'), 2, '.', '') }}
+                @else
+                  {{ number_format(auth()->user()->wallet_balance, 2, '.', '') }}
+                @endif
+              </span>
+            </a>
+          </li>
+
+          <!-- تبديل اللغة -->
+          <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-language"></i>
+              <span class="label label-info">{{ strtoupper(app()->getLocale()) }}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">{{ __('dashboard.language') }}</li>
+              <li>
+                <ul class="menu">
+                  <li>
+                    <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('lang-ar').submit();">
+                      {{ __('dashboard.arabic') }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('lang-en').submit();">
+                      {{ __('dashboard.english') }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('lang-zh').submit();">
+                      {{ __('dashboard.chinese') }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form id="lang-ar" action="{{ route('language.set') }}" method="POST" style="display: none;">@csrf<input type="hidden" name="locale" value="ar"></form>
+            <form id="lang-en" action="{{ route('language.set') }}" method="POST" style="display: none;">@csrf<input type="hidden" name="locale" value="en"></form>
+            <form id="lang-zh" action="{{ route('language.set') }}" method="POST" style="display: none;">@csrf<input type="hidden" name="locale" value="zh"></form>
+          </li>
 
           <!-- الرسائل -->
           <li class="dropdown messages-menu">

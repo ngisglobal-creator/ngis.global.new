@@ -42,7 +42,7 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm">
+      <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary btn-sm">
         <i class="fa fa-plus"></i> إضافة صلاحية
       </a>
     </div>
@@ -59,10 +59,10 @@
           <tr>
             <td>{{ $perm->name }}</td>
             <td>
-              <a href="{{ route('permissions.edit', $perm->id) }}" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">
+              <a href="{{ route('admin.permissions.edit', $perm->id) }}" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">
                 <i class="fa fa-edit"></i>
               </a>
-              <form action="{{ route('permissions.destroy', $perm->id) }}" method="POST" style="display:inline-block">
+              <form action="{{ route('admin.permissions.destroy', $perm->id) }}" method="POST" style="display:inline-block">
                 @csrf
                 @method('DELETE')
                 <button onclick="return confirm('هل تريد الحذف؟')" style="background-color: #3c8dbc; color: white;" class="btn btn-sm">

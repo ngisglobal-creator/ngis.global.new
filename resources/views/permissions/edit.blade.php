@@ -10,7 +10,7 @@
 <section class="content">
   <div class="box box-warning">
     <div class="box-body">
-      <form action="{{ route('permissions.update', $permission->id) }}" method="POST">
+      <form action="{{ route('admin.permissions.update', $permission->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -18,7 +18,7 @@
           <input type="text" name="name" value="{{ $permission->name }}" class="form-control" required>
         </div>
         <button class="btn btn-success"><i class="fa fa-save"></i> حفظ</button>
-        <a href="{{ route('permissions.index') }}" class="btn btn-default">رجوع</a>
+        <a href="{{ route('admin.permissions.index') }}" class="btn btn-default">رجوع</a>
       </form>
     </div>
   </div>

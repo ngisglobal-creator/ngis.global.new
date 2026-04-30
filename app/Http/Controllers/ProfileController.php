@@ -16,25 +16,80 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        $user = $request->user();
+        $viewPath = 'profile.edit'; // Default
+
+        $typeMapping = [
+            'admin'           => 'admin.profile.edit',
+            'client'          => 'client.profile.edit',
+            'company'         => 'company.profile.edit',
+            'factory'         => 'factory.profile.edit',
+            'regional_office' => 'regional.profile.edit',
+            'china'           => 'china.profile.edit',
+        ];
+
+        if (isset($typeMapping[$user->type])) {
+            $viewPath = $typeMapping[$user->type];
+        } elseif ($user->hasRole('admin')) {
+            $viewPath = 'admin.profile.edit';
+        }
+
+        return view($viewPath, [
+            'user' => $user,
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'document_pdf' => 'nullable|mimes:pdf|max:10000',
+            'passport' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:5120',
+            'certificates.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
 
-        $request->user()->save();
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if ($request->hasFile('document_pdf')) {
+            $path = $request->file('document_pdf')->store('documents', 'public');
+            $user->document_pdf = $path;
+        }
+
+        if ($request->hasFile('passport')) {
+            $path = $request->file('passport')->store('passports', 'public');
+            $user->passport = $path;
+        }
+
+        if ($request->hasFile('certificates')) {
+            $certs = $user->certificates ?? [];
+            foreach ($request->file('certificates') as $file) {
+                $path = $file->store('certificates', 'public');
+                $certs[] = $path;
+            }
+            $user->certificates = $certs;
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', __('dashboard.success') ?? 'Profile Updated');
     }
 
     /**

@@ -15,10 +15,28 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
+    Route::get('register/factory', [RegisteredUserController::class, 'create_factory'])
+        ->name('register.factory');
+
+    Route::get('register/company', [RegisteredUserController::class, 'create_company'])
+        ->name('register.company');
+
+    Route::get('register/client', [RegisteredUserController::class, 'create_client'])
+        ->name('register.client');
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
+
+    Route::get('login/factory', [AuthenticatedSessionController::class, 'create_factory'])
+        ->name('login.factory');
+
+    Route::get('login/company', [AuthenticatedSessionController::class, 'create_company'])
+        ->name('login.company');
+
+    Route::get('login/client', [AuthenticatedSessionController::class, 'create_client'])
+        ->name('login.client');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 

@@ -10,6 +10,7 @@
 
   <!-- استدعاء ملف التنسيقات العامة -->
   @include('layouts.styles')
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
  
   <!-- إمكانية إضافة CSS إضافي من الصفحات -->
   @stack('styles')
@@ -41,5 +42,6 @@
 
   {{-- ملفات السكربتات (JavaScript) --}}
   @include('layouts.scripts')
+  @stack('scripts')
 </body>
 </html>

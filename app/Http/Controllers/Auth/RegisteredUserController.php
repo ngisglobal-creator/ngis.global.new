@@ -22,6 +22,21 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function create_factory(): View
+    {
+        return view('auth.register-factory');
+    }
+
+    public function create_company(): View
+    {
+        return view('auth.register-company');
+    }
+
+    public function create_client(): View
+    {
+        return view('auth.register-client');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -33,18 +48,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'type' => ['nullable', 'string', 'in:factory,company,client'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'type' => $request->type ?? 'client',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect based on type
+        if ($user->type === 'factory') {
+            return redirect(route('factory.dashboard'));
+        } elseif ($user->type === 'company') {
+            return redirect(route('company.dashboard'));
+        }
+
+        return redirect(route('client.dashboard'));
     }
 }
