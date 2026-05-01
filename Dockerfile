@@ -1,13 +1,11 @@
 # Build JS dependencies and assets
 FROM node:22-alpine AS node-builder
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package*.json ./
-COPY vite.config.js ./
-COPY tailwind.config.js ./
-COPY postcss.config.js ./
-COPY resources ./resources
-COPY public ./public
-RUN npm install && npm run build
+RUN npm install
+COPY . .
+RUN npm run build
 
 FROM dunglas/frankenphp:1.2-php8.3-alpine
 
@@ -54,12 +52,6 @@ COPY --from=node-builder /app/public/build ./public/build
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-
-# Clear caches
-RUN php artisan config:clear && \
-    php artisan route:clear && \
-    php artisan view:clear
-
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
@@ -88,3 +80,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["frankenphp", "run", "--config", "/app/Caddyfile"]
+
