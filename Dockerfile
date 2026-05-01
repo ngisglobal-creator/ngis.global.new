@@ -1,3 +1,14 @@
+# Build JS dependencies and assets
+FROM node:22-alpine AS node-builder
+WORKDIR /app
+COPY package*.json ./
+COPY vite.config.js ./
+COPY tailwind.config.js ./
+COPY postcss.config.js ./
+COPY resources ./resources
+COPY public ./public
+RUN npm install && npm run build
+
 FROM dunglas/frankenphp:1.2-php8.3-alpine
 
 # Set working directory
@@ -11,8 +22,6 @@ RUN apk add --no-cache \
     libzip-dev \
     oniguruma-dev \
     icu-dev \
-    nodejs \
-    npm \
     bash
 
 # Install PHP extensions
@@ -39,11 +48,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy project files
 COPY . .
 
+# Copy built assets from node-builder
+COPY --from=node-builder /app/public/build ./public/build
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Install JS dependencies and build assets
-RUN npm install && npm run build
 
 # Clear caches
 RUN php artisan config:clear && \
