@@ -9,8 +9,6 @@
 /storage/logs/*
 .phpunit.result.cache
 docker-compose.yml
-Dockerfile
-.dockerignore
 .github
 .vscode
 npm-debug.log
