@@ -55,21 +55,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
-# Create Caddyfile
-RUN echo $':80 {\n\
-    root * /app/public\n\
-    php_server\n\
-    file_server\n\
-    encode zstd gzip\n\
-    header {\n\
-        # Enable HTTP Strict Transport Security (HSTS)\n\
-        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"\n\
-    }\n\
-    handle_errors {\n\
-        @404 { expression {err.status_code} == 404 }\n\
-        rewrite @404 /index.php\n\
-    }\n\
-}' > /app/Caddyfile
+# Copy Caddyfile
+COPY Caddyfile /app/Caddyfile
 
 # Expose port 80
 EXPOSE 80
