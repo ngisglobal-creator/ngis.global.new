@@ -3,9 +3,9 @@ FROM node:22-alpine AS node-builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install --frozen-lockfile || npm install
 COPY . .
-RUN npm run build
+RUN rm -rf public/build && npm run build
 
 FROM dunglas/frankenphp:1.2-php8.3-alpine
 
