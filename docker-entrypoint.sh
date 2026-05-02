@@ -11,10 +11,12 @@ if [ "${RUN_MIGRATIONS}" = "true" ]; then
 fi
 
 # Cache configuration and routes for production
-echo "Caching configuration and routes..."
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+echo "Caching configuration..."
+php artisan config:cache || echo "Config cache failed"
+echo "Caching routes..."
+php artisan route:cache || echo "Route cache failed"
+echo "Caching views..."
+php artisan view:cache || echo "View cache failed"
 
 # Execute the CMD
 exec "$@"
