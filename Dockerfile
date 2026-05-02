@@ -40,6 +40,7 @@ ENV FRANKENPHP_CONFIG="import /app/Caddyfile"
 ENV APP_ENV=production
 ENV APP_DEBUG=true
 ENV LOG_CHANNEL=stderr
+ENV RUN_MIGRATIONS=true
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -54,7 +55,9 @@ COPY --from=node-builder /app/public/build ./public/build
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+RUN mkdir -p storage/logs bootstrap/cache database
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database
+RUN chmod -R 775 /app/storage /app/bootstrap/cache /app/database
 
 # Copy Caddyfile
 COPY Caddyfile /app/Caddyfile
