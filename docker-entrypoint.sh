@@ -1,17 +1,20 @@
 #!/bin/bash
 set -e
 
-# Ensure SQLite database exists if needed
-if [ ! -f database/database.sqlite ]; then
-    echo "Creating SQLite database file..."
-    mkdir -p database
-    touch database/database.sqlite
-    chmod 666 database/database.sqlite
+# Ensure SQLite database exists if needed (using absolute paths)
+if [ ! -f /app/database/database.sqlite ]; then
+    echo "Creating SQLite database file at /app/database/database.sqlite..."
+    mkdir -p /app/database
+    touch /app/database/database.sqlite
+    chmod 666 /app/database/database.sqlite
 fi
 
+echo "Checking database file status:"
+ls -la /app/database/database.sqlite || echo "Database file NOT found!"
+
 # Ensure storage and bootstrap/cache are writable at runtime
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache || true
+chmod -R 775 /app/storage /app/bootstrap/cache /app/database
+chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database || true
 
 # Run migrations if enabled
 if [ "${RUN_MIGRATIONS}" = "true" ]; then
