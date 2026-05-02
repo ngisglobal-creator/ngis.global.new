@@ -2,15 +2,16 @@
 set -e
 
 # Ensure SQLite database exists if needed (using absolute paths)
+echo "Current working directory: $(pwd)"
 if [ ! -f /app/database/database.sqlite ]; then
     echo "Creating SQLite database file at /app/database/database.sqlite..."
     mkdir -p /app/database
     touch /app/database/database.sqlite
-    chmod 666 /app/database/database.sqlite
 fi
+chmod 666 /app/database/database.sqlite
 
 echo "Checking database file status:"
-ls -la /app/database/database.sqlite || echo "Database file NOT found!"
+ls -la /app/database/database.sqlite || echo "Database file NOT found at /app/database/database.sqlite!"
 
 # Ensure storage and bootstrap/cache are writable at runtime
 chmod -R 775 /app/storage /app/bootstrap/cache /app/database

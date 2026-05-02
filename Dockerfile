@@ -56,8 +56,10 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions
 RUN mkdir -p storage/logs bootstrap/cache database
+RUN touch database/database.sqlite
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database
 RUN chmod -R 775 /app/storage /app/bootstrap/cache /app/database
+RUN chmod 666 /app/database/database.sqlite
 
 # Copy Caddyfile
 COPY Caddyfile /app/Caddyfile
