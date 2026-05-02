@@ -38,7 +38,8 @@ RUN install-php-extensions \
 ENV AUTOCONF_MODERN=1
 ENV FRANKENPHP_CONFIG="import /app/Caddyfile"
 ENV APP_ENV=production
-ENV APP_DEBUG=false
+ENV APP_DEBUG=true
+ENV LOG_CHANNEL=stderr
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
