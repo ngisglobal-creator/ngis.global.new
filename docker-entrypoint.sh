@@ -19,9 +19,12 @@ chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database || tr
 
 # Run migrations if enabled
 if [ "${RUN_MIGRATIONS}" = "true" ]; then
-    echo "Running migrations..."
-    php artisan migrate --force
+    echo "Running migrations for SQLite..."
+    php artisan migrate --force --database=sqlite || echo "Migrations failed!"
 fi
+
+echo "Checking database tables:"
+php artisan db:show --database=sqlite || echo "Could not show database tables."
 
 # Cache configuration and routes for production
 echo "Caching configuration..."
