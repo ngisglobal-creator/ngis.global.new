@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 
 class SettingController extends Controller
 {
@@ -37,17 +38,22 @@ class SettingController extends Controller
     /**
      * Update user language preference
      */
-    public function setLanguage(Request $request)
+    public function setLanguage(Request $request, $locale = null)
     {
-        $request->validate([
-            'locale' => 'required|in:ar,en,zh',
-        ]);
+        $newLocale = $locale ?? $request->locale;
 
-        $user = auth()->user();
-        $user->locale = $request->locale;
-        $user->save();
+        if (!in_array($newLocale, ['ar', 'en', 'zh'])) {
+            return redirect()->back();
+        }
 
-        session(['locale' => $request->locale]);
+        if (auth()->check()) {
+            $user = auth()->user();
+            $user->locale = $newLocale;
+            $user->save();
+        }
+
+        session(['locale' => $newLocale]);
+        App::setLocale($newLocale);
 
         return redirect()->back()->with('success', __('dashboard.success'));
     }

@@ -1,116 +1,152 @@
-<aside class="main-sidebar">
-  <section class="sidebar">
-    <div class="user-panel">
-      <div class="pull-right image">
-        <img src="{{ Auth::user()->avatar ? \Illuminate\Support\Facades\Storage::url(Auth::user()->avatar) : asset('dist/img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
-      </div>
-      <div class="pull-right info">
-        <p>{{ Auth::user()->name ?? __('dashboard.company') }}</p>
-        <a href="{{ route('profile.edit') }}"><i class="fa fa-circle text-success"></i> {{ __('dashboard.online') }}</a>
-      </div>
+<div class="main-sidebar bg-white shadow-sm" id="sidebar">
+    <!-- Logo / Brand -->
+    <div class="p-3 border-bottom d-flex align-items-center justify-content-center" style="height: var(--topbar-height); background: linear-gradient(135deg, #050d1f 0%, #18335c 50%, #050d1f 100%); background-size: 200% 200%; animation: gradientWave 5s ease infinite;">
+        <a href="{{ url('company/dashboard') }}" class="text-decoration-none d-flex align-items-center gap-2">
+            <img src="{{ asset('assets/images/logo-ngis.png') }}" alt="NGIS LOGO" style="height: 40px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
+            <div class="d-flex flex-column text-start">
+                <span class="fw-bold text-white" style="font-family: 'Arial Black', Impact, sans-serif; font-size: 1.2rem; letter-spacing: 2px; line-height: 1;">NGIS</span>
+                <span class="fw-bold" style="font-size: 0.5rem; letter-spacing: 1px; color: #d4af37;">GLOBAL INTEGRATED SERVICES</span>
+            </div>
+        </a>
     </div>
-    <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">{{ __('dashboard.main_nav') }}</li>
-      <li class="{{ request()->is('company/dashboard') ? 'active' : '' }}">
-        <a href="{{ url('company/dashboard') }}">
-          <i class="fa fa-dashboard"></i> <span>{{ __('dashboard.home') }}</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/notifications*') ? 'active' : '' }}">
-        <a href="{{ route('company.notifications.index') }}">
-          <i class="fa fa-bell"></i> <span>الإشعارات</span>
-          @if(auth()->user()->unreadNotifications->count() > 0)
-            <span class="pull-left-container">
-              <span class="label label-danger pull-left">{{ auth()->user()->unreadNotifications->count() }}</span>
-            </span>
-          @endif
-        </a>
-      </li>
-      <li class="{{ request()->is('profile*') ? 'active' : '' }}">
-        <a href="{{ route('profile.edit') }}">
-          <i class="fa fa-building"></i> <span>{{ __('dashboard.company_profile') }}</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/my-wallet') ? 'active' : '' }}">
-        <a href="{{ route('company.wallet') }}">
-          <i class="fa fa-google-wallet"></i> <span>المحفظة المالية</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('user-sectors*') ? 'active' : '' }}">
-        <a href="{{ route('user-sectors.index') }}">
-          <i class="fa fa-list"></i> <span>اختيار القطاعات</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('products/create') ? 'active' : '' }}">
-        <a href="{{ route('products.create') }}">
-          <i class="fa fa-plus-circle"></i> <span>رفع منتجات</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('cars/create') ? 'active' : '' }}">
-        <a href="{{ route('cars.create') }}">
-          <i class="fa fa-car"></i> <span>إضافة سيارة جديدة</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('products') ? 'active' : '' }}">
-        <a href="{{ route('products.index') }}">
-          <i class="fa fa-cubes"></i> <span>منتجاتي</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('received-orders*') ? 'active' : '' }}">
-        <a href="{{ route('orders.received') }}">
-          <i class="fa fa-shopping-cart"></i> <span>إدارة الطلبات</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/contracts*') ? 'active' : '' }}">
-        <a href="{{ route('company.contracts.management') }}">
-          <i class="fa fa-file-text-o"></i> <span>{{ __('dashboard.contracts') }}</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/auctions*') ? 'active' : '' }}">
-        <a href="{{ route('company.auctions.index') }}">
-          <i class="fa fa-gavel"></i> <span>إدارة المزادات</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/commercial-products*') ? 'active' : '' }}">
-        <a href="{{ route('company.commercial_products.index') }}">
-          <i class="fa fa-shopping-bag"></i> <span>إدارة المنتجات التجارية</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/inventory*') ? 'active' : '' }}">
-        <a href="{{ route('company.inventory.index') }}">
-          <i class="fa fa-archive"></i> <span>إدارة المخزون</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/reports*') ? 'active' : '' }}">
-        <a href="{{ route('company.reports.index') }}">
-          <i class="fa fa-bar-chart"></i> <span>التقارير التشغيلية</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/contracts-management*') ? 'active' : '' }}">
-        <a href="{{ route('company.contracts.management') }}">
-          <i class="fa fa-handshake-o"></i> <span>التوثيق والتعاقد</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/supplier-evaluation*') ? 'active' : '' }}">
-        <a href="{{ route('company.supplier_evaluation.index') }}">
-          <i class="fa fa-star-half-o"></i> <span>نظام تقييم المورد</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/risk-management*') ? 'active' : '' }}">
-        <a href="{{ route('company.risk_management.index') }}">
-          <i class="fa fa-shield"></i> <span>إدارة المخاطر</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/support-and-followup*') ? 'active' : '' }}">
-        <a href="{{ route('company.support.index') }}">
-          <i class="fa fa-support"></i> <span>الدعم والمتابعة</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('company/employees*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-users"></i> <span>{{ __('dashboard.employees') }}</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-</aside>
+
+    <!-- User Info -->
+    <div class="p-3 border-bottom text-center bg-white">
+        <div class="text-uppercase fw-bold mb-2" style="font-size: 0.85rem; letter-spacing: 1px; color: #6f42c1;">{{ __('dashboard.company_panel') }}</div>
+        <div class="fw-bold fs-5 text-dark mb-1">{{ Auth::user()->name ?? 'Company' }}</div>
+        <small class="text-success fw-bold"><i class="fa-solid fa-circle fa-xs me-1"></i> {{ __('dashboard.online') }}</small>
+    </div>
+
+    <!-- Navigation -->
+    <div class="p-3 overflow-auto">
+        <div class="text-muted small fw-bold mb-2 text-uppercase">{{ __('dashboard.main_nav') }}</div>
+        <ul class="nav flex-column gap-1">
+            <li class="nav-item">
+                <a href="{{ url('company/dashboard') }}" class="nav-link text-dark rounded {{ request()->is('company/dashboard') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-house fa-fw me-2"></i> {{ __('dashboard.home') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.notifications.index') }}" class="nav-link text-dark rounded d-flex justify-content-between align-items-center {{ request()->is('company/notifications*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <div><i class="fa-solid fa-bell fa-fw me-2"></i> {{ __('dashboard.notifications') }}</div>
+                    @if(auth()->user()->unreadNotifications->count() > 0)
+                        <span class="badge bg-danger rounded-pill">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @endif
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('profile.edit') }}" class="nav-link text-dark rounded {{ request()->is('profile*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-building fa-fw me-2"></i> {{ __('dashboard.profile') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.wallet') }}" class="nav-link text-dark rounded {{ request()->is('company/my-wallet') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-wallet fa-fw me-2"></i> {{ __('dashboard.wallet') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('user-sectors.index') }}" class="nav-link text-dark rounded {{ request()->is('user-sectors*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-list fa-fw me-2"></i> {{ __('dashboard.sector_selection') }}
+                </a>
+            </li>
+
+            <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.product_management') }}</div>
+            <li class="nav-item">
+                <a href="{{ route('products.create') }}" class="nav-link text-dark rounded {{ request()->is('products/create') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-plus-circle fa-fw me-2"></i> {{ __('dashboard.upload_products') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('cars.create') }}" class="nav-link text-dark rounded {{ request()->is('cars/create') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-car fa-fw me-2"></i> {{ __('dashboard.add_car') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('products.index') }}" class="nav-link text-dark rounded {{ request()->is('products') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-cubes fa-fw me-2"></i> {{ __('dashboard.my_products') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('orders.received') }}" class="nav-link text-dark rounded {{ request()->is('received-orders*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-shopping-cart fa-fw me-2"></i> {{ __('dashboard.order_management') }}
+                </a>
+            </li>
+
+            <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.operations_auctions') }}</div>
+            <li class="nav-item">
+                <a href="{{ route('company.auctions.index') }}" class="nav-link text-dark rounded {{ request()->is('company/auctions*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-gavel fa-fw me-2"></i> {{ __('dashboard.auction_management') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.commercial_products.index') }}" class="nav-link text-dark rounded {{ request()->is('company/commercial-products*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-bag-shopping fa-fw me-2"></i> {{ __('dashboard.commercial_products') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.inventory.index') }}" class="nav-link text-dark rounded {{ request()->is('company/inventory*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-archive fa-fw me-2"></i> {{ __('dashboard.inventory_management') }}
+                </a>
+            </li>
+
+            <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.management_reports') }}</div>
+            <li class="nav-item">
+                <a href="{{ route('company.reports.index') }}" class="nav-link text-dark rounded {{ request()->is('company/reports*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-chart-bar fa-fw me-2"></i> {{ __('dashboard.operational_reports') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.contracts.management') }}" class="nav-link text-dark rounded {{ request()->is('company/contracts*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-file-signature fa-fw me-2"></i> {{ __('dashboard.contracting_documentation') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.supplier_evaluation.index') }}" class="nav-link text-dark rounded {{ request()->is('company/supplier-evaluation*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-star fa-fw me-2"></i> {{ __('dashboard.supplier_evaluation') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.risk_management.index') }}" class="nav-link text-dark rounded {{ request()->is('company/risk-management*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-shield-halved fa-fw me-2"></i> {{ __('dashboard.liability_risk') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.support.index') }}" class="nav-link text-dark rounded {{ request()->is('company/support-and-followup*') ? 'bg-light fw-bold text-primary' : '' }}">
+                    <i class="fa-solid fa-headset fa-fw me-2"></i> {{ __('dashboard.support_followup') }}
+                </a>
+            </li>
+
+            <li class="nav-item mt-3 pt-3 border-top">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="nav-link text-danger w-100 text-start bg-transparent border-0 rounded hover-bg-light">
+                        <i class="fa-solid fa-right-from-bracket fa-fw me-2"></i> {{ __('dashboard.logout') }}
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    @keyframes gradientWave {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .nav-link {
+        font-weight: 600 !important;
+        font-size: 15px;
+        transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+        background-color: #f8f9fa;
+        transform: translateX(-3px);
+    }
+    html[dir="ltr"] .nav-link:hover {
+        transform: translateX(3px);
+    }
+    .hover-bg-light:hover {
+        background-color: #f8f9fa;
+    }
+</style>

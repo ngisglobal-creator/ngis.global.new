@@ -160,11 +160,21 @@
                         </span>
                         <h2 style="font-weight: 900; color: #2c3e50; font-size: 36px; margin: 20px 0;">{{ $product->name }}</h2>
                         
-                        <div style="background: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 30px; border: 1px solid #eee;">
+                        <div style="background: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid #eee;">
                             <span class="text-muted" style="display: block; margin-bottom: 5px;">السعر التقديري للوحدة</span>
                             <span style="font-size: 44px; font-weight: 900; color: #1e3a5f; direction: ltr; display: inline-block; font-family: 'Inter', sans-serif;" class="english-nums">
                                 {{ number_format($product->price, 2, '.', '') }} <small style="font-size: 20px; color: #c0392b; font-weight: bold;">{{ $product->currency_code }}</small>
                             </span>
+                        </div>
+
+                        <!-- Main Action Buttons Moved to Top -->
+                        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
+                            <button id="btnOrderModalTop" class="btn btn-danger btn-flat w-100" style="flex: 3; border-radius: 8px; font-weight: 900; font-size: 24px; padding: 15px; background: #c0392b; border: none; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4); transition: all 0.3s;" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                <i class="fa fa-shopping-cart fa-lg"></i> اطلب الآن
+                            </button>
+                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-flat" style="flex: 1; border-radius: 8px; font-weight: bold; font-size: 18px; padding: 15px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa fa-arrow-right"></i> رجوع
+                            </a>
                         </div>
 
                         <div style="margin-bottom: 30px;">
@@ -191,14 +201,7 @@
                             </div>
                         </div>
 
-                        <div style="margin-top: 40px; display: flex; gap: 15px;">
-                            <button id="btnOrderModal" class="btn btn-danger btn-lg btn-flat" style="flex: 2; border-radius: 30px; font-weight: bold; font-size: 20px; padding: 12px; background: #c0392b; border: none; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);" data-toggle="modal" data-target="#orderModal">
-                                <i class="fa fa-shopping-cart"></i> اطلب الآن
-                            </button>
-                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-lg btn-flat" style="flex: 1; border-radius: 30px; padding: 12px; font-weight: bold;">
-                                <i class="fa fa-arrow-right"></i> رجوع
-                            </a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -355,7 +358,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="border-radius: 25px; overflow: hidden; border: none;">
                 <div class="modal-header" style="background: #c0392b; color: white; padding: 25px;">
-                    <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 1;">&times;</button>
+                    <button type="button" class="close" data-bs-dismiss="modal" style="color: white; opacity: 1;">&times;</button>
                     <h4 class="modal-title" style="font-weight: 900; font-size: 22px;"><i class="fa fa-truck"></i> طلب تزويد معدات ثقيلة</h4>
                 </div>
                 <form id="orderForm">
@@ -448,7 +451,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="padding: 25px; background: #f9f9f9;">
-                        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" style="border-radius: 30px; font-weight: bold;">إلغاء</button>
+                        <button type="button" class="btn btn-default btn-lg" data-bs-dismiss="modal" style="border-radius: 30px; font-weight: bold;">إلغاء</button>
                         <button type="submit" class="btn btn-danger btn-lg" style="background: #c0392b; border: none; border-radius: 30px; padding: 12px 50px; font-weight: 900; box-shadow: 0 5px 15px rgba(192, 57, 43, 0.4);">
                             تأكيد وإرسال الطلب
                         </button>

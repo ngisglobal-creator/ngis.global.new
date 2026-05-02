@@ -1,4 +1,4 @@
-@extends(auth()->user()->panel_type . '.layouts.master')
+@extends(view()->exists(auth()->user()->panel_type . '.layouts.master') ? auth()->user()->panel_type . '.layouts.master' : 'layouts.master')
 
 @section('title', 'استقبال الطلبات')
 

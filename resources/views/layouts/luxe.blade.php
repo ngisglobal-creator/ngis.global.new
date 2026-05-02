@@ -236,8 +236,7 @@
         }
 
         /* Language Controls */
-        html[lang="ar"] .lang-en { display: none !important; }
-        html[lang="en"] .lang-ar { display: none !important; }
+        /* Selection handled via server-side session */
 
         /* Global Bootstrap Overrides for Premium Dark Theme */
         .pagination { --bs-pagination-bg: rgba(255,255,255,0.03); --bs-pagination-border-color: rgba(212,175,55,0.1); --bs-pagination-color: #fff; --bs-pagination-hover-bg: rgba(212,175,55,0.1); --bs-pagination-hover-color: var(--gold-mid); --bs-pagination-active-bg: var(--gold-mid); --bs-pagination-active-border-color: var(--gold-mid); --bs-pagination-active-color: #000; --bs-pagination-disabled-bg: transparent; --bs-pagination-disabled-color: rgba(255,255,255,0.2); }
@@ -325,35 +324,42 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}" href="{{ route('welcome') }}"><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.all-products') ? 'active' : '' }}" href="{{ route('home.all-products') }}"><span class="lang-en">Marketplace</span><span class="lang-ar">السوق</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.ngis-products') ? 'active' : '' }}" href="{{ route('home.ngis-products') }}"><span class="lang-en">NGIS Hub</span><span class="lang-ar">منتجات NGIS</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.factory-products') ? 'active' : '' }}" href="{{ route('home.factory-products') }}"><span class="lang-en">Factories</span><span class="lang-ar">المصانع</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.supplier-products') ? 'active' : '' }}" href="{{ route('home.supplier-products') }}"><span class="lang-en">Suppliers</span><span class="lang-ar">الموردين</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.shipping') ? 'active' : '' }}" href="{{ route('home.shipping') }}"><span class="lang-en">Shipping</span><span class="lang-ar">الشحن</span></a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.contact') ? 'active' : '' }}" href="{{ route('home.contact') }}"><span class="lang-en">Contact</span><span class="lang-ar">تواصل معنا</span></a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}" href="{{ route('welcome') }}">{{ __('nav.home') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.all-products') ? 'active' : '' }}" href="{{ route('home.all-products') }}">{{ __('nav.marketplace') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.ngis-products') ? 'active' : '' }}" href="{{ route('home.ngis-products') }}">{{ __('nav.ngis_hub') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.factory-products') ? 'active' : '' }}" href="{{ route('home.factory-products') }}">{{ __('nav.factories') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.supplier-products') ? 'active' : '' }}" href="{{ route('home.supplier-products') }}">{{ __('nav.suppliers') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.shipping') ? 'active' : '' }}" href="{{ route('home.shipping') }}">{{ __('nav.shipping') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.contact') ? 'active' : '' }}" href="{{ route('home.contact') }}">{{ __('nav.contact') }}</a></li>
                     </ul>
                     
                     <div class="d-flex align-items-center gap-3">
-                        <button onclick="toggleLanguage()" class="btn btn-outline-light btn-sm rounded-pill px-3 border-opacity-25" style="font-size: 0.7rem;">
-                            <span class="lang-text fw-bold">{{ app()->getLocale() == 'ar' ? 'EN' : 'AR' }}</span>
-                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light btn-sm rounded-pill px-3 border-opacity-25 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="font-size: 0.7rem;">
+                                <i class="ph ph-globe me-1"></i> <span class="lang-text fw-bold">{{ strtoupper(app()->getLocale()) }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end p-2 border-0 shadow-lg" style="background: var(--bg-dark); min-width: 120px; font-size: 0.8rem; border: 1px solid rgba(212,175,55,0.2) !important;">
+                                <li><a class="dropdown-item text-white rounded {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                                <li><a class="dropdown-item text-white rounded {{ app()->getLocale() == 'zh' ? 'active' : '' }}" href="{{ route('lang.switch', 'zh') }}">中文 (Chinese)</a></li>
+                                <li><a class="dropdown-item text-white rounded {{ app()->getLocale() == 'ar' ? 'active' : '' }}" href="{{ route('lang.switch', 'ar') }}">العربية (Arabic)</a></li>
+                            </ul>
+                        </div>
                         
                         @guest
-                            <a href="{{ route('login') }}" class="nav-link text-white small p-0"><span class="lang-en">In</span><span class="lang-ar">دخول</span></a>
-                            <a href="{{ route('register') }}" class="btn btn-gold btn-sm px-4">Join</a>
+                            <a href="{{ route('login') }}" class="nav-link text-white small p-0">{{ __('nav.login') }}</a>
+                            <a href="{{ route('register') }}" class="btn btn-gold btn-sm px-4">{{ __('nav.join') }}</a>
                         @else
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle p-0" href="#" data-bs-toggle="dropdown">
                                     <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}" class="avatar-circle">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end p-2 border-0 shadow-lg" style="background: var(--bg-dark); border: 1px solid rgba(212,175,55,0.2) !important;">
-                                    <li><a class="dropdown-item text-white small rounded" href="{{ route('dashboard') }}"><i class="ph ph-squares-four me-2"></i> Dashboard</a></li>
+                                    <li><a class="dropdown-item text-white small rounded" href="{{ route('dashboard') }}"><i class="ph ph-squares-four me-2"></i> {{ __('nav.dashboard') }}</a></li>
                                     <li><hr class="dropdown-divider opacity-10"></li>
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                                            <button type="submit" class="dropdown-item text-danger small rounded"><i class="ph ph-sign-out me-2"></i> Logout</button>
+                                            <button type="submit" class="dropdown-item text-danger small rounded"><i class="ph ph-sign-out me-2"></i> {{ __('nav.logout') }}</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -375,10 +381,10 @@
                             <div class="logo-box" style="width: 40px; height: 40px;">
                                 <img src="{{ asset('assets/images/logo-ngis.png') }}" alt="NGIS LOGO" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
-                            <div class="brand-name-premium" style="font-size: 1.5rem;">NGIS GLOBAL</div>
+                            <div class="brand-name-premium" style="font-size: 1.5rem;">{{ __('footer.brand_name') }}</div>
                         </div>
                         <p class="text-muted small lh-lg">
-                            Integrated corporate services providing end-to-end supply chain security and logistics for international trade. Global sourcing verified by NGIS Strategic Department.
+                            {{ __('footer.description') }}
                         </p>
                         <div class="d-flex gap-3 mt-4">
                             <a href="#" class="text-gold"><i class="ph-fill ph-linkedin-logo fs-4"></i></a>
@@ -386,22 +392,22 @@
                         </div>
                     </div>
                     <div class="col-lg-2 offset-lg-2">
-                        <h6 class="fw-bold text-white mb-4">Platform</h6>
+                        <h6 class="fw-bold text-white mb-4">{{ __('footer.platform') }}</h6>
                         <ul class="list-unstyled d-flex flex-column gap-2 small">
-                            <li><a href="{{ route('home.all-products') }}" class="text-muted text-decoration-none hover-white">Marketplace</a></li>
-                            <li><a href="{{ route('home.factory-products') }}" class="text-muted text-decoration-none hover-white">Factories</a></li>
+                            <li><a href="{{ route('home.all-products') }}" class="text-muted text-decoration-none hover-white">{{ __('footer.marketplace') }}</a></li>
+                            <li><a href="{{ route('home.factory-products') }}" class="text-muted text-decoration-none hover-white">{{ __('footer.factories') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-2">
-                        <h6 class="fw-bold text-white mb-4">Support</h6>
+                        <h6 class="fw-bold text-white mb-4">{{ __('footer.support') }}</h6>
                         <ul class="list-unstyled d-flex flex-column gap-2 small">
-                            <li><a href="{{ route('home.contact') }}" class="text-muted text-decoration-none hover-white">Contact Us</a></li>
-                            <li><a href="#" class="text-muted text-decoration-none hover-white">Privacy Policy</a></li>
+                            <li><a href="{{ route('home.contact') }}" class="text-muted text-decoration-none hover-white">{{ __('footer.contact_us') }}</a></li>
+                            <li><a href="#" class="text-muted text-decoration-none hover-white">{{ __('footer.privacy_policy') }}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="pt-5 mt-5 border-top border-white-10 d-flex justify-content-between align-items-center">
-                    <span class="x-small text-muted letter-spacing-1">© 2026 NGIS GLOBAL. ALL RIGHTS RESERVED.</span>
+                    <span class="x-small text-muted letter-spacing-1">{{ __('footer.copyright') }}</span>
                 </div>
             </div>
         </footer>
@@ -414,14 +420,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() { AOS.init({ once: true, duration: 800 }); });
 
-        function toggleLanguage() {
-            const html = document.getElementById('main-html');
-            const currentLang = html.getAttribute('lang');
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            html.setAttribute('lang', newLang);
-            html.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-            document.querySelectorAll('.lang-text').forEach(el => el.innerText = newLang === 'ar' ? 'EN' : 'AR');
-            localStorage.setItem('ngis_lang', newLang);
+        // Language selection is now handled via server-side routes for session persistence and correct translation rendering.
+        function setLanguage(lang) {
+            window.location.href = `/lang/${lang}`;
         }
 
         // Particle System

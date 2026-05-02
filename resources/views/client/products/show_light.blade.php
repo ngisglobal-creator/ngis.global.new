@@ -107,6 +107,16 @@
                             </span>
                         </div>
 
+                        <!-- Main Action Buttons Moved to Top -->
+                        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
+                            <button id="btnOrderModalTop" class="btn btn-warning btn-flat w-100" style="flex: 3; border-radius: 8px; font-weight: 900; font-size: 24px; padding: 15px; background: #f39c12; border: none; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4); color: #000; transition: all 0.3s;" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                <i class="fa fa-shopping-cart fa-lg"></i> احجز الآن
+                            </button>
+                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-flat" style="flex: 1; border-radius: 8px; font-weight: bold; font-size: 18px; padding: 15px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa fa-arrow-right"></i> رجوع
+                            </a>
+                        </div>
+
                         <div style="background: #fdfdfd; padding: 20px; border-radius: 8px; border: 1px solid #f0f0f0; margin-bottom: 25px;">
                             <h4 style="font-weight: bold; color: #555; margin-top: 0; border-bottom: 2px solid #f39c12; display: inline-block; padding-bottom: 5px;">وصف المركبة</h4>
                             <div style="font-size: 17px; line-height: 1.8; color: #444; text-align: justify; margin-top: 15px;">
@@ -137,14 +147,7 @@
                             </li>
                         </ul>
 
-                        <div style="margin-top: 35px; display: flex; gap: 15px;">
-                            <button id="btnOrderModal" class="btn btn-warning btn-lg btn-flat" style="flex: 2; border-radius: 6px; font-weight: bold; font-size: 20px; color: #000;" data-toggle="modal" data-target="#orderModal">
-                                <i class="fa fa-shopping-cart"></i> احجز الآن
-                            </button>
-                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-lg btn-flat" style="flex: 1; border-radius: 6px;">
-                                <i class="fa fa-arrow-right"></i> رجوع
-                            </a>
-                        </div>
+
                 </div>
             </div>
 
@@ -317,7 +320,7 @@
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="modal-header" style="background: #f39c12; color: white; border-radius: 15px 15px 0 0;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" style="font-weight: 800; color: #fff;">تأكيد طلب حجز المركبات</h4>
                 </div>
                 <form id="orderForm">
@@ -348,7 +351,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="padding: 20px;">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">إلغاء</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">إلغاء</button>
                         <button type="submit" class="btn btn-warning" style="font-weight: bold; border-radius: 30px; padding: 10px 30px; color: #000;">تأكيد الطلب</button>
                     </div>
                 </form>

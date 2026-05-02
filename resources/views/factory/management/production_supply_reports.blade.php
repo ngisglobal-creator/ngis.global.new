@@ -1,19 +1,17 @@
 @extends('factory.layouts.master')
 
-@section('title', 'تقارير الإنتاج والتوريد')
-
-@section('content-header')
-    <h1>تقارير الإنتاج والتوريد</h1>
-@endsection
+@section('title', __('dashboard.production_supply_reports_title'))
 
 @section('content')
-    <div class="box box-info">
-        <div class="box-body">
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
             <div class="text-center" style="padding: 50px;">
-                <i class="fa fa-area-chart fa-5x text-muted"></i>
-                <h3>صفحة تقارير الإنتاج والتوريد</h3>
-                <p>متابعة تقارير الإنتاج اليومية والواردات من الموردين.</p>
-                <p>هذه الصفحة تحت التطوير حالياً.</p>
+                <i class="fa fa-chart-area fa-5x text-muted opacity-25 mb-4"></i>
+                <h3 class="fw-bold">{{ __('dashboard.production_supply_reports_title') }}</h3>
+                <p class="text-muted">{{ __('dashboard.production_supply_desc') }}</p>
+                <div class="alert alert-info d-inline-block px-4 rounded-pill">
+                    <i class="fa-solid fa-info-circle me-2"></i> {{ __('dashboard.page_under_development') }}
+                </div>
             </div>
         </div>
     </div>

@@ -3,256 +3,237 @@
 @section('title', 'تقديم طلب خاص - Sourcing')
 
 @section('content')
-<section class="content-header">
-    <h1 style="font-weight: 900; color: #1a202c;">
-        تقديم طلب استيراد مخصص <small>Global Procurement Hub</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="{{ route('client.dashboard') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-        <li class="active">طلب خاص</li>
-    </ol>
-</section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">تقديم طلب استيراد مخصص <span class="text-muted fs-6 fw-normal ms-2">Global Procurement Hub</span></h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ route('client.dashboard') }}" class="text-decoration-none"><i class="fa-solid fa-house me-1"></i>الرئيسية</a></li>
+            <li class="breadcrumb-item active" aria-current="page">طلب خاص</li>
+        </ol>
+    </nav>
+</div>
 
-<section class="content">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <form action="{{ route('client.special_order.store') }}" method="POST" enctype="multipart/form-data" id="specialOrderForm">
-                @csrf
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <form action="{{ route('client.special_order.store') }}" method="POST" enctype="multipart/form-data" id="specialOrderForm">
+            @csrf
 
-                <!-- 1. البيانات التعريفية للمنتج (Product Identification) -->
-                <div class="box box-primary" style="border-radius: 15px; border-top: 5px solid #3c8dbc; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
-                    <div class="box-header with-border" style="padding: 15px 20px;">
-                        <h3 class="box-title" style="font-weight: 700; color: #2d3748;">
-                            <i class="fa fa-tag text-primary" style="margin-left: 10px;"></i> 1. البيانات التعريفية للمنتج (Product Identification)
-                        </h3>
+            <!-- 1. البيانات التعريفية للمنتج (Product Identification) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="card-title fw-bold m-0 text-primary">
+                        <i class="fa-solid fa-tag me-2"></i> 1. البيانات التعريفية للمنتج (Product Identification)
+                    </h5>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">اسم المنتج <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control" placeholder="مثال: محرك هيدروليكي، قماش حرير طبيعي" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">تصنيف السلعة <span class="text-danger">*</span></label>
+                            <select name="category_type" class="form-select select2" required>
+                                <option value="">اختر التصنيف...</option>
+                                <option value="industrial">صناعي (Industrial)</option>
+                                <option value="commercial">تجاري (Commercial)</option>
+                                <option value="raw_materials">مواد خام (Raw Materials)</option>
+                                <option value="electronics">إلكترونيات (Electronics)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="box-body" style="padding: 25px;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>اسم المنتج <span class="text-danger">*</span></label>
-                                    <input type="text" name="title" class="form-control" placeholder="مثال: محرك هيدروليكي، قماش حرير طبيعي" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>تصنيف السلعة <span class="text-danger">*</span></label>
-                                    <select name="category_type" class="form-control select2" style="width: 100%;" required>
-                                        <option value="">اختر التصنيف...</option>
-                                        <option value="industrial">صناعي (Industrial)</option>
-                                        <option value="commercial">تجاري (Commercial)</option>
-                                        <option value="raw_materials">مواد خام (Raw Materials)</option>
-                                        <option value="electronics">إلكترونيات (Electronics)</option>
-                                    </select>
-                                </div>
-                            </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-dark">المواصفات الفنية <span class="text-danger">*</span></label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="المقاسات، الأوزان، المواد المصنعة، القدرة التشغيلية..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-dark">رابط مشابه للاسترشاد (Reference Link)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-link text-muted"></i></span>
+                            <input type="url" name="reference_link" class="form-control" placeholder="رابط من Alibaba, Amazon, أو غيرها">
                         </div>
-                        <div class="form-group">
-                            <label>المواصفات الفنية <span class="text-danger">*</span></label>
-                            <textarea name="description" class="form-control" rows="4" placeholder="المقاسات، الأوزان، المواد المصنعة، القدرة التشغيلية..." required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. الملحقات المرئية (Visual Documentation) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="card-title fw-bold m-0 text-info">
+                        <i class="fa-solid fa-camera me-2"></i> 2. الملحقات المرئية (Visual Documentation)
+                    </h5>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">صور المنتج (حتى 5 صور)</label>
+                            <label for="imageInput" class="upload-zone w-100 p-4 text-center rounded-3 border border-2 border-dashed bg-white cursor-pointer" style="border-style: dashed !important; border-color: #cbd5e1 !important; cursor: pointer;">
+                                <i class="fa-solid fa-cloud-arrow-up fs-1 text-muted mb-2"></i>
+                                <p class="mb-0 text-muted">اضغط لرفع الصور</p>
+                            </label>
+                            <input type="file" name="images[]" id="imageInput" multiple accept="image/*" class="d-none">
+                            <div id="imagePreviewContainer" class="d-flex flex-wrap gap-2 mt-3"></div>
                         </div>
-                        <div class="form-group">
-                            <label>رابط مشابه للاسترشاد (Reference Link)</label>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">ملفات فنية (PDF / CAD)</label>
+                            <label for="pdfInput" class="upload-zone w-100 p-4 text-center rounded-3 border border-2 border-dashed bg-white cursor-pointer" style="border-style: dashed !important; border-color: #cbd5e1 !important; cursor: pointer;">
+                                <i class="fa-regular fa-file-pdf fs-1 text-muted mb-2"></i>
+                                <p class="mb-0 text-muted">اضغط لرفع الملفات</p>
+                            </label>
+                            <input type="file" name="spec_file" id="pdfInput" accept=".pdf,.dwg,.dxf" class="d-none">
+                            <div id="pdfPreviewContainer" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. المعايير الكمية واللوجستية (Logistical Requirements) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="card-title fw-bold m-0 text-success">
+                        <i class="fa-solid fa-truck me-2"></i> 3. المعايير الكمية واللوجستية (Logistical Requirements)
+                    </h5>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">الكمية المطلوبة</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-link"></i></span>
-                                <input type="url" name="reference_link" class="form-control" placeholder="رابط من Alibaba, Amazon, أو غيرها">
+                                <input type="number" name="quantity" class="form-control" placeholder="العدد" min="1">
+                                <select name="unit" class="form-select text-center" style="max-width: 100px;">
+                                    <option value="piece">قطعة</option>
+                                    <option value="ton">طن</option>
+                                    <option value="container">حاوية</option>
+                                    <option value="kg">كيلو</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">سعر الشراء المستهدف</label>
+                            <div class="input-group">
+                                <input type="number" name="target_price" class="form-control" placeholder="السعر المتوقع">
+                                <span class="input-group-text bg-white">$ USD</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">التغليف الخاص</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="packaging[]" value="moisture_proof" id="pack1">
+                                <label class="form-check-label text-dark" for="pack1">حماية ضد الرطوبة</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="packaging[]" value="fragile" id="pack2">
+                                <label class="form-check-label text-dark" for="pack2">حماية ضد الكسر</label>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- 2. الملحقات المرئية (Visual Documentation) -->
-                <div class="box box-info" style="border-radius: 15px; border-top: 5px solid #00c0ef; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
-                    <div class="box-header with-border" style="padding: 15px 20px;">
-                        <h3 class="box-title" style="font-weight: 700; color: #2d3748;">
-                            <i class="fa fa-camera text-info" style="margin-left: 10px;"></i> 2. الملحقات المرئية (Visual Documentation)
-                        </h3>
+            <!-- 4. اشتراطات الجودة والمنشأ (Compliance & Origin) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="card-title fw-bold m-0 text-warning text-darken">
+                        <i class="fa-solid fa-certificate me-2"></i> 4. اشتراطات الجودة والمنشأ (Compliance & Origin)
+                    </h5>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">بلد المنشأ المفضل</label>
+                            <select name="origin" class="form-select select2">
+                                <option value="any">أفضل مصدر متاح (Recommended)</option>
+                                <option value="china">الصين (China)</option>
+                                <option value="turkey">تركيا (Turkey)</option>
+                                <option value="europe">أوروبا (Europe)</option>
+                                <option value="india">الهند (India)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="box-body" style="padding: 25px;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>صور المنتج (حتى 5 صور)</label>
-                                <label for="imageInput" class="upload-zone" style="display: block; border: 2px dashed #cbd5e0; border-radius: 12px; padding: 20px; text-align: center; background: #f8fafc; cursor: pointer;">
-                                    <i class="fa fa-cloud-upload" style="font-size: 2em; color: #a0aec0;"></i>
-                                    <p style="margin: 5px 0 0;">اضغط لرفع الصور</p>
-                                </label>
-                                <input type="file" name="images[]" id="imageInput" multiple accept="image/*" style="display: none;">
-                                <div id="imagePreviewContainer" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>ملفات فنية (PDF / CAD)</label>
-                                <label for="pdfInput" class="upload-zone" style="display: block; border: 2px dashed #cbd5e0; border-radius: 12px; padding: 20px; text-align: center; background: #f8fafc; cursor: pointer;">
-                                    <i class="fa fa-file-pdf-o" style="font-size: 2em; color: #a0aec0;"></i>
-                                    <p style="margin: 5px 0 0;">اضغط لرفع الملفات</p>
-                                </label>
-                                <input type="file" name="spec_file" id="pdfInput" accept=".pdf,.dwg,.dxf" style="display: none;">
-                                <div id="pdfPreviewContainer" style="margin-top: 10px;"></div>
-                            </div>
+                    
+                    <div class="border-bottom pb-2 mb-3">
+                        <h6 class="fw-bold text-dark m-0"><i class="fa-solid fa-file-contract text-warning me-2"></i> المتطلبات القانونية والشهادات العالمية (Global Compliance & Certifications)</h6>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- 1. شهادات عامة وجودة -->
+                        <div class="col-md-3 border-end">
+                            <h6 class="fw-bold text-primary mb-3">الجودة والسلامة العامة</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="ISO_9001" id="c1"><label class="form-check-label" for="c1">ISO 9001 / 14001</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CE_Mark" id="c2"><label class="form-check-label" for="c2">CE Mark (Europe)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CB_Scheme" id="c3"><label class="form-check-label" for="c3">CB Scheme (Global)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="RoHS_REACH" id="c4"><label class="form-check-label" for="c4">RoHS / REACH</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="GS_Mark" id="c5"><label class="form-check-label" for="c5">GS Mark (Germany)</label></div>
+                        </div>
+
+                        <!-- 2. الشهادات الكهربائية والإلكترونية -->
+                        <div class="col-md-3 border-end">
+                            <h6 class="fw-bold text-info mb-3">الكهرباء والإلكترونيات</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="UL_ETL" id="c6"><label class="form-check-label" for="c6">UL / ETL (USA)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="FCC_IC" id="c7"><label class="form-check-label" for="c7">FCC (USA) / IC</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="PSE_VCCI" id="c8"><label class="form-check-label" for="c8">PSE / VCCI (Japan)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="SAA_RCM" id="c9"><label class="form-check-label" for="c9">SAA / RCM (Australia)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="KC_Mark" id="c10"><label class="form-check-label" for="c10">KC Mark (South Korea)</label></div>
+                        </div>
+
+                        <!-- 3. الماكينات والمعدات الثقيلة -->
+                        <div class="col-md-3 border-end">
+                            <h6 class="fw-bold text-success mb-3">الماكينات والمعدات</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="Machinery_Directive" id="c11"><label class="form-check-label" for="c11">Machinery Directive</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="EMC_LVD" id="c12"><label class="form-check-label" for="c12">EMC / LVD Directive</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="ASME_Standards" id="c13"><label class="form-check-label" for="c13">ASME (USA Industry)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="ATEX_Ex" id="c14"><label class="form-check-label" for="c14">ATEX (Explosion Proof)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="TUV_SUD" id="c15"><label class="form-check-label" for="c15">TÜV SÜD / NORD</label></div>
+                        </div>
+
+                        <!-- 4. الشهادات الطبية والصحية -->
+                        <div class="col-md-3">
+                            <h6 class="fw-bold text-danger mb-3">الطبية والصحية</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="FDA_USA" id="c16"><label class="form-check-label" for="c16">FDA (USA Medical)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CE_MDR" id="c17"><label class="form-check-label" for="c17">CE MDR (EU Medical)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="ISO_13485" id="c18"><label class="form-check-label" for="c18">ISO 13485 (Devices)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="NMPA_CFDA" id="c19"><label class="form-check-label" for="c19">NMPA / CFDA (China)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="GMP_Cert" id="c20"><label class="form-check-label" for="c20">GMP Certificate</label></div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mt-1 border-top pt-3">
+                        <!-- 5. الشهادات الصينية الوطنية -->
+                        <div class="col-md-3 border-end">
+                            <h6 class="fw-bold text-danger mb-3">الشهادات الصينية</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CCC_China" id="c21"><label class="form-check-label" for="c21">CCC (Compulsory)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CQC_China" id="c22"><label class="form-check-label" for="c22">CQC (Quality)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="CNAS_Lab" id="c23"><label class="form-check-label" for="c23">CNAS (Laboratory)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="GB_Standards" id="c24"><label class="form-check-label" for="c24">GB National Standards</label></div>
+                        </div>
+
+                        <!-- 6. الشرق الأوسط وأفريقيا -->
+                        <div class="col-md-3 border-end">
+                            <h6 class="fw-bold text-warning text-darken mb-3">الشرق الأوسط وأفريقيا</h6>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="SASO_SABER" id="c25"><label class="form-check-label" for="c25">SASO / SABER (Saudi)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="G_Mark" id="c26"><label class="form-check-label" for="c26">G-Mark (Gulf Countries)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="SONCAP" id="c27"><label class="form-check-label" for="c27">SONCAP (Nigeria)</label></div>
+                            <div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="certs[]" value="EAC_Union" id="c28"><label class="form-check-label" for="c28">EAC (Eurasian Union)</label></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">أخرى (اذكرها هنا)</label>
+                            <input type="text" name="other_certs" class="form-control" placeholder="أدخل أي شهادات أخرى مطلوبة غير موجودة في القائمة">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- 3. المعايير الكمية واللوجستية (Logistical Requirements) -->
-                <div class="box box-success" style="border-radius: 15px; border-top: 5px solid #00a65a; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
-                    <div class="box-header with-border" style="padding: 15px 20px;">
-                        <h3 class="box-title" style="font-weight: 700; color: #2d3748;">
-                            <i class="fa fa-truck text-success" style="margin-left: 10px;"></i> 3. المعايير الكمية واللوجستية (Logistical Requirements)
-                        </h3>
-                    </div>
-                    <div class="box-body" style="padding: 25px;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>الكمية المطلوبة</label>
-                                    <div class="input-group">
-                                        <input type="number" name="quantity" class="form-control" placeholder="العدد" min="1">
-                                        <div class="input-group-btn" style="width: 100px;">
-                                            <select name="unit" class="form-control" style="border-right: 0;">
-                                                <option value="piece">قطعة</option>
-                                                <option value="ton">طن</option>
-                                                <option value="container">حاوية</option>
-                                                <option value="kg">كيلو</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>سعر الشراء المستهدف</label>
-                                    <div class="input-group">
-                                        <input type="number" name="target_price" class="form-control" placeholder="السعر المتوقع">
-                                        <span class="input-group-addon">$ USD</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>التغليف الخاص</label>
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" name="packaging[]" value="moisture_proof"> حماية ضد الرطوبة</label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" name="packaging[]" value="fragile"> حماية ضد الكسر</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center my-5">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 shadow fw-bold">
+                    <i class="fa-solid fa-paper-plane me-2"></i> إرسال الطلب للمراجعة الدولية
+                </button>
+                <p class="text-muted mt-3 small">بمجرد الإرسال، سيبدأ فريقنا الميداني في البحث عن أفضل الموردين لك.</p>
+            </div>
 
-                <!-- 4. اشتراطات الجودة والمنشأ (Compliance & Origin) -->
-                <div class="box box-warning" style="border-radius: 15px; border-top: 5px solid #f39c12; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
-                    <div class="box-header with-border" style="padding: 15px 20px;">
-                        <h3 class="box-title" style="font-weight: 700; color: #2d3748;">
-                            <i class="fa fa-certificate text-warning" style="margin-left: 10px;"></i> 4. اشتراطات الجودة والمنشأ (Compliance & Origin)
-                        </h3>
-                    </div>
-                    <div class="box-body" style="padding: 25px;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>بلد المنشأ المفضل</label>
-                                    <select name="origin" class="form-control select2" style="width: 100%;">
-                                        <option value="any">أفضل مصدر متاح (Recommended)</option>
-                                        <option value="china">الصين (China)</option>
-                                        <option value="turkey">تركيا (Turkey)</option>
-                                        <option value="europe">أوروبا (Europe)</option>
-                                        <option value="india">الهند (India)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label style="display: block; margin-bottom: 20px; font-size: 1.2em; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; color: #1a202c;">
-                                        <i class="fa fa-certificate text-yellow"></i> المتطلبات القانونية والشهادات العالمية (Global Compliance & Certifications)
-                                    </label>
-                                    
-                                    <div class="row">
-                                        <!-- 1. شهادات عامة وجودة -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #3c8dbc; border-right: 3px solid #3c8dbc; padding-right: 10px;">الجودة والسلامة العامة</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="ISO_9001"> ISO 9001 / 14001</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CE_Mark"> CE Mark (Europe)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CB_Scheme"> CB Scheme (Global)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="RoHS_REACH"> RoHS / REACH</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="GS_Mark"> GS Mark (Germany)</label></div>
-                                        </div>
-
-                                        <!-- 2. الشهادات الكهربائية والإلكترونية -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #00c0ef; border-right: 3px solid #00c0ef; padding-right: 10px;">الكهرباء والإلكترونيات</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="UL_ETL"> UL / ETL (USA)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="FCC_IC"> FCC (USA) / IC (Canada)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="PSE_VCCI"> PSE / VCCI (Japan)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="SAA_RCM"> SAA / RCM (Australia)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="KC_Mark"> KC Mark (South Korea)</label></div>
-                                        </div>
-
-                                        <!-- 3. الماكينات والمعدات الثقيلة -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #00a65a; border-right: 3px solid #00a65a; padding-right: 10px;">الماكينات والمعدات</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="Machinery_Directive"> Machinery Directive (MD)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="EMC_LVD"> EMC / LVD Directive</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="ASME_Standards"> ASME (USA Industry)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="ATEX_Ex"> ATEX (Explosion Proof)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="TUV_SUD"> TÜV SÜD / NORD</label></div>
-                                        </div>
-
-                                        <!-- 4. الشهادات الطبية والصحية -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #e53e3e; border-right: 3px solid #e53e3e; padding-right: 10px;">الطبية والصحية</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="FDA_USA"> FDA (USA Medical)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CE_MDR"> CE MDR (EU Medical)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="ISO_13485"> ISO 13485 (Devices)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="NMPA_CFDA"> NMPA / CFDA (China)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="GMP_Cert"> GMP Certificate</label></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: 20px;">
-                                        <!-- 5. الشهادات الصينية الوطنية -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #d81b60; border-right: 3px solid #d81b60; padding-right: 10px;">الشهادات الصينية</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CCC_China"> CCC (Compulsory)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CQC_China"> CQC (Quality)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="CNAS_Lab"> CNAS (Laboratory)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="GB_Standards"> GB National Standards</label></div>
-                                        </div>
-
-                                        <!-- 6. الشرق الأوسط وأفريقيا -->
-                                        <div class="col-md-3">
-                                            <p style="font-weight: 700; color: #f39c12; border-right: 3px solid #f39c12; padding-right: 10px;">الشرق الأوسط وأفريقيا</p>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="SASO_SABER"> SASO / SABER (Saudi)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="G_Mark"> G-Mark (Gulf Countries)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="SONCAP"> SONCAP (Nigeria)</label></div>
-                                            <div class="checkbox"><label><input type="checkbox" name="certs[]" value="EAC_Union"> EAC (Eurasian Union)</label></div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>أخرى (اذكرها هنا)</label>
-                                                <input type="text" name="other_certs" class="form-control" placeholder="أدخل أي شهادات أخرى مطلوبة غير موجودة في القائمة">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center" style="margin-top: 40px; margin-bottom: 60px;">
-                    <button type="submit" class="btn btn-primary btn-lg" style="padding: 15px 60px; border-radius: 50px; font-weight: 900; font-size: 1.4em; box-shadow: 0 10px 25px rgba(60, 141, 188, 0.4);">
-                        <i class="fa fa-paper-plane" style="margin-left: 10px;"></i> إرسال الطلب للمراجعة الدولية
-                    </button>
-                    <p class="text-muted" style="margin-top: 15px;">بمجرد الإرسال، سيبدأ فريقنا الميداني في البحث عن أفضل الموردين لك.</p>
-                </div>
-
-            </form>
-        </div>
+        </form>
     </div>
-</section>
+</div>
 
 @push('scripts')
 <script>
@@ -262,7 +243,7 @@ $(document).ready(function() {
         $('#imagePreviewContainer').empty();
         let files = this.files;
         if (files.length > 5) {
-            alert('عذراً، يمكنك رفع 5 صور كحد أقصى');
+            Swal.fire({icon: 'warning', title: 'تنبيه', text: 'عذراً، يمكنك رفع 5 صور كحد أقصى'});
             this.value = '';
             return;
         }
@@ -270,7 +251,7 @@ $(document).ready(function() {
             let reader = new FileReader();
             reader.onload = function(e) {
                 $('#imagePreviewContainer').append(`
-                    <div style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;">
+                    <div class="border rounded overflow-hidden shadow-sm" style="width: 80px; height: 80px;">
                         <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 `);
@@ -284,9 +265,9 @@ $(document).ready(function() {
         let file = this.files[0];
         if (file) {
             $('#pdfPreviewContainer').html(`
-                <div style="padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fa fa-file-pdf-o text-red"></i> ${file.name}</span>
-                    <a href="${URL.createObjectURL(file)}" target="_blank" class="btn btn-xs btn-default">معاينة</a>
+                <div class="p-2 bg-white border rounded shadow-sm d-flex align-items-center justify-content-between">
+                    <span class="text-dark fw-bold"><i class="fa-regular fa-file-pdf text-danger me-2"></i> ${file.name}</span>
+                    <a href="${URL.createObjectURL(file)}" target="_blank" class="btn btn-sm btn-outline-secondary">معاينة</a>
                 </div>
             `);
         }
@@ -294,10 +275,8 @@ $(document).ready(function() {
 });
 </script>
 <style>
-    .upload-zone:hover { border-color: #3c8dbc !important; background: #f0f7ff !important; }
-    .form-group label { font-weight: 700; color: #4a5568; margin-bottom: 8px; }
-    .form-control { border-radius: 8px; border: 1.5px solid #e2e8f0; height: auto; padding: 10px 15px; }
-    .form-control:focus { border-color: #3c8dbc; box-shadow: none; }
+    .upload-zone:hover { border-color: #0d6efd !important; background: #f8f9fa !important; }
+    .text-darken { color: #d39e00 !important; }
 </style>
 @endpush
 @endsection

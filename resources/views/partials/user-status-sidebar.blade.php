@@ -151,7 +151,7 @@
                     <div class="sidebar-text-info">
                         <h4>{{ $package->getTitleAttribute() }}</h4>
                         @if($isActive)
-                            <span class="current-badge">الباقة الحالية</span>
+                            <span class="current-badge">{{ __('dashboard.current_package') }}</span>
                             <div class="star-rating-sidebar">
                                 @for($i = 1; $i <= 5; $i++)
                                     <i class="fa {{ $i <= $user->stars ? 'fa-star text-yellow' : 'fa-star-o text-gray' }}"></i>
@@ -174,7 +174,7 @@
                     </div>
                 @endforeach
             @else
-                <div class="text-muted text-center" style="font-size: 10px; padding: 20px 0;">لا توجد شهادات</div>
+                <div class="text-muted text-center" style="font-size: 10px; padding: 20px 0;">{{ __('dashboard.no_certificates') }}</div>
             @endif
         </div>
 

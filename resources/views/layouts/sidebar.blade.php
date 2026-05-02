@@ -1,361 +1,336 @@
-<aside class="main-sidebar">
-
-  <!-- الشريط الجانبي -->
-  <section class="sidebar">
-
-    <!-- لوحة المستخدم -->
-    <div class="user-panel">
-      <div class="pull-right image">
-        <img src="{{ Auth::user()->avatar ? \Illuminate\Support\Facades\Storage::url(Auth::user()->avatar) : asset('dist/img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
-      </div>
-      <div class="pull-right info">
-        <p>{{ Auth::user()->name ?? 'مستخدم' }}</p>
-        <a href="{{ route('profile.edit') }}"><i class="fa fa-circle text-success"></i> {{ __('dashboard.profile') }}</a>
-      </div>
+<div class="main-sidebar bg-white shadow-sm" id="sidebar">
+    <!-- Logo / Brand -->
+    <div class="p-3 border-bottom d-flex align-items-center justify-content-center" style="height: var(--topbar-height); background: linear-gradient(135deg, #050d1f 0%, #18335c 50%, #050d1f 100%); background-size: 200% 200%; animation: gradientWave 5s ease infinite;">
+        <a href="{{ url(auth()->user()->panel_type . '/dashboard') }}" class="text-decoration-none d-flex align-items-center gap-2">
+            <img src="{{ asset('assets/images/logo-ngis.png') }}" alt="NGIS LOGO" style="height: 40px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
+            <div class="d-flex flex-column text-start">
+                <span class="fw-bold text-white" style="font-family: 'Arial Black', Impact, sans-serif; font-size: 1.2rem; letter-spacing: 2px; line-height: 1;">NGIS</span>
+                <span class="fw-bold" style="font-size: 0.5rem; letter-spacing: 1px; color: #d4af37;">GLOBAL INTEGRATED SERVICES</span>
+            </div>
+        </a>
     </div>
 
-    <!-- نموذج البحث -->
-    <form action="#" method="get" class="sidebar-form">
-      <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="بحث...">
-        <span class="input-group-btn">
-          <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </form>
+    <!-- User Info -->
+    <div class="p-3 border-bottom text-center bg-white">
+        <div class="text-uppercase fw-bold text-dark mb-2" style="font-size: 0.85rem; letter-spacing: 1px;">
+            @if(auth()->user()->hasRole('admin'))
+                {{ __('dashboard.admin_panel') }}
+            @elseif(auth()->user()->type == 'global_forwarding')
+                {{ __('dashboard.global_forwarding_panel') }}
+            @else
+                {{ __('dashboard.dashboard') }}
+            @endif
+        </div>
+        <div class="fw-bold fs-5 text-dark mb-1">{{ Auth::user()->name ?? 'User' }}</div>
+        <small class="text-success fw-bold"><i class="fa-solid fa-circle fa-xs me-1"></i> {{ __('dashboard.online') }}</small>
+    </div>
 
-    <!-- قائمة الشريط الجانبي -->
-    <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">{{ __('dashboard.home') }}</li>
+    <!-- Navigation -->
+    <div class="p-2 overflow-auto" style="flex: 1;">
+        <ul class="nav flex-column gap-1 p-1" id="sidebarAccordion">
 
-      <!-- الرئيسية -->
-      <li class="{{ (request()->is('admin') || request()->is('client/dashboard') || request()->is('company/dashboard') || request()->is('factory/dashboard') || request()->is('regional/dashboard')) ? 'active' : '' }}">
-        <a href="{{ url(auth()->user()->panel_type . '/dashboard') }}">
-          <i class="fa fa-dashboard"></i> <span>{{ __('dashboard.home') }}</span>
-        </a>
-      </li>
+            {{-- ============== الرئيسية ============== --}}
+            <li class="nav-item">
+                <a href="{{ url(auth()->user()->panel_type . '/dashboard') }}" class="nav-link sidebar-link {{ (request()->is('admin') || request()->is('*/dashboard')) ? 'active-link' : '' }}">
+                    <i class="fa-solid fa-house fa-fw me-2"></i> {{ __('dashboard.home') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.notifications.index') }}" class="nav-link sidebar-link d-flex justify-content-between align-items-center {{ request()->is('admin/notifications*') ? 'active-link' : '' }}">
+                    <div><i class="fa-solid fa-bell fa-fw me-2"></i> {{ __('dashboard.notifications') }}</div>
+                    @if(auth()->user()->unreadNotifications->count() > 0)
+                        <span class="badge bg-danger rounded-pill">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @endif
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('profile.edit') }}" class="nav-link sidebar-link {{ request()->is('profile*') ? 'active-link' : '' }}">
+                    <i class="fa-solid fa-user fa-fw me-2"></i> {{ __('dashboard.profile') }}
+                </a>
+            </li>
 
-      <!-- الإشعارات -->
-      <li class="{{ request()->is('*/notifications*') ? 'active' : '' }}">
-        @php
-            $unreadCount = auth()->user()->unreadNotifications->count();
-        @endphp
-        <a href="{{ route(auth()->user()->panel_type . '.notifications.index') }}">
-          <i class="fa fa-bell"></i> <span>الإشعارات</span>
-          @if($unreadCount > 0)
-            <span class="pull-left-container">
-              <span class="label label-danger pull-left">{{ $unreadCount }}</span>
-            </span>
-          @endif
-        </a>
-      </li>
+            @if(auth()->user() && auth()->user()->hasRole('admin'))
 
-      <!-- الملف الشخصي -->
-      <li class="{{ request()->is('profile*') ? 'active' : '' }}">
-        <a href="{{ route('profile.edit') }}">
-          <i class="fa fa-user"></i> <span>{{ __('dashboard.profile') }}</span>
-        </a>
-      </li>
+            {{-- ============== قسم الشحن الدولي ============== --}}
+            @php $shippingActive = request()->is('global-forwarding/*'); @endphp
+            <li class="nav-item mt-2">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $shippingActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-shipping" aria-expanded="{{ $shippingActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-ship fa-fw me-2 text-info"></i> <span>{{ __('dashboard.global_forwarding') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $shippingActive ? 'show' : '' }}" id="sec-shipping" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('global_forwarding.orders.standard') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/orders/standard') ? 'active-link' : '' }}"><i class="fa-solid fa-box fa-fw me-2"></i> {{ __('dashboard.general_orders') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.orders.custom') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/orders/custom') ? 'active-link' : '' }}"><i class="fa-solid fa-magnifying-glass-plus fa-fw me-2"></i> {{ __('dashboard.custom_orders') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.orders.matched_products') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/orders/matched-products') ? 'active-link' : '' }}"><i class="fa-solid fa-check-double fa-fw me-2"></i> {{ __('dashboard.matched_products') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.qr_passport') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/qr-passport') ? 'active-link' : '' }}"><i class="fa-solid fa-qrcode fa-fw me-2"></i> {{ __('dashboard.qr_passport') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.insurance') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/insurance') ? 'active-link' : '' }}"><i class="fa-solid fa-shield fa-fw me-2"></i> {{ __('dashboard.insurance_compliance') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.liability_risk') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/liability-risk') ? 'active-link' : '' }}"><i class="fa-solid fa-scale-balanced fa-fw me-2"></i> {{ __('dashboard.liability_risk') }}</a></li>
+                        <li><a href="{{ route('global_forwarding.regional_integration') }}" class="nav-link sidebar-sub-link {{ request()->is('global-forwarding/regional-integration') ? 'active-link' : '' }}"><i class="fa-solid fa-link fa-fw me-2"></i> {{ __('dashboard.regional_integration') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      @if(auth()->user() && (auth()->user()->type === 'global_forwarding' || auth()->user()->hasRole('admin')))
-      <li class="header">إدارة الشحن الدولي</li>
-      
-      <li class="{{ request()->is('global-forwarding/dashboard') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.dashboard') }}">
-          <i class="fa fa-dashboard"></i> <span>لوحة التحكم (الشحن)</span>
-        </a>
-      </li>
+            {{-- ============== قسم المالية ============== --}}
+            @php $financeActive = request()->is('admin/wallets*') || request()->is('admin/invoices*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $financeActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-finance" aria-expanded="{{ $financeActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-coins fa-fw me-2 text-success"></i> <span>{{ __('dashboard.finance_section') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $financeActive ? 'show' : '' }}" id="sec-finance" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.wallets.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/wallets*') ? 'active-link' : '' }}"><i class="fa-solid fa-wallet fa-fw me-2"></i> {{ __('dashboard.wallets') }}</a></li>
+                        <li><a href="{{ route('admin.invoices.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/invoices') ? 'active-link' : '' }}"><i class="fa-solid fa-file-invoice-dollar fa-fw me-2"></i> {{ __('dashboard.invoices') }}</a></li>
+                        <li><a href="{{ route('admin.invoices.payment_status') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/invoices/payment-status') ? 'active-link' : '' }}"><i class="fa-solid fa-money-bill-transfer fa-fw me-2"></i> {{ __('dashboard.payment_status') }}</a></li>
+                        <li><a href="{{ route('admin.invoices.paid') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/invoices/paid') ? 'active-link' : '' }}"><i class="fa-solid fa-circle-check fa-fw me-2"></i> {{ __('dashboard.paid_invoices') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/orders/standard') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.orders.standard') }}">
-          <i class="fa fa-box"></i> <span>الطلبات العامة</span>
-        </a>
-      </li>
+            {{-- ============== قسم الباقات ============== --}}
+            @php $packagesActive = request()->is('admin/packages*') || request()->is('admin/user-packages*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $packagesActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-packages" aria-expanded="{{ $packagesActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-cubes fa-fw me-2 text-primary"></i> <span>{{ __('dashboard.packages_section') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $packagesActive ? 'show' : '' }}" id="sec-packages" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.packages.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/packages*') ? 'active-link' : '' }}"><i class="fa-solid fa-cubes fa-fw me-2"></i> {{ __('dashboard.packages') }}</a></li>
+                        <li><a href="{{ route('admin.user-packages.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/user-packages*') ? 'active-link' : '' }}"><i class="fa-solid fa-star fa-fw me-2"></i> {{ __('dashboard.user_packages') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/orders/custom') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.orders.custom') }}">
-          <i class="fa fa-search-plus"></i> <span>الطلبات الخاصة</span>
-        </a>
-      </li>
+            {{-- ============== قسم القطاعات ============== --}}
+            @php $sectorsActive = request()->is('admin/sectors*') || request()->is('admin/branches*') || request()->is('admin/categories*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $sectorsActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-sectors" aria-expanded="{{ $sectorsActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-layer-group fa-fw me-2 text-warning"></i> <span>{{ __('dashboard.sectors_section') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $sectorsActive ? 'show' : '' }}" id="sec-sectors" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.sectors.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/sectors*') ? 'active-link' : '' }}"><i class="fa-solid fa-layer-group fa-fw me-2"></i> {{ __('dashboard.sectors') }}</a></li>
+                        <li><a href="{{ route('admin.branches.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/branches*') ? 'active-link' : '' }}"><i class="fa-solid fa-code-branch fa-fw me-2"></i> {{ __('dashboard.branches') }}</a></li>
+                        <li><a href="{{ route('admin.categories.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/categories*') ? 'active-link' : '' }}"><i class="fa-solid fa-list fa-fw me-2"></i> {{ __('dashboard.categories') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/orders/matched-products') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.orders.matched_products') }}">
-          <i class="fa fa-check-square-o"></i> <span>المنتجات المطابقة</span>
-        </a>
-      </li>
+            {{-- ============== إدارة الحسابات ============== --}}
+            @php $accountsActive = request()->is('admin/factories*') || request()->is('admin/companies*') || request()->is('admin/clients*') || request()->is('admin/regional*') || request()->is('admin/china*') || request()->is('admin/order-statuses*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $accountsActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-accounts" aria-expanded="{{ $accountsActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-briefcase fa-fw me-2 text-danger"></i> <span>{{ __('dashboard.accounts_management') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $accountsActive ? 'show' : '' }}" id="sec-accounts" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.factories.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/factories') ? 'active-link' : '' }}"><i class="fa-solid fa-industry fa-fw me-2"></i> {{ __('dashboard.factories') }}</a></li>
+                        <li><a href="{{ route('admin.factories.products') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/factories/products') ? 'active-link' : '' }}"><i class="fa-solid fa-boxes-stacked fa-fw me-2"></i> {{ __('dashboard.factory_products') }}</a></li>
+                        <li><a href="{{ route('admin.companies.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/companies') ? 'active-link' : '' }}"><i class="fa-solid fa-building fa-fw me-2"></i> {{ __('dashboard.companies') }}</a></li>
+                        <li><a href="{{ route('admin.companies.products') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/companies/products') ? 'active-link' : '' }}"><i class="fa-solid fa-bag-shopping fa-fw me-2"></i> {{ __('dashboard.company_products') }}</a></li>
+                        <li><a href="{{ route('admin.clients.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/clients') ? 'active-link' : '' }}"><i class="fa-solid fa-users fa-fw me-2"></i> {{ __('dashboard.clients') }}</a></li>
+                        <li><a href="{{ route('admin.clients.orders') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/clients/orders*') ? 'active-link' : '' }}"><i class="fa-solid fa-cart-shopping fa-fw me-2"></i> {{ __('dashboard.client_orders') }}</a></li>
+                        <li><a href="{{ route('admin.regional.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/regional*') ? 'active-link' : '' }}"><i class="fa-solid fa-globe fa-fw me-2"></i> {{ __('dashboard.regional_offices') }}</a></li>
+                        <li><a href="{{ route('admin.china.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/china*') ? 'active-link' : '' }}"><i class="fa-solid fa-flag fa-fw me-2"></i> {{ __('dashboard.china_office') }}</a></li>
+                        <li><a href="{{ route('admin.order-statuses.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/order-statuses*') ? 'active-link' : '' }}"><i class="fa-solid fa-list-ol fa-fw me-2"></i> {{ __('dashboard.order_statuses') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/qr-passport') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.qr_passport') }}">
-          <i class="fa fa-qrcode"></i> <span>التوثيق الرقمي</span>
-        </a>
-      </li>
+            {{-- ============== إدارة التوثيق ============== --}}
+            @php $verifActive = request()->is('admin/verifications*') || request()->is('admin/user-verifications*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $verifActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-verif" aria-expanded="{{ $verifActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-shield-halved fa-fw me-2 text-teal"></i> <span>{{ __('dashboard.verification_management') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $verifActive ? 'show' : '' }}" id="sec-verif" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.verifications.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/verifications') ? 'active-link' : '' }}"><i class="fa-solid fa-shield-halved fa-fw me-2"></i> {{ __('dashboard.verifications') }}</a></li>
+                        <li><a href="{{ route('admin.user-verifications.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/user-verifications*') ? 'active-link' : '' }}"><i class="fa-solid fa-id-badge fa-fw me-2"></i> {{ __('dashboard.grant_verifications') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/insurance') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.insurance') }}">
-          <i class="fa fa-shield"></i> <span>التأمين والامتثال</span>
-        </a>
-      </li>
+            {{-- ============== نطاقات العمل ============== --}}
+            @php $geoActive = request()->is('admin/countries*') || request()->is('admin/geographic-zones*') || request()->is('admin/office-zones*') || request()->is('admin/currencies*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $geoActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-geo" aria-expanded="{{ $geoActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-earth-americas fa-fw me-2" style="color:#20c997;"></i> <span>{{ __('dashboard.work_zones') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $geoActive ? 'show' : '' }}" id="sec-geo" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.countries.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/countries*') ? 'active-link' : '' }}"><i class="fa-solid fa-earth-americas fa-fw me-2"></i> {{ __('dashboard.countries') }}</a></li>
+                        <li><a href="{{ route('admin.geographic-zones.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/geographic-zones*') ? 'active-link' : '' }}"><i class="fa-solid fa-map-location-dot fa-fw me-2"></i> {{ __('dashboard.geographic_zones') }}</a></li>
+                        <li><a href="{{ route('admin.office-zones.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/office-zones*') ? 'active-link' : '' }}"><i class="fa-solid fa-location-pin fa-fw me-2"></i> {{ __('dashboard.office_zones') }}</a></li>
+                        <li><a href="{{ route('admin.currencies.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/currencies*') ? 'active-link' : '' }}"><i class="fa-solid fa-coins fa-fw me-2"></i> {{ __('dashboard.currencies') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/liability-risk') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.liability_risk') }}">
-          <i class="fa fa-balance-scale"></i> <span>إدارة المخاطر</span>
-        </a>
-      </li>
+            {{-- ============== الإعدادات والأذونات ============== --}}
+            @php $settingsActive = request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') || request()->is('admin/settings*'); @endphp
+            <li class="nav-item mt-1">
+                <button class="nav-link sidebar-section-btn w-100 d-flex justify-content-between align-items-center {{ $settingsActive ? 'active-link' : '' }}"
+                    data-bs-toggle="collapse" data-bs-target="#sec-settings" aria-expanded="{{ $settingsActive ? 'true' : 'false' }}">
+                    <div><i class="fa-solid fa-gears fa-fw me-2 text-secondary"></i> <span>{{ __('dashboard.settings_permissions') }}</span></div>
+                    <i class="fa-solid fa-chevron-left section-arrow"></i>
+                </button>
+                <div class="collapse {{ $settingsActive ? 'show' : '' }}" id="sec-settings" data-bs-parent="#sidebarAccordion">
+                    <ul class="nav flex-column gap-1 sub-menu">
+                        <li><a href="{{ route('admin.users.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/users*') ? 'active-link' : '' }}"><i class="fa-solid fa-users-gear fa-fw me-2"></i> {{ __('dashboard.users') }}</a></li>
+                        <li><a href="{{ route('admin.roles.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/roles*') ? 'active-link' : '' }}"><i class="fa-solid fa-user-tag fa-fw me-2"></i> {{ __('dashboard.roles') }}</a></li>
+                        <li><a href="{{ route('admin.permissions.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/permissions*') ? 'active-link' : '' }}"><i class="fa-solid fa-lock fa-fw me-2"></i> {{ __('dashboard.permissions') }}</a></li>
+                        <li><a href="{{ route('admin.settings.index') }}" class="nav-link sidebar-sub-link {{ request()->is('admin/settings*') ? 'active-link' : '' }}"><i class="fa-solid fa-gears fa-fw me-2"></i> {{ __('dashboard.general_settings') }}</a></li>
+                    </ul>
+                </div>
+            </li>
 
-      <li class="{{ request()->is('global-forwarding/regional-integration') ? 'active' : '' }}">
-        <a href="{{ route('global_forwarding.regional_integration') }}">
-          <i class="fa fa-link"></i> <span>الربط اللوجستي</span>
-        </a>
-      </li>
-      @endif
+            @endif
 
-      @if(auth()->user() && (in_array(auth()->user()->type, ['client', 'merchant', 'company_owner', 'company']) || auth()->user()->hasRole('admin')))
-      <li class="header">خدمات العميل</li>
-      <li class="{{ request()->is('client/special-order') ? 'active' : '' }}">
-        <a href="{{ route('client.special_order') }}">
-          <i class="fa fa-star-o"></i> <span>طلب خاص (Sourcing)</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('client/subscription-plans') ? 'active' : '' }}">
-        <a href="{{ route('client.subscription.plans') }}">
-          <i class="fa fa-cubes"></i> <span>باقات الاشتراك</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('client/my-wallet') ? 'active' : '' }}">
-        <a href="{{ route('client.wallet') }}">
-          <i class="fa fa-google-wallet"></i> <span>محفظتي</span>
-        </a>
-      </li>
-      @endif
-
-      @if(auth()->user() && auth()->user()->hasRole('admin'))
-      <li class="treeview {{ request()->is('admin/wallets*') || request()->is('admin/invoices*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-money"></i> <span>قسم عمليات المالية</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('admin/wallets*') ? 'active' : '' }}">
-            <a href="{{ route('admin.wallets.index') }}">
-              <i class="fa fa-google-wallet"></i> المحافظ
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/invoices') ? 'active' : '' }}">
-            <a href="{{ route('admin.invoices.index') }}">
-              <i class="fa fa-file-text-o"></i> الفواتير
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/invoices/payment-status') ? 'active' : '' }}">
-            <a href="{{ route('admin.invoices.payment_status') }}">
-              <i class="fa fa-credit-card"></i> حالات دفع الفواتير
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/invoices/paid') ? 'active' : '' }}">
-            <a href="{{ route('admin.invoices.paid') }}">
-              <i class="fa fa-check-circle"></i> الفواتير المدفوعة
-            </a>
-          </li>
+            <li class="nav-item mt-3 pt-3 border-top">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="nav-link sidebar-link text-danger w-100 text-start bg-transparent border-0">
+                        <i class="fa-solid fa-right-from-bracket fa-fw me-2"></i> {{ __('dashboard.logout') }}
+                    </button>
+                </form>
+            </li>
         </ul>
-      </li>
+    </div>
+</div>
 
-      {{-- ===== قسم الباقات ===== --}}
-      <li class="treeview {{ request()->is('admin/packages*') || request()->is('admin/user-packages*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-cubes"></i> <span>قسم الباقات</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('admin/packages*') ? 'active' : '' }}">
-            <a href="{{ route('admin.packages.index') }}">
-              <i class="fa fa-cubes"></i> الباقات
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/user-packages*') ? 'active' : '' }}">
-            <a href="{{ route('admin.user-packages.index') }}">
-              <i class="fa fa-star"></i> إعدادات الباقات للمستخدمين
-            </a>
-          </li>
-        </ul>
-      </li>
+<style>
+    @keyframes gradientWave {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-      {{-- ===== قسم القطاعات ===== --}}
-      <li class="treeview {{ request()->is('admin/sectors*') || request()->is('admin/branches*') || request()->is('admin/categories*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-th"></i> <span>قسم القطاعات</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('admin/sectors*') ? 'active' : '' }}">
-            <a href="{{ route('admin.sectors.index') }}">
-              <i class="fa fa-th"></i> القطاعات
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/branches*') ? 'active' : '' }}">
-            <a href="{{ route('admin.branches.index') }}">
-              <i class="fa fa-code-fork"></i> فروع القطاعات
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/categories*') ? 'active' : '' }}">
-            <a href="{{ route('admin.categories.index') }}">
-              <i class="fa fa-list"></i> أقسام الفروع
-            </a>
-          </li>
-        </ul>
-      </li>
+    /* Regular nav links */
+    .sidebar-link {
+        font-weight: 500;
+        font-size: 14px;
+        padding: 0.45rem 0.75rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        color: #374151;
+    }
+    .sidebar-link:hover {
+        background-color: #f0f4ff;
+        color: #0d6efd !important;
+    }
 
-      {{-- ===== إدارة التتبع ===== --}}
-      <li class="treeview {{ request()->is('admin/factories*') || request()->is('admin/companies*') || request()->is('admin/clients*') || request()->is('admin/regional*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-briefcase"></i> <span>إدارة تتبع النظام</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview {{ request()->is('admin/factories*') ? 'active' : '' }}">
-            <a href="#">
-              <i class="fa fa-industry"></i> إدارة المصانع
-              <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="{{ route('admin.factories.index') }}"><i class="fa fa-circle-o"></i> عرض المصانع</a></li>
-              <li><a href="{{ route('admin.factories.products') }}"><i class="fa fa-circle-o"></i> منتجات المصانع</a></li>
-            </ul>
-          </li>
-          <li class="treeview {{ request()->is('admin/companies*') ? 'active' : '' }}">
-            <a href="#">
-              <i class="fa fa-building"></i> إدارة الشركات
-              <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="{{ route('admin.companies.index') }}"><i class="fa fa-circle-o"></i> عرض الشركات</a></li>
-              <li><a href="{{ route('admin.companies.products') }}"><i class="fa fa-circle-o"></i> منتجات الشركات</a></li>
-            </ul>
-          </li>
-          <li class="treeview {{ request()->is('admin/clients*') ? 'active' : '' }}">
-            <a href="#">
-              <i class="fa fa-users"></i> إدارة العملاء
-              <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="{{ route('admin.clients.index') }}"><i class="fa fa-circle-o"></i> عرض العملاء</a></li>
-              <li><a href="{{ route('admin.clients.orders') }}"><i class="fa fa-circle-o"></i> طلبات العملاء</a></li>
-            </ul>
-          </li>
-          <li class="{{ request()->is('admin/regional*') ? 'active' : '' }}">
-            <a href="{{ route('admin.regional.index') }}">
-              <i class="fa fa-globe"></i> المكاتب الإقليمية
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/order-statuses*') ? 'active' : '' }}">
-            <a href="{{ route('admin.order-statuses.index') }}">
-              <i class="fa fa-list-ol"></i> مسميات حالة الطلب
-            </a>
-          </li>
-        </ul>
-      </li>
+    /* Section toggle buttons */
+    .sidebar-section-btn {
+        font-weight: 600;
+        font-size: 14px;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: #111827;
+        text-align: right;
+        transition: all 0.2s ease;
+    }
+    html[dir="ltr"] .sidebar-section-btn {
+        text-align: left;
+    }
+    
+    .sidebar-section-btn:hover {
+        background-color: #f3f4f6;
+    }
 
-      <li class="treeview {{ request()->is('admin/china*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-flag"></i> <span>إدارة الصين</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('china/invoices*') ? 'active' : '' }}">
-            <a href="{{ route('china.invoices') }}"><i class="fa fa-file-text-o"></i> الفواتير الموجهة</a>
-          </li>
-          <li class="{{ request()->is('china/regional-offices*') ? 'active' : '' }}">
-            <a href="{{ route('china.regional_offices') }}"><i class="fa fa-globe"></i> مكاتب الأقاليم</a>
-          </li>
-          <li class="{{ request()->is('china/customers*') ? 'active' : '' }}">
-            <a href="{{ route('china.customers') }}"><i class="fa fa-users"></i> العملاء</a>
-          </li>
-          <li class="{{ request()->is('china/product-status*') ? 'active' : '' }}">
-            <a href="{{ route('china.product_status') }}"><i class="fa fa-ship"></i> حالات المنتجات</a>
-          </li>
-        </ul>
-      </li>
+    /* Arrow rotation */
+    .section-arrow {
+        font-size: 0.7rem;
+        color: #9ca3af;
+        transition: transform 0.3s ease;
+    }
+    .sidebar-section-btn[aria-expanded="true"] .section-arrow {
+        transform: rotate(-90deg);
+        color: #0d6efd;
+    }
+    html[dir="ltr"] .sidebar-section-btn[aria-expanded="true"] .section-arrow {
+        transform: rotate(90deg);
+    }
+    .sidebar-section-btn[aria-expanded="true"] {
+        background-color: #eef3ff;
+        color: #0d6efd;
+    }
 
-      {{-- ===== الدول ونطاقات العمل الجغرافي ===== --}}
-      <li class="treeview {{ request()->is('admin/countries*') || request()->is('admin/geographic-zones*') || request()->is('admin/office-zones*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-map"></i> <span>نطاقات العمل الجغرافي</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('admin/countries*') ? 'active' : '' }}"><a href="{{ route('admin.countries.index') }}"><i class="fa fa-circle-o"></i> إدارة الدول</a></li>
-          <li class="{{ request()->is('admin/geographic-zones*') ? 'active' : '' }}"><a href="{{ route('admin.geographic-zones.index') }}"><i class="fa fa-circle-o"></i> إدارة النطاقات</a></li>
-          <li class="{{ request()->is('admin/office-zones*') ? 'active' : '' }}"><a href="{{ route('admin.office-zones.index') }}"><i class="fa fa-circle-o"></i> اختيار نطاقات للمكاتب</a></li>
-        </ul>
-      </li>
+    /* Sub-menu links */
+    .sub-menu {
+        padding: 4px 0 4px 12px;
+        margin-top: 2px;
+        border-right: 2px solid #e5e7eb;
+        margin-right: 12px;
+    }
+    html[dir="ltr"] .sub-menu {
+        padding: 4px 12px 4px 0;
+        border-right: none;
+        border-left: 2px solid #e5e7eb;
+        margin-right: 0;
+        margin-left: 12px;
+    }
+    
+    .sidebar-sub-link {
+        font-weight: 500;
+        font-size: 13px;
+        padding: 0.35rem 0.6rem;
+        border-radius: 6px;
+        color: #4b5563;
+        transition: all 0.2s ease;
+    }
+    .sidebar-sub-link:hover {
+        background-color: #f0f4ff;
+        color: #0d6efd !important;
+        padding-right: 1rem;
+    }
+    html[dir="ltr"] .sidebar-sub-link:hover {
+        padding-right: 0.6rem;
+        padding-left: 1rem;
+    }
 
-      {{-- ===== قسم العملات ===== --}}
-      <li class="{{ request()->is('admin/currencies*') ? 'active' : '' }}">
-        <a href="{{ route('admin.currencies.index') }}">
-          <i class="fa fa-dollar"></i> <span>قسم العملات</span>
-        </a>
-      </li>
+    /* Active state */
+    .active-link {
+        background-color: #eef3ff !important;
+        color: #0d6efd !important;
+        font-weight: 600 !important;
+    }
 
-      {{-- ===== إدارة التوثيق ===== --}}
-      <li class="treeview {{ request()->is('admin/verifications*') || request()->is('admin/user-verifications*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-shield"></i> <span>إدارة التوثيق</span>
-          <span class="pull-left-container"><i class="fa fa-angle-right pull-left"></i></span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ request()->is('admin/verifications*') ? 'active' : '' }}">
-            <a href="{{ route('admin.verifications.index') }}">
-              <i class="fa fa-check-circle"></i> التوثيقات
-            </a>
-          </li>
-          <li class="{{ request()->is('admin/user-verifications*') ? 'active' : '' }}">
-            <a href="{{ route('admin.user-verifications.index') }}">
-              <i class="fa fa-id-badge"></i> إعطاء توثيقات
-            </a>
-          </li>
-        </ul>
-      </li>
+    /* Force all icons black */
+    .main-sidebar .fa-fw,
+    .main-sidebar .fa-solid,
+    .main-sidebar .fa-regular {
+        color: #111827 !important;
+    }
+    /* Keep icons blue on active links */
+    .main-sidebar .active-link .fa-fw,
+    .main-sidebar .active-link .fa-solid,
+    .main-sidebar [aria-expanded="true"] .fa-fw,
+    .main-sidebar [aria-expanded="true"] .fa-solid {
+        color: #0d6efd !important;
+    }
+    /* Keep logout icon red */
+    .main-sidebar .text-danger .fa-solid,
+    .main-sidebar .text-danger .fa-fw {
+        color: #dc3545 !important;
+    }
 
-      <li class="treeview {{ request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') || request()->is('admin/settings*') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-cogs"></i> <span>{{ __('dashboard.settings') }}</span>
-          <span class="pull-left-container">
-            <i class="fa fa-angle-right pull-left"></i>
-          </span>
-        </a>
-
-        <ul class="treeview-menu">
-
-          <li class="{{ request()->is('admin/users*') ? 'active' : '' }}">
-            <a href="{{ route('admin.users.index') }}">
-              <i class="fa fa-users"></i> {{ __('dashboard.users') }}
-            </a>
-          </li>
-
-          <li class="{{ request()->is('admin/roles*') ? 'active' : '' }}">
-            <a href="{{ route('admin.roles.index') }}">
-              <i class="fa fa-id-badge"></i> {{ __('dashboard.roles') }}
-            </a>
-          </li>
-
-          <li class="{{ request()->is('admin/permissions*') ? 'active' : '' }}">
-            <a href="{{ route('admin.permissions.index') }}">
-              <i class="fa fa-lock"></i> {{ __('dashboard.permissions') }}
-            </a>
-          </li>
-
-          <li class="{{ request()->is('admin/settings*') ? 'active' : '' }}">
-            <a href="{{ route('admin.settings.index') }}">
-              <i class="fa fa-gear"></i> {{ __('dashboard.settings') }}
-            </a>
-          </li>
-
-        </ul>
-      </li>
-      @endif
-    </ul>
-    <!-- /قائمة الشريط الجانبي -->
-
-  </section>
-  <!-- /الشريط الجانبي -->
-</aside>
+    .hover-bg-light:hover {
+        background-color: #fff5f5;
+    }
+</style>

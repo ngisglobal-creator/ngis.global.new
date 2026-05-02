@@ -3,132 +3,163 @@
 @section('title', 'منتجاتي')
 
 @section('content')
-<style>
-    .table td {
-        vertical-align: middle !important;
-    }
-</style>
-<section class="content-header">
-    <h1>
-        منتجاتي
-        <small>المنتجات التي قمت بإضافتها</small>
-    </h1>
-</section>
 
-<section class="content">
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> نجاح!</h4>
-            {{ session('success') }}
-        </div>
-    @endif
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">منتجاتي <span class="text-muted fs-6 fw-normal ms-2">المنتجات التي قمت بإضافتها</span></h3>
+    <a href="{{ route('products.create') }}" class="btn btn-primary">
+        <i class="fa-solid fa-plus me-1"></i> إضافة منتج جديد
+    </a>
+</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">قائمة المنتجات</h3>
-                    <div class="box-tools">
-                        <a href="{{ route('products.create') }}" class="btn btn-sm btn-success">
-                            <i class="fa fa-plus"></i> إضافة منتج جديد
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="box-body table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>صورة المنتج</th>
-                                <th>اسم المنتج</th>
-                                <th>التصنيف</th>
-                                <th>الكمية</th>
-                                <th>النوع</th>
-                                <th>السعر</th>
-                                <th>صاحب المنتج</th>
-                                <th>تاريخ الإضافة</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($products as $product)
-                                <tr>
-                                    <td class="english-nums" style="font-weight: bold;">{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if($product->images->count() > 0)
-                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" 
-                                                 class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-                                        @else
-                                            <span class="label label-default">لا توجد صورة</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <strong>{{ $product->name }}</strong><br>
-                                        <div class="text-muted" style="font-size: 12px; max-height: 40px; overflow: hidden;">
-                                            {!! Str::limit(strip_tags($product->description), 100) !!}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="label label-info">{{ $product->sector->name_ar }}</span><br>
-                                        <small>{{ $product->branch->name_ar }} > {{ $product->category->name_ar }}</small>
-                                    </td>
-                                    <td class="english-nums" style="font-weight: 900; font-size: 16px;">{{ $product->quantity }}</td>
-                                    <td>
-                                        @if($product->vehicle_group === 'light')
-                                            <span class="label label-warning"><i class="fa fa-car"></i> مركبة خفيفة</span>
-                                        @elseif($product->vehicle_group === 'heavy')
-                                            <span class="label label-danger"><i class="fa fa-truck"></i> معدات ثقيلة</span>
-                                        @else
-                                            <span class="label label-default"><i class="fa fa-cube"></i> منتج عادي</span>
-                                        @endif
-                                    </td>
-                                    <td class="english-nums" style="font-weight: 900; font-size: 16px;">{{ number_format($product->price, 2) }}</td>
-                                    <td>
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" 
-                                                 src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('img/default-avatar.png') }}" 
-                                                 alt="user image">
-                                            <span class="username" style="font-size: 13px;">
-                                                <a href="#">{{ $user->name }}</a>
-                                            </span>
-                                            <span class="description" style="font-size: 11px;">{{ $user->type == 'company' ? 'شركة' : 'مصنع' }}</span>
-                                        </div>
-                                    </td>
-                                    <td class="english-nums" style="font-weight: bold; color: #555;">{{ $product->created_at->format('Y-m-d') }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-cog"></i> <span class="caret"></span>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i> {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4" style="width: 50px;">#</th>
+                        <th>الصورة</th>
+                        <th>اسم المنتج</th>
+                        <th>التصنيف</th>
+                        <th>الكمية</th>
+                        <th>النوع</th>
+                        <th>السعر</th>
+                        <th>تاريخ الإضافة</th>
+                        <th class="text-center" style="width: 120px;">الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($products as $product)
+                    <tr>
+                        <td class="ps-4 fw-bold text-muted english-nums">{{ $loop->iteration }}</td>
+
+                        <td>
+                            @if($product->images->count() > 0)
+                                <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                                     alt="{{ $product->name }}"
+                                     class="rounded-3 border"
+                                     style="width: 56px; height: 56px; object-fit: cover;">
+                            @else
+                                <div class="rounded-3 border bg-light d-flex align-items-center justify-content-center text-muted"
+                                     style="width: 56px; height: 56px;">
+                                    <i class="fa-solid fa-image fa-sm"></i>
+                                </div>
+                            @endif
+                        </td>
+
+                        <td>
+                            <div class="fw-bold">{{ $product->name }}</div>
+                            <div class="text-muted small" style="max-width: 220px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                {!! Str::limit(strip_tags($product->description), 80) !!}
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill">{{ $product->sector->name_ar }}</span>
+                            <div class="text-muted small mt-1">{{ $product->branch->name_ar }} › {{ $product->category->name_ar }}</div>
+                        </td>
+
+                        <td><span class="fw-bold english-nums fs-5">{{ $product->quantity }}</span></td>
+
+                        <td>
+                            @if($product->vehicle_group === 'light')
+                                <span class="badge bg-warning-subtle text-warning"><i class="fa-solid fa-car me-1"></i> خفيفة</span>
+                            @elseif($product->vehicle_group === 'heavy')
+                                <span class="badge bg-danger-subtle text-danger"><i class="fa-solid fa-truck me-1"></i> ثقيلة</span>
+                            @else
+                                <span class="badge bg-secondary-subtle text-secondary"><i class="fa-solid fa-cube me-1"></i> عادي</span>
+                            @endif
+                        </td>
+
+                        <td>
+                            <span class="fw-bold english-nums">{{ number_format($product->price, 2) }}</span>
+                            <small class="text-muted ms-1">ر.س</small>
+                        </td>
+
+                        <td><span class="text-muted small english-nums">{{ $product->created_at->format('Y-m-d') }}</span></td>
+
+                        <td class="text-center">
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm border rounded-3 dropdown-toggle px-3"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
+                                    <li>
+                                        <a class="dropdown-item py-2" href="{{ route('products.show', $product->id) }}">
+                                            <i class="fa-solid fa-eye text-primary me-2"></i> عرض التفاصيل
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="{{ route('products.edit', $product->id) }}">
+                                            <i class="fa-solid fa-pen-to-square text-success me-2"></i> تعديل
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider my-1"></li>
+                                    <li>
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item py-2 text-danger">
+                                                <i class="fa-solid fa-trash me-2"></i> حذف المنتج
                                             </button>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{ route('products.show', $product->id) }}"><i class="fa fa-eye text-green"></i> تفاصيل المنتج</a></li>
-                                                <li><a href="{{ route('products.edit', $product->id) }}"><i class="fa fa-edit text-blue"></i> تعديل</a></li>
-                                                <li>
-                                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" 
-                                                          onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟');" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" style="background:none; border:none; padding: 3px 20px; width: 100%; text-align: right;">
-                                                            <i class="fa fa-trash text-red"></i> حذف
-                                                        </button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="9" class="text-center">لا توجد منتجات مضافة حالياً.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="9" class="text-center py-5">
+                            <i class="fa-solid fa-box-open fa-3x text-muted opacity-25 mb-3 d-block"></i>
+                            <p class="text-muted mb-3">لا توجد منتجات مضافة حالياً</p>
+                            <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-plus me-1"></i> أضف منتجك الأول
+                            </a>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-</section>
+</div>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'تأكيد الحذف',
+                    text: 'هل أنت متأكد من حذف هذا المنتج؟',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'نعم، احذف',
+                    cancelButtonText: 'إلغاء',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) { this.submit(); }
+                });
+            } else {
+                if(confirm('هل أنت متأكد من حذف هذا المنتج؟')) this.submit();
+            }
+        });
+    });
+</script>
+@endpush
+
 @endsection

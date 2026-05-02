@@ -68,6 +68,16 @@
                             </span>
                         </div>
 
+                        <!-- Main Action Buttons Moved to Top -->
+                        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
+                            <button id="btnOrderModalTop" class="btn btn-success btn-flat w-100" style="flex: 3; border-radius: 8px; font-weight: 900; font-size: 24px; padding: 15px; background: #00a65a; border: none; box-shadow: 0 4px 15px rgba(0, 166, 90, 0.4); transition: all 0.3s;" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                <i class="fa fa-shopping-cart fa-lg"></i> اطلب الآن
+                            </button>
+                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-flat" style="flex: 1; border-radius: 8px; font-weight: bold; font-size: 18px; padding: 15px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa fa-arrow-right"></i> رجوع
+                            </a>
+                        </div>
+
                         <div style="background: #fdfdfd; padding: 20px; border-radius: 8px; border: 1px solid #f0f0f0; margin-bottom: 25px;">
                             <h4 style="font-weight: bold; color: #555; margin-top: 0; border-bottom: 2px solid #3c8dbc; display: inline-block; padding-bottom: 5px;">وصف المنتج</h4>
                             <div style="font-size: 17px; line-height: 1.8; color: #444; text-align: justify; margin-top: 15px;">
@@ -108,14 +118,7 @@
                             </li>
                         </ul>
 
-                        <div style="margin-top: 35px; display: flex; gap: 15px;">
-                            <button id="btnOrderModal" class="btn btn-success btn-lg btn-flat" style="flex: 2; border-radius: 6px; font-weight: bold; font-size: 20px; transition: all 0.3s;" data-toggle="modal" data-target="#orderModal">
-                                <i class="fa fa-shopping-cart"></i> اطلب الآن
-                            </button>
-                            <a href="{{ route('site.products.index') }}" class="btn btn-default btn-lg btn-flat" style="flex: 1; border-radius: 6px;">
-                                <i class="fa fa-arrow-right"></i> رجوع
-                            </a>
-                        </div>
+
                 </div>
             </div>
 
@@ -382,7 +385,7 @@
         <div class="modal-dialog modal-lg" role="document" style="width: 98% !important; max-width: 98vw; margin: 10px auto;">
             <div class="modal-content" style="border-radius: 12px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="modal-header" style="background: linear-gradient(135deg, #1e3a5f 0%, #3c8dbc 100%); color: white; border-bottom: none; padding: 20px;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 1;"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white; opacity: 1;"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="orderModalLabel" style="font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: space-between; width: 100%; padding-right: 30px;">
                         <span><i class="fa fa-shopping-cart"></i> إضافة للسلة وتحديد القياسات اللوجستية</span>
                         <button type="button" id="btnToggleSpecialView" class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 5px 15px; font-weight: bold; transition: all 0.3s;">
@@ -625,7 +628,7 @@
                         </div> <!-- End specialContainersView -->
                     </div>
                     <div class="modal-footer" style="background: #f9f9f9; border-top: 1px solid #eee; padding: 20px 30px;">
-                        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" style="border-radius: 30px; padding: 8px 30px; font-weight: 600;">إلغاء</button>
+                        <button type="button" class="btn btn-default btn-lg" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 30px; font-weight: 600;">إلغاء</button>
                         <button type="submit" class="btn btn-success btn-lg" id="btnSubmitOrder" style="background: #00a65a; border: none; border-radius: 30px; padding: 8px 40px; font-weight: bold; box-shadow: 0 4px 10px rgba(0, 166, 90, 0.3);">
                             وضع في سلة
                         </button>

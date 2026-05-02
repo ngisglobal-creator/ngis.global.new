@@ -1,68 +1,71 @@
 @extends('layouts.master')
 
-@section('title', 'لوحة التحكم - الرئيسية')
+@section('title', __('dashboard.dashboard') . ' | ' . __('dashboard.admin_panel'))
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-    لوحة التحكم
-    <small>الإحصائيات العامة</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-    <li class="active">لوحة التحكم</li>
-  </ol>
-</section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">{{ __('dashboard.dashboard_title') }} <span class="text-muted fs-6 fw-normal ms-2">{{ __('dashboard.dashboard_subtitle') }}</span></h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none"><i class="fa-solid fa-house me-1"></i>{{ __('dashboard.home') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.breadcrumb_dashboard') }}</li>
+        </ol>
+    </nav>
+</div>
 
-<!-- Main content -->
-<section class="content">
-  <!-- Small boxes (Stat box) -->
-  <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>{{ $stats['users'] }}</h3>
-          <p>إجمالي المستخدمين</p>
+<div class="row g-4">
+    <!-- Stat Cards -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-primary text-white h-100 stat-card">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1 english-nums">{{ $stats['users'] }}</div>
+                <div class="fw-semibold">{{ __('dashboard.total_users') }}</div>
+                <i class="fa-solid fa-users position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
+            <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                <a href="{{ route('admin.users.index') }}" class="text-white text-decoration-none small fw-bold">{{ __('dashboard.manage_users') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+            </div>
         </div>
-        <div class="icon">
-          <i class="fa fa-users"></i>
-        </div>
-        <a href="{{ route('admin.users.index') }}" class="small-box-footer">المزيد من التفاصيل <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>{{ $stats['admins'] }}</h3>
-          <p>المدراء</p>
-        </div>
-        <div class="icon">
-          <i class="fa fa-user-secret"></i>
-        </div>
-        <a href="#" class="small-box-footer">المزيد من التفاصيل <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-  </div>
-  <!-- /.row -->
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">أهلاً بك في لوحة تحكم الإدارة</h3>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-success text-white h-100 stat-card">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1 english-nums">{{ $stats['admins'] }}</div>
+                <div class="fw-semibold">{{ __('dashboard.admins') }}</div>
+                <i class="fa-solid fa-user-shield position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
+            <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                <a href="#" class="text-white text-decoration-none small fw-bold">{{ __('dashboard.view_list') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+            </div>
         </div>
-        <div class="box-body">
-          <p>من هنا يمكنك إدارة جميع جوانب النظام، بما في ذلك المستخدمين، الأدوار، والصلاحيات، وإعدادات الموقع العامة.</p>
-        </div>
-      </div>
     </div>
-  </div>
 
-</section>
-<!-- /.content -->
+    <!-- Info Box -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="flex-shrink-0 bg-light p-3 rounded-4 me-4">
+                    <i class="fa-solid fa-info-circle text-primary fs-1"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-2">{{ __('dashboard.welcome_admin') }}</h5>
+                    <p class="text-muted mb-0">{{ __('dashboard.welcome_admin_desc') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('styles')
+<style>
+    .stat-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+</style>
+@endsection
 @endsection

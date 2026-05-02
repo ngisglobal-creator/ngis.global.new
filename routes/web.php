@@ -141,7 +141,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // But the China dashboard specific routes should move.
 });
 
-Route::post('language/set', [SettingController::class, 'setLanguage'])->name('language.set')->middleware('auth');
+Route::post('language/set', [SettingController::class, 'setLanguage'])->name('language.set');
+Route::get('lang/{locale}', [SettingController::class, 'setLanguage'])->name('lang.switch');
 
 // ============================================================
 // لوحات التحكم — كل نوع مستخدم
@@ -158,6 +159,11 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'dashboard.type:cl
     // مراسلة المكتب - المحادثة
     Route::get('/chat', [\App\Http\Controllers\Client\ChatController::class, 'index'])->name('chat.index');
     Route::post('/chat/send', [\App\Http\Controllers\Client\ChatController::class, 'sendMessage'])->name('chat.send');
+
+    // ملف الشخصي للعميل
+    Route::get('/profile', function() {
+        return view('client.profile.edit', ['user' => auth()->user()]);
+    })->name('profile');
 
     // الإدارات الجديدة
     Route::get('/auctions', [\App\Http\Controllers\Client\ManagementController::class, 'auctions'])->name('auctions.index');

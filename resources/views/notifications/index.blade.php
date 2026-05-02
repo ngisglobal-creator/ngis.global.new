@@ -3,60 +3,87 @@
 @section('title', 'الإشعارات')
 
 @section('content')
-<section class="content-header">
-    <h1>الإشعارات <small>أحدث التنبيهات والطلبات</small></h1>
+<section class="content-header mb-4">
+    <h1 class="fw-bold text-dark">الإشعارات <small class="text-muted fs-6">أحدث التنبيهات والطلبات</small></h1>
 </section>
 
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">قائمة الإشعارات</h3>
-                    <div class="box-tools pull-left">
-                        <form action="{{ route(auth()->user()->panel_type . '.notifications.mark-all-as-read') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-default btn-sm">تحديد الكل كمقروء</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <ul class="products-list product-list-in-box">
-                        @forelse($notifications as $notification)
-                            <li class="item {{ $notification->unread() ? 'unread-notification' : '' }}" style="{{ $notification->unread() ? 'background: #fdfdfd; border-right: 3px solid #3c8dbc;' : '' }}">
-                                <div class="product-img">
-                                    @if(auth()->user()->type == 'client' && isset($notification->data['product_image']))
-                                        <img src="{{ $notification->data['product_image'] }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" alt="Product Image">
+<div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 20px;">
+    <div class="card-header bg-white border-bottom py-3 px-4 d-flex align-items-center justify-content-between">
+        <h5 class="fw-bold mb-0">قائمة الإشعارات</h5>
+        <form action="{{ route(auth()->user()->panel_type . '.notifications.mark-all-as-read') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">تحديد الكل كمقروء</button>
+        </form>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-muted small fw-bold text-uppercase">
+                    <tr>
+                        <th class="ps-4 py-3" style="width: 70px;">الصورة</th>
+                        <th class="py-3">العنوان</th>
+                        <th class="py-3">الرسالة</th>
+                        <th class="py-3 text-center" style="width: 150px;">التاريخ</th>
+                        <th class="pe-4 py-3 text-end" style="width: 100px;">عرض</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($notifications as $notification)
+                        <tr class="{{ $notification->unread() ? 'bg-light-primary fw-bold' : '' }}">
+                            <td class="ps-4">
+                                @if(auth()->user()->type == 'client' && isset($notification->data['product_image']))
+                                    <img src="{{ $notification->data['product_image'] }}" 
+                                         style="width: 35px !important; height: 35px !important; object-fit: cover; border-radius: 6px; border: 1px solid #eee;" 
+                                         alt="Product">
+                                @else
+                                    <img src="{{ $notification->data['user_avatar'] ?? asset('dist/img/user2-160x160.jpg') }}" 
+                                         class="rounded-circle" 
+                                         style="width: 35px !important; height: 35px !important; object-fit: cover;" 
+                                         alt="User">
+                                @endif
+                            </td>
+                            <td>
+                                <div class="text-dark small fw-bold">
+                                    @if(auth()->user()->type == 'client' && isset($notification->data['product_name']))
+                                        {{ $notification->data['product_name'] }}
                                     @else
-                                        <img src="{{ $notification->data['user_avatar'] ?? asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                        {{ $notification->data['user_name'] ?? 'تنبيه' }}
                                     @endif
                                 </div>
-                                <div class="product-info">
-                                    <a href="{{ route(auth()->user()->panel_type . '.notifications.show', $notification->id) }}" class="product-title">
-                                        @if(auth()->user()->type == 'client' && isset($notification->data['product_name']))
-                                            {{ $notification->data['product_name'] }}
-                                        @else
-                                            {{ $notification->data['user_name'] }}
-                                        @endif
-                                        <span class="label label-info pull-left">{{ $notification->created_at->diffForHumans() }}</span>
-                                    </a>
-                                    <span class="product-description">
-                                        {{ $notification->data['message'] }}
-                                    </span>
+                            </td>
+                            <td>
+                                <div class="text-muted small text-truncate" style="max-width: 450px;">
+                                    {{ $notification->data['message'] }}
                                 </div>
-                            </li>
-                        @empty
-                            <p class="text-center padding">لا توجد إشعارات حالياً.</p>
-                        @endforelse
-                    </ul>
-                    <div class="text-center">
-                        {{ $notifications->links() }}
-                    </div>
-                </div>
-            </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-light text-muted fw-normal">{{ $notification->created_at->diffForHumans() }}</span>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <a href="{{ route(auth()->user()->panel_type . '.notifications.show', $notification->id) }}" class="btn btn-light btn-sm rounded-circle border shadow-sm">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-5">لا توجد إشعارات حالياً.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-</section>
+    @if($notifications->hasPages())
+        <div class="card-footer bg-white border-0 py-3 text-center">
+            {{ $notifications->links() }}
+        </div>
+    @endif
+</div>
+
+<style>
+    .bg-light-primary { background-color: rgba(13, 110, 253, 0.03) !important; border-right: 4px solid #0d6efd !important; }
+</style>
 
 <style>
 .unread-notification { font-weight: bold; }

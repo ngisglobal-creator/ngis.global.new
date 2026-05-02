@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'إدارة القطاعات')
+@section('title', __('dashboard.manage_sectors'))
 
 @section('content')
 <section class="content-header">
   <h1>
-    إدارة القطاعات
-    <small>عرض جميع القطاعات</small>
+    {{ __('dashboard.manage_sectors') }}
+    <small>{{ __('dashboard.all_sectors') }}</small>
   </h1>
 </section>
 
@@ -20,7 +20,7 @@
   <div class="box box-primary">
     <div class="box-header with-border">
       <a href="{{ route('admin.sectors.create') }}" class="btn btn-primary btn-sm">
-        <i class="fa fa-plus"></i> إضافة قطاع جديد
+        <i class="fa fa-plus"></i> {{ __('dashboard.add_sector') }}
       </a>
     </div>
     <div class="box-body">
@@ -28,10 +28,10 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>الاسم (عربي)</th>
-            <th>الاسم (EN)</th>
-            <th>الاسم (中文)</th>
-            <th style="width: 150px;">التحكم</th>
+            <th>{{ __('dashboard.name_ar') }}</th>
+            <th>{{ __('dashboard.name_en') }}</th>
+            <th>{{ __('dashboard.name_zh') }}</th>
+            <th style="width: 150px;">{{ __('dashboard.actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -43,13 +43,13 @@
             <td>{{ $sector->name_zh }}</td>
             <td>
               <a href="{{ route('admin.sectors.edit', $sector->id) }}" class="btn btn-primary btn-xs">
-                <i class="fa fa-edit"></i> تعديل
+                <i class="fa fa-edit"></i> {{ __('dashboard.edit') }}
               </a>
               <form action="{{ route('admin.sectors.destroy', $sector->id) }}" method="POST" style="display:inline-block">
                 @csrf
                 @method('DELETE')
-                <button onclick="return confirm('هل أنت متأكد؟')" class="btn btn-danger btn-xs">
-                  <i class="fa fa-trash"></i> حذف
+                <button onclick="return confirm('{{ __('dashboard.confirm_are_you_sure') }}')" class="btn btn-danger btn-xs">
+                  <i class="fa fa-trash"></i> {{ __('dashboard.delete') }}
                 </button>
               </form>
             </td>

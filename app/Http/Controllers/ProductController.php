@@ -26,10 +26,8 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        $viewPath = 'products.index';
-        if ($user->type == 'factory') {
-            $viewPath = 'factory.products.index';
-        } elseif ($user->type == 'company') {
+        $viewPath = 'factory.products.index';
+        if ($user->type == 'company') {
             $viewPath = 'company.products.index';
         } elseif ($user->type == 'china') {
             $viewPath = 'china.products.index';
@@ -44,10 +42,8 @@ class ProductController extends Controller
         $sectors = $user->sectors;
         $allSectors = Sector::all();
 
-        $viewPath = 'products.create';
-        if ($user->type == 'factory') {
-            $viewPath = 'factory.products.create';
-        } elseif ($user->type == 'company') {
+        $viewPath = 'factory.products.create';
+        if ($user->type == 'company') {
             $viewPath = 'company.products.create';
         } elseif ($user->type == 'china') {
             $viewPath = 'china.products.create';
@@ -62,10 +58,8 @@ class ProductController extends Controller
         $sectors = $user->sectors;
         $allSectors = Sector::all();
 
-        $viewPath = 'products.create';
-        if ($user->type == 'factory') {
-            $viewPath = 'factory.products.create';
-        } elseif ($user->type == 'company') {
+        $viewPath = 'factory.products.create';
+        if ($user->type == 'company') {
             $viewPath = 'company.products.create';
         } elseif ($user->type == 'china') {
             $viewPath = 'china.products.create';
@@ -80,10 +74,8 @@ class ProductController extends Controller
         $sectors = $user->sectors;
         $allSectors = Sector::all();
 
-        $viewPath = 'products.create';
-        if ($user->type == 'factory') {
-            $viewPath = 'factory.products.create';
-        } elseif ($user->type == 'company') {
+        $viewPath = 'factory.products.create';
+        if ($user->type == 'company') {
             $viewPath = 'company.products.create';
         } elseif ($user->type == 'china') {
             $viewPath = 'china.products.create';

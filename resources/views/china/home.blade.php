@@ -1,102 +1,78 @@
 @extends('china.layouts.master')
 
-@section('title', 'الرئيسية | لوحة الصين')
+@section('title', __('dashboard.home') . ' | ' . __('dashboard.china_panel'))
 
 @section('content')
-<section class="content-header">
-  <h1>لوحة تحكم الصين <small>مرحباً {{ Auth::user()->name ?? 'الصين' }}</small></h1>
-  <ol class="breadcrumb">
-    <li><a href="{{ url('china/dashboard') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-    <li class="active">لوحة التحكم</li>
-  </ol>
-</section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">{{ __('dashboard.china_panel') }} <span class="text-muted fs-6 fw-normal ms-2">{{ __('dashboard.welcome') }}</span></h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url('china/dashboard') }}" class="text-decoration-none"><i class="fa-solid fa-house me-1"></i>{{ __('dashboard.home') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.breadcrumb_dashboard') }}</li>
+        </ol>
+    </nav>
+</div>
 
-<section class="content">
+<div class="row g-4">
+    <div class="col-lg-12">
+        <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-primary text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1 english-nums">124</div>
+                        <div class="fw-semibold">{{ __('dashboard.active_products') }}</div>
+                        <i class="fa-solid fa-cubes position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-info text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1 english-nums">56</div>
+                        <div class="fw-semibold">{{ __('dashboard.pending_orders') }}</div>
+                        <i class="fa-solid fa-clock-rotate-left position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-warning text-dark overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1 english-nums">12</div>
+                        <div class="fw-semibold">{{ __('dashboard.connected_offices') }}</div>
+                        <i class="fa-solid fa-globe position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-success text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1 english-nums">890</div>
+                        <div class="fw-semibold">{{ __('dashboard.total_shipments') }}</div>
+                        <i class="fa-solid fa-ship position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>65</h3>
-          <p>الموردون</p>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title fw-bold m-0"><i class="fa-solid fa-circle-info text-primary me-2"></i> {{ __('dashboard.current_operations') }}</h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="text-muted">{{ __('dashboard.china_desc') }}</p>
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{{ route('china.details') }}" class="btn btn-primary">{{ __('dashboard.view_ngis_details') }}</a>
+                    <a href="{{ route('china.invoices') }}" class="btn btn-outline-secondary">{{ __('dashboard.manage_invoices') }}</a>
+                </div>
+            </div>
         </div>
-        <div class="icon"><i class="fa fa-industry"></i></div>
-        <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>14</h3>
-          <p>شحنات جارية</p>
-        </div>
-        <div class="icon"><i class="fa fa-ship"></i></div>
-        <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>9</h3>
-          <p>طلبات استيراد</p>
-        </div>
-        <div class="icon"><i class="fa fa-exchange"></i></div>
-        <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>3.2M</h3>
-          <p>قيمة الصادرات (ر.س)</p>
-        </div>
-        <div class="icon"><i class="fa fa-money"></i></div>
-        <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-  </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">آخر الشحنات</h3>
-        </div>
-        <div class="box-body">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>رقم الشحنة</th>
-                <th>المورد</th>
-                <th>المنتج</th>
-                <th>تاريخ الوصول</th>
-                <th>الحالة</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>SHP-2026-014</td>
-                <td>Shanghai Co.</td>
-                <td>إلكترونيات</td>
-                <td>2026-03-10</td>
-                <td><span class="label label-info">في الطريق</span></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>SHP-2026-013</td>
-                <td>Beijing Manufacturing</td>
-                <td>قطع غيار</td>
-                <td>2026-02-28</td>
-                <td><span class="label label-success">وصلت</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section>
+@section('styles')
+<style>
+    .stat-card { transition: transform 0.3s ease; }
+    .stat-card:hover { transform: translateY(-5px); }
+</style>
+@endsection
 @endsection

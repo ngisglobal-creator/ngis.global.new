@@ -1,12 +1,12 @@
 @extends('factory.layouts.master')
 
-@section('title', 'رفع منتجات جديدة')
+@section('title', __('dashboard.upload_new_products'))
 
 @section('content')
 <section class="content-header">
     <h1>
-        رفع منتجات
-        <small>إضافة منتج جديد للمتجر</small>
+        {{ __('dashboard.upload_new_products') }}
+        <small>{{ __('dashboard.add_product_to_store') }}</small>
     </h1>
 </section>
 
@@ -15,18 +15,18 @@
         <div class="col-md-12">
             <!-- Mode Selection Hero -->
             <div id="mode_selection_hero" style="background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%); padding: 80px 20px; border-radius: 15px; border: 1px solid #eee; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px;">
-                <h2 style="margin-top: 0; margin-bottom: 40px; font-weight: 800; color: #333; font-size: 32px;">كيف ترغب في رفع منتجاتك اليوم؟</h2>
+                <h2 style="margin-top: 0; margin-bottom: 40px; font-weight: 800; color: #333; font-size: 32px;">{{ __('dashboard.how_to_upload') }}</h2>
                 <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
                     <a href="{{ route('products.create.carton') }}" id="btnHeroCarton" class="btn mode-hero-btn" style="flex: 1; min-width: 300px; max-width: 450px; padding: 50px; font-size: 28px; font-weight: bold; border-radius: 25px; background: #eef7ff; color: #3c8dbc; border: 4px solid #3c8dbc; text-decoration: none;">
                         <i class="fa fa-cubes" style="font-size: 60px; display: block; margin-bottom: 20px;"></i> 
-                        رفع المنتج بالكرتونة
-                        <p style="font-size: 15px;">للمنتجات القياسية التي تُشحن بصناديق (ملابس، إلكترونيات، إلخ)</p>
+                        {{ __('dashboard.upload_by_carton') }}
+                        <p style="font-size: 15px;">{{ __('dashboard.upload_by_carton_desc') }}</p>
                     </a>
                     
                     <a href="{{ route('products.create.special') }}" id="btnHeroSpecial" class="btn mode-hero-btn" style="flex: 1; min-width: 300px; max-width: 450px; padding: 50px; font-size: 28px; font-weight: bold; border-radius: 25px; background: #fffcf0; color: #f39c12; border: 4px solid #f39c12; text-decoration: none;">
                         <i class="fa fa-star" style="font-size: 60px; display: block; margin-bottom: 20px;"></i>
-                        رفع منتج خاص
-                        <p style="font-size: 15px;">للمنتجات الفريدة ذات المقاسات الخاصة أو الطلبات الفردية</p>
+                        {{ __('dashboard.upload_special') }}
+                        <p style="font-size: 15px;">{{ __('dashboard.upload_special_desc') }}</p>
                     </a>
                 </div>
             </div>
@@ -34,13 +34,13 @@
             <div id="full_page_content" style="display: none;">
                 <div style="text-align: left; margin-bottom: 20px;" class="no-print">
                     <button type="button" class="btn btn-default" onclick="returnToHero()" style="border-radius: 20px; font-weight: bold; border: 2px solid #ddd; transition: all 0.3s; padding: 8px 25px;">
-                        <i class="fa fa-undo"></i> عودة للاختيار / تغيير النمط
+                        <i class="fa fa-undo"></i> {{ __('dashboard.return_to_selection') }}
                     </button>
                 </div>
 
                 <div class="box box-primary" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                     <div class="box-header with-border">
-                        <h3 class="box-title" id="page_mode_title">معلومات المنتج</h3>
+                        <h3 class="box-title" id="page_mode_title">{{ __('dashboard.product_info') }}</h3>
                     </div>
                     
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="productForm">
@@ -50,23 +50,23 @@
                         <!-- Section 1: General Information -->
                         <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc; border-radius: 12px 12px 0 0;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-info-circle text-primary"></i> المعلومات الأساسية</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-info-circle text-primary"></i> {{ __('dashboard.basic_info') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">القطاع</label>
+                                        <label style="font-weight: 600;">{{ __('dashboard.sector') }}</label>
                                         <button type="button" class="btn btn-link pull-left" style="font-size: 13px; padding: 0;" data-toggle="modal" data-target="#sectorModal">
-                                            <i class="fa fa-plus-circle"></i> إضافة قطاعات
+                                            <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_sectors') }}
                                         </button>
                                         <button type="button" class="btn btn-link pull-left" style="font-size: 13px; padding: 0 10px 0 0;" data-toggle="modal" data-target="#quickSectorModal">
-                                            <i class="fa fa-magic"></i> اضافة قطاع جديد
+                                            <i class="fa fa-magic"></i> {{ __('dashboard.add_new_sector') }}
                                         </button>
                                         <select name="sector_id" id="sector_id" class="form-control select2" required>
-                                            <option value="">اختر القطاع</option>
+                                            <option value="">{{ __('dashboard.select_sector') }}</option>
                                             @foreach($sectors as $sector)
-                                                <option value="{{ $sector->id }}">{{ $sector->name_ar }}</option>
+                                                <option value="{{ $sector->id }}">{{ app()->getLocale() == 'ar' ? $sector->name_ar : $sector->name_en }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -74,26 +74,26 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <label style="font-weight: 600;">الفرع</label>
+                                            <label style="font-weight: 600;">{{ __('dashboard.branch') }}</label>
                                             <button type="button" id="btnAddBranch" class="btn btn-link" style="font-size: 13px; padding: 0; display: none;" data-toggle="modal" data-target="#quickBranchModal">
-                                                <i class="fa fa-plus-circle"></i> إضافة فرع جديد
+                                                <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_new_branch') }}
                                             </button>
                                         </div>
                                         <select name="branch_id" id="branch_id" class="form-control select2" required disabled>
-                                            <option value="">اختر الفرع</option>
+                                            <option value="">{{ __('dashboard.select_branch') }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <label style="font-weight: 600;">القسم</label>
+                                            <label style="font-weight: 600;">{{ __('dashboard.category') }}</label>
                                             <button type="button" id="btnAddCategory" class="btn btn-link" style="font-size: 13px; padding: 0; display: none;" data-toggle="modal" data-target="#quickCategoryModal">
-                                                <i class="fa fa-plus-circle"></i> إضافة قسم جديد
+                                                <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_new_category') }}
                                             </button>
                                         </div>
                                         <select name="category_id" id="category_id" class="form-control select2" required disabled>
-                                            <option value="">اختر القسم</option>
+                                            <option value="">{{ __('dashboard.select_category') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -101,14 +101,14 @@
                             <div class="row" style="margin-top: 15px;">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">اسم المنتج</label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="أدخل اسم المنتج بدقة" required style="height: 45px; font-size: 16px;">
+                                        <label style="font-weight: 600;">{{ __('dashboard.product_name') }}</label>
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('dashboard.enter_product_name') }}" required style="height: 45px; font-size: 16px;">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">ID المنتج (SKU)</label>
-                                        <input type="text" name="sku_main" id="sku_main" class="form-control" placeholder="مثال: PRD-123" style="height: 45px; font-size: 16px;">
+                                        <label style="font-weight: 600;">{{ __('dashboard.product_sku') }}</label>
+                                        <input type="text" name="sku_main" id="sku_main" class="form-control" placeholder="{{ __('dashboard.enter_sku') }}" style="height: 45px; font-size: 16px;">
                                     </div>
                                 </div>
                             </div>
@@ -119,11 +119,11 @@
                     <!-- Section 2: Description (Moved Up) -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-file-text-o text-warning"></i> وصف المنتج</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-file-text-o text-warning"></i> {{ __('dashboard.product_description') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="form-group">
-                                <textarea name="description" id="editor" class="form-control" rows="6" placeholder="أدخل تفاصيل ومميزات المنتج هنا..."></textarea>
+                                <textarea name="description" id="editor" class="form-control" rows="6" placeholder="{{ __('dashboard.description_placeholder') }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     <!-- Section 3: Pricing & Details (Moved Down) -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-money text-success"></i> السعر وتفاصيل</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-money text-success"></i> {{ __('dashboard.pricing_details') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 20px;">
                             <input type="hidden" name="upload_mode" id="upload_mode" value="carton">
@@ -141,24 +141,24 @@
                                 <table class="table table-bordered text-center" style="margin-bottom: 0; min-width: 1000px;">
                                     <thead style="background: #f9f9f9; font-weight: bold;">
                                         <tr>
-                                            <th style="width: 150px;">اسم المنتج</th>
-                                            <th style="width: 100px;">ID المنتج</th>
-                                            <th style="width: 120px;" id="lbl_unit_price">سعر الوحدة</th>
-                                            <th style="width: 100px;" id="lbl_unit_weight">وزن الوحدة</th>
-                                            <th style="width: 110px; display: none;" id="lbl_gross_weight">وزن المنتج G.W(KG)</th>
-                                            <th style="width: 90px;" id="lbl_carton_length">طول الكرتونة (m)</th>
-                                            <th style="width: 90px;" id="lbl_carton_width">عرض الكرتونة (m)</th>
-                                            <th style="width: 90px;" id="lbl_carton_height">ارتفاع الكرتونة (m)</th>
-                                            <th style="width: 100px; background: #fff9e6;" id="lbl_unit_cbm">CBM الوحدة</th>
-                                            <th style="width: 120px;" id="lbl_units_per_carton">عدد الوحدات في الكرتونة</th>
-                                            <th style="width: 100px; background: #fff9e6;" id="lbl_carton_cbm">حجم الكرتونة CBM</th>
-                                            <th style="width: 100px; background: #fff9e6;" id="lbl_carton_weight_col">وزن الكرتونة (kg)</th>
+                                            <th style="width: 150px;">{{ __('dashboard.product_name') }}</th>
+                                            <th style="width: 100px;">{{ __('dashboard.product_sku') }}</th>
+                                            <th style="width: 120px;" id="lbl_unit_price">{{ __('dashboard.unit_price') }}</th>
+                                            <th style="width: 100px;" id="lbl_unit_weight">{{ __('dashboard.unit_weight') }}</th>
+                                            <th style="width: 110px; display: none;" id="lbl_gross_weight">{{ __('dashboard.gross_weight') }}</th>
+                                            <th style="width: 90px;" id="lbl_carton_length">{{ __('dashboard.carton_length_m') }}</th>
+                                            <th style="width: 90px;" id="lbl_carton_width">{{ __('dashboard.carton_width_m') }}</th>
+                                            <th style="width: 90px;" id="lbl_carton_height">{{ __('dashboard.carton_height_m') }}</th>
+                                            <th style="width: 100px; background: #fff9e6;" id="lbl_unit_cbm">{{ __('dashboard.unit_cbm') }}</th>
+                                            <th style="width: 120px;" id="lbl_units_per_carton">{{ __('dashboard.units_per_carton') }}</th>
+                                            <th style="width: 100px; background: #fff9e6;" id="lbl_carton_cbm">{{ __('dashboard.carton_cbm') }}</th>
+                                            <th style="width: 100px; background: #fff9e6;" id="lbl_carton_weight_col">{{ __('dashboard.carton_weight_kg') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <input type="text" id="table_product_name" class="form-control" placeholder="اسم المنتج" style="border: none; text-align: center; border-bottom: 1px solid #ddd;">
+                                                <input type="text" id="table_product_name" class="form-control" placeholder="{{ __('dashboard.product_name') }}" style="border: none; text-align: center; border-bottom: 1px solid #ddd;">
                                             </td>
                                             <td>
                                                 <input type="text" id="sku" class="form-control" placeholder="ID" style="border: none; text-align: center; border-bottom: 1px solid #ddd;">
@@ -171,7 +171,7 @@
                                                             <option value="USD">$</option>
                                                             <option value="EUR">€</option>
                                                             <option value="CNY">¥</option>
-                                                            <option value="SAR">ر.س</option>
+                                                            <option value="SAR">{{ __('dashboard.sar') }}</option>
                                                         </select>
                                                     </span>
                                                 </div>
@@ -195,7 +195,7 @@
                                                 <input type="text" id="carton_volume_cbm" class="form-control english-nums" readonly style="background: transparent; border: none; text-align: center; font-weight: bold; color: #b8860b;">
                                             </td>
                                             <td>
-                                                <input type="text" id="product_piece_count" class="form-control english-nums" placeholder="عدد القطع" oninput="this.value=toWesternNums(this.value)" style="border: none; text-align: center; border-bottom: 1px solid #ddd;">
+                                                <input type="text" id="product_piece_count" class="form-control english-nums" placeholder="{{ __('dashboard.quantity') }}" oninput="this.value=toWesternNums(this.value)" style="border: none; text-align: center; border-bottom: 1px solid #ddd;">
                                             </td>
                                             <td style="background: #fff9e6;" id="col_total_cbm">
                                                 <input type="text" id="total_cbm" class="form-control english-nums" readonly style="background: transparent; border: none; text-align: center; font-weight: bold; color: #b8860b;">
@@ -211,12 +211,12 @@
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-md-6">
                                     <div class="alert alert-info" style="background: #f0f7ff !important; color: #3c8dbc !important; border: 1px dashed #3c8dbc;">
-                                        <i class="fa fa-info-circle"></i> <strong>معادلة الحساب:</strong> يتم ضرب (الطول × العرض × الارتفاع) للحصول على حجم الكرتونة، ثم يضرب في عدد الوحدات للحصول على حجم الكرتونة CBM الإجمالي.
+                                        <i class="fa fa-info-circle"></i> <strong>{{ __('dashboard.calculation_formula') }}</strong>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <div style="padding: 10px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;">
-                                        <span style="font-weight: bold; color: #666;">تكلفة الحد الأدنى (MOQ):</span>
+                                        <span style="font-weight: bold; color: #666;">{{ __('dashboard.moq') }}:</span>
                                         <input type="text" id="min_order_quantity" class="form-control english-nums" placeholder="100" style="display: inline-block; width: 100px; height: 30px; margin-right: 10px;">
                                     </div>
                                 </div>
@@ -272,13 +272,13 @@
                     <!-- Section 5: Media -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-camera text-danger"></i> صور وفيديوهات المنتج</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-camera text-danger"></i> {{ __('dashboard.image') }} {{ __('dashboard.and') ?? '&' }} {{ __('dashboard.videos') ?? 'Videos' }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="upload-zone" style="border: 2px dashed #ccc; border-radius: 12px; padding: 40px; text-align: center; background: #fafafa; cursor: pointer;" onclick="document.getElementById('product_images').click()">
                                 <i class="fa fa-cloud-upload" style="font-size: 48px; color: #bbb;"></i>
-                                <h4 style="color: #666; font-weight: 600;">اضغط هنا لرفع صور المنتج</h4>
-                                <p style="color: #999;">يمكنك رفع حتى 10 صور (JPG, PNG)</p>
+                                <h4 style="color: #666; font-weight: 600;">{{ __('dashboard.upload_zone_title') }}</h4>
+                                <p style="color: #999;">{{ __('dashboard.upload_zone_desc') }}</p>
                                 <input type="file" name="images[]" id="product_images" class="hidden" multiple required accept="image/*">
                             </div>
                             <div id="image_preview" class="row" style="margin-top: 20px;"></div>
@@ -287,7 +287,7 @@
                     
                     <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;" class="no-print">
                         <button type="button" id="btnAddToList" class="btn btn-warning" style="width: 300px; height: 55px; border-radius: 30px; font-size: 20px; font-weight: bold; box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);">
-                            <i class="fa fa-plus-circle"></i> إضافة المنتج للقائمة
+                            <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_to_list') }}
                         </button>
                     </div>
                 </form>
@@ -298,27 +298,27 @@
                     <div class="col-md-12">
                         <div class="box box-solid" style="border: 2px solid #3c8dbc; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px;">
                             <div class="box-header with-border" style="background: #eef7ff;">
-                                <h3 class="box-title" style="font-weight: bold; color: #3c8dbc;"><i class="fa fa-list"></i> قائمة المنتجات المُضافة</h3>
+                                <h3 class="box-title" style="font-weight: bold; color: #3c8dbc;"><i class="fa fa-list"></i> {{ __('dashboard.added_products_list') }}</h3>
                             </div>
                             <div class="box-body no-padding">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped text-center" id="batch_table" style="margin-bottom: 0; font-size: 14px;">
                                         <thead style="background: #3c8dbc; color: white;">
                                             <tr>
-                                                <th style="vertical-align: middle;">الصورة</th>
-                                                <th style="vertical-align: middle;">اسم المنتج</th>
-                                                <th style="vertical-align: middle;">ID المنتج</th>
-                                                <th style="vertical-align: middle;" id="lbl_batch_price">سعر الوحدة</th>
-                                                <th style="vertical-align: middle;" id="lbl_batch_weight">وزن الوحدة</th>
-                                                <th style="vertical-align: middle; display: none;" id="lbl_batch_gross_weight">وزن المنتج G.W</th>
-                                                <th style="vertical-align: middle;">طول الكرتونة (m)</th>
-                                                <th style="vertical-align: middle;">عرض الكرتونة (m)</th>
-                                                <th style="vertical-align: middle;">ارتفاع الكرتونة (m)</th>
-                                                <th style="vertical-align: middle;">CBM الوحدة</th>
-                                                <th style="vertical-align: middle;" id="lbl_batch_units">عدد الوحدات في الكرتونة</th>
-                                                <th style="vertical-align: middle;" id="lbl_batch_total_cbm">حجم الكرتونة CBM</th>
-                                                <th style="vertical-align: middle;" id="lbl_batch_total_weight">وزن الكرتونة (kg)</th>
-                                                <th style="vertical-align: middle;" class="no-print">إجراء</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.image') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.product_name') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.product_sku') }}</th>
+                                                <th style="vertical-align: middle;" id="lbl_batch_price">{{ __('dashboard.unit_price') }}</th>
+                                                <th style="vertical-align: middle;" id="lbl_batch_weight">{{ __('dashboard.unit_weight') }}</th>
+                                                <th style="vertical-align: middle; display: none;" id="lbl_batch_gross_weight">{{ __('dashboard.gross_weight') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.carton_length_m') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.carton_width_m') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.carton_height_m') }}</th>
+                                                <th style="vertical-align: middle;">{{ __('dashboard.unit_cbm') }}</th>
+                                                <th style="vertical-align: middle;" id="lbl_batch_units">{{ __('dashboard.units_per_carton') }}</th>
+                                                <th style="vertical-align: middle;" id="lbl_batch_total_cbm">{{ __('dashboard.carton_cbm') }}</th>
+                                                <th style="vertical-align: middle;" id="lbl_batch_total_weight">{{ __('dashboard.carton_weight_kg') }}</th>
+                                                <th style="vertical-align: middle;" class="no-print">{{ __('dashboard.actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -329,10 +329,10 @@
                             </div>
                             <div class="box-footer text-center no-print" style="padding: 20px; background: #fcfcfc;">
                                 <button type="button" class="btn btn-default btn-lg" onclick="window.print()" style="margin-left: 15px; border-radius: 30px; font-weight: bold; padding: 10px 30px;">
-                                    <i class="fa fa-print"></i> طباعة القائمة كمعاينة
+                                    <i class="fa fa-print"></i> {{ __('dashboard.print_preview') }}
                                 </button>
                                 <button type="button" class="btn btn-success btn-lg" id="btnSaveAll" style="border-radius: 30px; font-weight: bold; padding: 10px 40px; box-shadow: 0 5px 15px rgba(0,166,90,0.3);">
-                                    <i class="fa fa-check-circle"></i> حفظ جميع المنتجات ورفعها للسيرفر
+                                    <i class="fa fa-check-circle"></i> {{ __('dashboard.save_all_products') }}
                                 </button>
                             </div>
                         </div>

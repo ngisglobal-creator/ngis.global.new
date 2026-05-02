@@ -1,213 +1,104 @@
 @extends('regional.layouts.master')
 
-@section('title', 'الرئيسية | مكتب الاقليم')
+@section('title', __('dashboard.home') . ' | ' . __('dashboard.regional_panel'))
 
 @section('content')
-<section class="content-header">
-  <h1>لوحة تحكم مكتب الاقليم <small>مرحباً {{ Auth::user()->name ?? 'مكتب اقليم' }}</small></h1>
-  <ol class="breadcrumb">
-    <li><a href="{{ url('regional/dashboard') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-    <li class="active">لوحة التحكم</li>
-  </ol>
-</section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">{{ __('dashboard.regional_panel') }} <span class="text-muted fs-6 fw-normal ms-2">{{ __('dashboard.coordinate_logistics') }}</span></h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url('regional/dashboard') }}" class="text-decoration-none"><i class="fa-solid fa-house me-1"></i>{{ __('dashboard.home') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.breadcrumb_dashboard') }}</li>
+        </ol>
+    </nav>
+</div>
 
-<section class="content">
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-primary text-white stat-card h-100">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1">24</div>
+                <div class="fw-semibold">{{ __('dashboard.active_clients') }}</div>
+                <i class="fa-solid fa-users position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-info text-white stat-card h-100">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1">156</div>
+                <div class="fw-semibold">{{ __('dashboard.assigned_orders') }}</div>
+                <i class="fa-solid fa-shopping-cart position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
+        </div>
+    </div>
 
-  {{-- Stats Row --}}
-  <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-yellow">
-        <div class="inner"><h3>{{ $clients->count() }}</h3><p>العملاء</p></div>
-        <div class="icon"><i class="fa fa-users"></i></div>
-        <a href="{{ route('regional.clients.index') }}" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-aqua">
-        <div class="inner"><h3>{{ $invoices->count() }}</h3><p>فواتير مرفوعة</p></div>
-        <div class="icon"><i class="fa fa-file-text"></i></div>
-        <a href="{{ route('regional.invoices.index') }}" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>{{ $clients->where('payment_status','paid')->count() }}</h3>
-          <p>طلبات مدفوعة</p>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-success text-white stat-card h-100">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1">92%</div>
+                <div class="fw-semibold">{{ __('dashboard.completion_rate') }}</div>
+                <i class="fa-solid fa-check-double position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
         </div>
-        <div class="icon"><i class="fa fa-check-circle"></i></div>
-        <a href="{{ route('regional.invoices.payment_status') }}" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>{{ $clients->whereIn('payment_status',['unpaid','partial'])->count() }}</h3>
-          <p>طلبات غير مكتملة</p>
-        </div>
-        <div class="icon"><i class="fa fa-clock-o"></i></div>
-        <a href="{{ route('regional.invoices.payment_status') }}" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-      </div>
-    </div>
-  </div>
 
-  {{-- Clients Table --}}
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-warning" style="border-radius:10px;overflow:hidden;">
-        <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-users"></i> العملاء</h3>
-          <div class="box-tools pull-right">
-            <a href="{{ route('regional.clients.index') }}" class="btn btn-warning btn-xs">عرض الكل</a>
-          </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 bg-warning text-dark stat-card h-100">
+            <div class="card-body p-4 position-relative overflow-hidden">
+                <div class="fs-2 fw-bold mb-1 english-nums">4.8</div>
+                <div class="fw-semibold">{{ __('dashboard.performance_kpi') }}</div>
+                <i class="fa-solid fa-star position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+            </div>
         </div>
-        <div class="box-body no-padding">
-          <table class="table table-hover" style="margin:0;">
-            <thead>
-              <tr style="background:#fdfdfd;">
-                <th>العميل</th>
-                <th>المنتج</th>
-                <th>الدولة</th>
-                <th>السعر</th>
-                <th>المدفوع</th>
-                <th>حالة الدفع</th>
-                <th>تاريخ الطلب</th>
-              </tr>
-            </thead>
-            <tbody>
-              @forelse($clients as $order)
-              <tr>
-                <td>
-                  <div style="display:flex;align-items:center;">
-                    <img src="{{ $order->user->avatar_url }}" class="img-circle" style="width:30px;height:30px;margin-left:8px;border:1px solid #ddd;">
-                    <strong>{{ $order->user->name }}</strong>
-                  </div>
-                </td>
-                <td>
-                  <div style="display:flex;align-items:center;">
-                    @if($order->product->images->first())
-                      <img src="{{ asset('storage/'.$order->product->images->first()->image_path) }}" style="width:30px;height:22px;border-radius:3px;object-fit:cover;margin-left:6px;">
-                    @endif
-                    <span style="color:#3c8dbc;">{{ $order->product->name }}</span>
-                  </div>
-                </td>
-                <td>
-                  @if($order->user->country)
-                    <img src="{{ asset('vendor/flag-icons/flags/4x3/'.strtolower($order->user->country->flag_code ?? '').'.svg') }}" style="width:15px;height:11px;margin-left:4px;">
-                    {{ $order->user->country->name_ar }}
-                  @else — @endif
-                </td>
-                <td><strong style="font-family:Arial;">{{ number_format($order->product->price,2) }} ر.س</strong></td>
-                <td><strong style="font-family:Arial;color:#27ae60;">{{ number_format($order->paid_amount,2) }} ر.س</strong></td>
-                <td>
-                  @if($order->payment_status == 'paid') <span class="label label-success">مدفوع</span>
-                  @elseif($order->payment_status == 'partial') <span class="label label-warning">جزئي</span>
-                  @else <span class="label label-danger">غير مدفوع</span>
-                  @endif
-                </td>
-                <td><small>{{ $order->created_at->format('Y-m-d') }}</small></td>
-              </tr>
-              @empty
-              <tr><td colspan="7" class="text-center text-muted" style="padding:20px;">لا توجد طلبات عملاء حالياً</td></tr>
-              @endforelse
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  {{-- Invoices Table --}}
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-primary" style="border-radius:10px;overflow:hidden;">
-        <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-file-text-o"></i> أحدث الفواتير المرفوعة</h3>
-          <div class="box-tools pull-right">
-            <a href="{{ route('regional.invoices.index') }}" class="btn btn-primary btn-xs">عرض الكل</a>
-          </div>
-        </div>
-        <div class="box-body no-padding">
-          <table class="table table-hover" style="margin:0;">
-            <thead>
-              <tr style="background:#fdfdfd;">
-                <th>العميل</th>
-                <th>المنتج</th>
-                <th>الفاتورة</th>
-                <th>العقد</th>
-                <th>السعر</th>
-                <th>حالة الدفع</th>
-                <th>الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              @forelse($invoices as $order)
-              <tr>
-                <td>
-                  <div style="display:flex;align-items:center;">
-                    <img src="{{ $order->user->avatar_url }}" class="img-circle" style="width:30px;height:30px;margin-left:8px;border:1px solid #ddd;">
-                    <strong>{{ $order->user->name }}</strong>
-                  </div>
-                </td>
-                <td>
-                  <div style="display:flex;align-items:center;">
-                    @if($order->product->images->first())
-                      <img src="{{ asset('storage/'.$order->product->images->first()->image_path) }}" style="width:30px;height:22px;border-radius:3px;object-fit:cover;margin-left:6px;">
-                    @endif
-                    <span style="color:#3c8dbc;">{{ $order->product->name }}</span>
-                  </div>
-                </td>
-                <td>
-                  @php $ext = strtolower(pathinfo($order->invoice_file ?? '', PATHINFO_EXTENSION)); @endphp
-                  @if($order->invoice_file)
-                    @if(in_array($ext,['jpg','jpeg','png']))
-                      <a href="{{ asset('storage/'.$order->invoice_file) }}" target="_blank">
-                        <img src="{{ asset('storage/'.$order->invoice_file) }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;border:1px solid #ddd;">
-                      </a>
-                    @else
-                      <a href="{{ asset('storage/'.$order->invoice_file) }}" target="_blank">
-                        <i class="fa fa-file-text-o fa-lg text-warning"></i>
-                        <small class="text-warning" style="display:block;font-size:10px;">PDF</small>
-                      </a>
-                    @endif
-                  @else <span class="text-muted">—</span> @endif
-                </td>
-                <td>
-                  @php $ext2 = strtolower(pathinfo($order->contract_file ?? '', PATHINFO_EXTENSION)); @endphp
-                  @if($order->contract_file)
-                    @if(in_array($ext2,['jpg','jpeg','png']))
-                      <a href="{{ asset('storage/'.$order->contract_file) }}" target="_blank">
-                        <img src="{{ asset('storage/'.$order->contract_file) }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;border:1px solid #ddd;">
-                      </a>
-                    @else
-                      <a href="{{ asset('storage/'.$order->contract_file) }}" target="_blank">
-                        <i class="fa fa-file-pdf-o fa-lg text-danger"></i>
-                        <small class="text-danger" style="display:block;font-size:10px;">PDF</small>
-                      </a>
-                    @endif
-                  @else <span class="text-muted">—</span> @endif
-                </td>
-                <td><strong style="font-family:Arial;">{{ number_format($order->product->price,2) }} ر.س</strong></td>
-                <td>
-                  @if($order->payment_status == 'paid') <span class="label label-success">مدفوع</span>
-                  @elseif($order->payment_status == 'partial') <span class="label label-warning">جزئي</span>
-                  @else <span class="label label-danger">غير مدفوع</span>
-                  @endif
-                </td>
-                <td>
-                  <a href="{{ route('regional.clients.show', $order) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                  <a href="{{ route('regional.invoices.edit_payment', $order) }}" class="btn btn-warning btn-xs"><i class="fa fa-money"></i></a>
-                </td>
-              </tr>
-              @empty
-              <tr><td colspan="7" class="text-center text-muted" style="padding:20px;">لا توجد فواتير مرفوعة حالياً</td></tr>
-              @endforelse
-            </tbody>
-          </table>
-        </div>
-      </div>
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-white border-bottom py-3">
+        <h5 class="card-title fw-bold m-0"><i class="fa-solid fa-toolbox text-primary me-2"></i> {{ __('dashboard.operations_panel') }}</h5>
     </div>
-  </div>
+    <div class="card-body p-4">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ route('regional.management.assigned_orders') }}" class="card border shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-card p-3 text-center">
+                    <i class="fa-solid fa-clipboard-list text-primary fs-2 mb-2"></i>
+                    <h6 class="fw-bold mb-1">{{ __('dashboard.order_management') }}</h6>
+                    <p class="text-muted small mb-0">{{ __('dashboard.follow_assigned') }}</p>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ route('regional.management.shipping') }}" class="card border shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-card p-3 text-center">
+                    <i class="fa-solid fa-truck-moving text-info fs-2 mb-2"></i>
+                    <h6 class="fw-bold mb-1">{{ __('dashboard.shipping_management') }}</h6>
+                    <p class="text-muted small mb-0">{{ __('dashboard.coordinate_logistics') }}</p>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ route('regional.management.financial_treasury') }}" class="card border shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-card p-3 text-center">
+                    <i class="fa-solid fa-vault text-success fs-2 mb-2"></i>
+                    <h6 class="fw-bold mb-1">{{ __('dashboard.financial_treasury') }}</h6>
+                    <p class="text-muted small mb-0">{{ __('dashboard.track_financial_flows') }}</p>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ route('regional.performance_kpi.index') }}" class="card border shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-card p-3 text-center">
+                    <i class="fa-solid fa-chart-pie text-warning fs-2 mb-2"></i>
+                    <h6 class="fw-bold mb-1">{{ __('dashboard.kpi') }}</h6>
+                    <p class="text-muted small mb-0">{{ __('dashboard.view_performance') }}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-</section>
+@section('styles')
+<style>
+    .stat-card { transition: transform 0.3s ease; }
+    .stat-card:hover { transform: translateY(-5px); }
+    .hover-card { transition: all 0.2s ease; }
+    .hover-card:hover { background-color: #f8f9fa; border-color: #0d6efd !important; }
+</style>
+@endsection
 @endsection

@@ -1,113 +1,128 @@
 @extends('factory.layouts.master')
 
-@section('title', 'الرئيسية | لوحة المصنع')
+@section('title', __('dashboard.home') . ' | ' . __('dashboard.factory_panel'))
 
 @section('content')
-<section class="content-header">
-  <h1>لوحة تحكم المصنع <small>مرحباً {{ Auth::user()->name ?? 'مصنع' }}</small></h1>
-  <ol class="breadcrumb">
-    <li><a href="{{ url('factory/dashboard') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-    <li class="active">لوحة التحكم</li>
-  </ol>
-</section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-dark">{{ __('dashboard.factory_panel') }} <span class="text-muted fs-6 fw-normal ms-2">{{ __('dashboard.welcome') }} {{ Auth::user()->name ?? '' }}</span></h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url('factory/dashboard') }}" class="text-decoration-none"><i class="fa-solid fa-house me-1"></i>{{ __('dashboard.home') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.breadcrumb_dashboard') }}</li>
+        </ol>
+    </nav>
+</div>
 
-<section class="content">
+<div class="row g-4">
+    <div class="col-lg-9">
+        
+        <!-- Quick Stats -->
+        <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-primary text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1">320</div>
+                        <div class="fw-semibold">{{ __('dashboard.todays_products') }}</div>
+                        <i class="fa-solid fa-cubes position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                    <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                        <a href="#" class="text-white text-decoration-none small fw-bold">{{ __('dashboard.view_details') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-info text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1">18</div>
+                        <div class="fw-semibold">{{ __('dashboard.active_orders') }}</div>
+                        <i class="fa-solid fa-shopping-cart position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                    <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                        <a href="#" class="text-white text-decoration-none small fw-bold">{{ __('dashboard.view_details') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
 
-  <div class="row">
-    <div class="col-md-9">
-      
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>320</h3>
-              <p>المنتجات المصنعة اليوم</p>
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-warning text-dark overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1">5</div>
+                        <div class="fw-semibold">{{ __('dashboard.production_lines') }}</div>
+                        <i class="fa-solid fa-gears position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                    <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                        <a href="#" class="text-dark text-decoration-none small fw-bold">{{ __('dashboard.view_details') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="icon"><i class="fa fa-cubes"></i></div>
-            <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>18</h3>
-              <p>طلبيات جارية</p>
-            </div>
-            <div class="icon"><i class="fa fa-shopping-cart"></i></div>
-            <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>5</h3>
-              <p>خطوط إنتاج نشطة</p>
-            </div>
-            <div class="icon"><i class="fa fa-cogs"></i></div>
-            <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>98%</h3>
-              <p>كفاءة الإنتاج</p>
-            </div>
-            <div class="icon"><i class="fa fa-bar-chart"></i></div>
-            <a href="#" class="small-box-footer">عرض التفاصيل <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">آخر الطلبيات</h3>
+            <div class="col-sm-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-success text-white overflow-hidden h-100 stat-card">
+                    <div class="card-body position-relative p-4">
+                        <div class="fw-bold fs-2 mb-1">98%</div>
+                        <div class="fw-semibold">{{ __('dashboard.production_efficiency') }}</div>
+                        <i class="fa-solid fa-chart-line position-absolute opacity-25" style="font-size: 4rem; top: 1rem; left: 1rem;"></i>
+                    </div>
+                    <div class="card-footer bg-dark bg-opacity-10 border-0 text-center py-2">
+                        <a href="#" class="text-white text-decoration-none small fw-bold">{{ __('dashboard.view_details') }} <i class="fa-solid fa-circle-arrow-left ms-1"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="box-body">
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>رقم الطلبية</th>
-                    <th>العميل</th>
-                    <th>المنتج</th>
-                    <th>الكمية</th>
-                    <th>الحالة</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>ORD-F-001</td>
-                    <td>شركة الفجر</td>
-                    <td>قضبان حديد</td>
-                    <td>500 طن</td>
-                    <td><span class="label label-success">منجز</span></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>ORD-F-002</td>
-                    <td>مكتب الجنوب</td>
-                    <td>ألمنيوم</td>
-                    <td>200 طن</td>
-                    <td><span class="label label-warning">قيد الإنتاج</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <!-- Latest Orders Table -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title fw-bold m-0"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i> {{ __('dashboard.latest_orders') }}</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>{{ __('dashboard.order_number') }}</th>
+                                <th>{{ __('dashboard.client') }}</th>
+                                <th>{{ __('dashboard.product') }}</th>
+                                <th>{{ __('dashboard.quantity') }}</th>
+                                <th>{{ __('dashboard.status') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-top-0">
+                            <tr>
+                                <td>1</td>
+                                <td class="fw-bold text-primary">ORD-F-001</td>
+                                <td>Al-Fajr Company</td>
+                                <td>Steel Rods</td>
+                                <td class="english-nums">500 T</td>
+                                <td><span class="badge bg-success">{{ __('dashboard.completed') }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="fw-bold text-primary">ORD-F-002</td>
+                                <td>South Office</td>
+                                <td>Aluminum</td>
+                                <td class="english-nums">200 T</td>
+                                <td><span class="badge bg-warning text-dark">{{ __('dashboard.in_production') }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- Sidebar side -->
-    <div class="col-md-3">
+    <div class="col-lg-3">
         @include('partials.user-status-sidebar')
     </div>
-  </div>
+</div>
 
-</section>
+@section('styles')
+<style>
+    .stat-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .stat-card:hover { transform: translateY(-5px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+</style>
+@endsection
 @endsection
