@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# Force environment variables for stability
+export SESSION_DRIVER=file
+export CACHE_STORE=file
+export APP_DEBUG=true
+
+# Clear any existing config cache to avoid stale settings
+if [ -f /app/bootstrap/cache/config.php ]; then
+    rm /app/bootstrap/cache/config.php
+fi
+
 # Ensure SQLite database exists if needed (using absolute paths)
 echo "Current working directory: $(pwd)"
 if [ ! -f /app/database/database.sqlite ]; then
