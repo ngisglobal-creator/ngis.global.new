@@ -3,9 +3,9 @@
 @php
     $dashboardTitle = __('dashboard.client_panel');
     if(Auth::user()->type === 'merchant') {
-        $dashboardTitle = __('dashboard.merchant_panel', 'Merchant Panel');
+        $dashboardTitle = __('dashboard.merchant_panel');
     } elseif(Auth::user()->type === 'company_owner') {
-        $dashboardTitle = __('dashboard.company_owner_panel', 'Company Owner Panel');
+        $dashboardTitle = __('dashboard.company_owner_panel');
     }
 @endphp
 

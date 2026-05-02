@@ -16,9 +16,9 @@
             @if(auth()->user()->type == 'client')
                 {{ __('dashboard.client_panel') }}
             @elseif(auth()->user()->type == 'merchant')
-                {{ __('dashboard.merchant_panel', 'Merchant Panel') }}
+                {{ __('dashboard.merchant_panel') }}
             @elseif(auth()->user()->type == 'company_owner')
-                {{ __('dashboard.company_owner_panel', 'Company Owner Panel') }}
+                {{ __('dashboard.company_owner_panel') }}
             @else
                 {{ __('dashboard.client_panel') }}
             @endif
@@ -56,7 +56,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('site.products.index') }}" class="nav-link text-dark rounded {{ request()->is('site-products*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-bag-shopping fa-fw me-2"></i> {{ __('dashboard.site_products', 'Site Products') }}
+                    <i class="fa-solid fa-bag-shopping fa-fw me-2"></i> {{ __('dashboard.site_products') }}
                 </a>
             </li>
             <li class="nav-item">
@@ -71,17 +71,17 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('client.special_order') }}" class="nav-link text-dark rounded {{ request()->is('client/special-order') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-wand-magic-sparkles fa-fw me-2"></i> {{ __('dashboard.special_import_request', 'Special Import Request') }}
+                    <i class="fa-solid fa-wand-magic-sparkles fa-fw me-2"></i> {{ __('dashboard.special_import_request') }}
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('client.special_orders.index') }}" class="nav-link text-dark rounded {{ request()->is('client/special-orders*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-list-check fa-fw me-2"></i> {{ __('dashboard.my_special_orders', 'My Special Orders') }}
+                    <i class="fa-solid fa-list-check fa-fw me-2"></i> {{ __('dashboard.my_special_orders') }}
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark rounded {{ request()->is('client/invoices*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-file-invoice fa-fw me-2"></i> {{ __('dashboard.my_invoices', 'My Invoices') }}
+                    <i class="fa-solid fa-file-invoice fa-fw me-2"></i> {{ __('dashboard.my_invoices') }}
                 </a>
             </li>
             <li class="nav-item">

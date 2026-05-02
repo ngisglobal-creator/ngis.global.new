@@ -53,7 +53,7 @@
             <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.operations_reports') }}</div>
             <li class="nav-item">
                 <a href="{{ route('products.index') }}" class="nav-link text-dark rounded {{ request()->is('products*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-cubes fa-fw me-2"></i> {{ __('dashboard.products_and_orders', 'Products & Orders') }}
+                    <i class="fa-solid fa-cubes fa-fw me-2"></i> {{ __('dashboard.products_and_orders') }}
                 </a>
             </li>
             <li class="nav-item">
@@ -73,7 +73,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('china.product_status') }}" class="nav-link text-dark rounded {{ request()->is('china/product-status*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-ship fa-fw me-2"></i> {{ __('dashboard.product_statuses', 'Product Statuses') }}
+                    <i class="fa-solid fa-ship fa-fw me-2"></i> {{ __('dashboard.product_statuses') }}
                 </a>
             </li>
 

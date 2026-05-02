@@ -45,7 +45,7 @@
                 </a>
             </li>
 
-            <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.client_orders', 'Client Orders') }}</div>
+            <div class="text-muted small fw-bold mt-3 mb-2 text-uppercase">{{ __('dashboard.client_orders') }}</div>
             <li class="nav-item">
                 <a href="{{ route('regional.clients.index') }}" class="nav-link text-dark rounded {{ request()->is('regional/clients*') ? 'bg-light fw-bold text-primary' : '' }}">
                     <i class="fa-solid fa-users fa-fw me-2"></i> {{ __('dashboard.clients') }}
@@ -53,7 +53,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('regional.chat.index') }}" class="nav-link text-dark rounded d-flex justify-content-between align-items-center {{ request()->is('regional/chat*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <div><i class="fa-solid fa-comments fa-fw me-2"></i> {{ __('dashboard.customer_service', 'Customer Service') }}</div>
+                    <div><i class="fa-solid fa-comments fa-fw me-2"></i> {{ __('dashboard.customer_service') }}</div>
                     @php
                         $unreadMessages = \App\Models\Message::where('receiver_id', auth()->id())->where('is_read', false)->count();
                     @endphp
@@ -64,7 +64,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('regional.management.assigned_orders') }}" class="nav-link text-dark rounded {{ request()->is('regional/management/assigned-orders*') ? 'bg-light fw-bold text-primary' : '' }}">
-                    <i class="fa-solid fa-shopping-cart fa-fw me-2"></i> {{ __('dashboard.assigned_orders', 'Assigned Orders') }}
+                    <i class="fa-solid fa-shopping-cart fa-fw me-2"></i> {{ __('dashboard.assigned_orders') }}
                 </a>
             </li>
 
