@@ -41,6 +41,8 @@ ENV APP_ENV=production
 ENV APP_DEBUG=true
 ENV LOG_CHANNEL=stderr
 ENV RUN_MIGRATIONS=true
+ENV SESSION_DRIVER=file
+ENV CACHE_STORE=file
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
