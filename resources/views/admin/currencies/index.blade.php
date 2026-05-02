@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'إدارة العملات')
+@section('title', __('dashboard.manage_currencies'))
 
 @section('content')
 <section class="content-header">
-    <h1>قسم العملات <small>إدارة عملات النظام</small></h1>
+    <h1>{{ __('dashboard.currencies') }} <small>{{ __('dashboard.manage_currencies') }}</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-        <li class="active">العملات</li>
+        <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> {{ __('dashboard.home') }}</a></li>
+        <li class="active">{{ __('dashboard.currencies') }}</li>
     </ol>
 </section>
 
@@ -21,26 +21,26 @@
 
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-money"></i> قائمة العملات</h3>
+            <h3 class="box-title"><i class="fa fa-money"></i> {{ __('dashboard.all_currencies') }}</h3>
             <div class="box-tools pull-right">
                 <a href="{{ route('admin.currencies.create') }}" class="btn btn-success btn-sm">
-                    <i class="fa fa-plus"></i> إضافة عملة جديدة
+                    <i class="fa fa-plus"></i> {{ __('dashboard.add_new_currency') }}
                 </a>
             </div>
         </div>
         <div class="box-body">
-            <input type="text" id="searchInput" class="form-control" placeholder="🔍 بحث عن عملة..." style="margin-bottom: 15px; border-radius: 8px;">
+            <input type="text" id="searchInput" class="form-control" placeholder="🔍 {{ __('dashboard.search') }}" style="margin-bottom: 15px; border-radius: 8px;">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped" id="currenciesTable">
                     <thead style="background: #3c8dbc; color: white;">
                         <tr>
                             <th>#</th>
-                            <th>الرمز (Code)</th>
-                            <th>اسم العملة (عربي)</th>
-                            <th>اسم العملة (English)</th>
-                            <th>الرمز المختصر</th>
-                            <th>الحالة</th>
-                            <th>العمليات</th>
+                            <th>{{ __('dashboard.currency_code') }}</th>
+                            <th>{{ __('dashboard.name_ar') }}</th>
+                            <th>{{ __('dashboard.name_en') }}</th>
+                            <th>{{ __('dashboard.symbol') }}</th>
+                            <th>{{ __('dashboard.status') }}</th>
+                            <th>{{ __('dashboard.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,33 +53,33 @@
                                 <td><span class="label label-default" style="font-size: 14px;">{{ $currency->symbol }}</span></td>
                                 <td>
                                     @if($currency->is_active)
-                                        <span class="label label-success">مفعّل</span>
+                                        <span class="label label-success">{{ __('dashboard.active') }}</span>
                                     @else
-                                        <span class="label label-danger">معطّل</span>
+                                        <span class="label label-danger">{{ __('dashboard.inactive') }}</span>
                                     @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.currencies.edit', $currency) }}" class="btn btn-warning btn-xs">
-                                        <i class="fa fa-edit"></i> تعديل
+                                        <i class="fa fa-edit"></i> {{ __('dashboard.edit') }}
                                     </a>
-                                    <form action="{{ route('admin.currencies.destroy', $currency) }}" method="POST" style="display:inline;" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                    <form action="{{ route('admin.currencies.destroy', $currency) }}" method="POST" style="display:inline;" onsubmit="return confirm('{{ __('dashboard.confirm_delete') }}')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> حذف
+                                            <i class="fa fa-trash"></i> {{ __('dashboard.delete') }}
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="7" class="text-center text-muted">لا توجد عملات مضافة بعد.</td></tr>
+                            <tr><td colspan="7" class="text-center text-muted">{{ __('dashboard.no_currencies_found') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="box-footer text-muted">
-            إجمالي العملات: <strong>{{ $currencies->count() }}</strong>
+            {{ __('dashboard.total_currencies') }}: <strong>{{ $currencies->count() }}</strong>
         </div>
     </div>
 </section>

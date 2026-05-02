@@ -1,16 +1,16 @@
 @extends('layouts.master')
 
-@section('title', 'إدارة الدول')
+@section('title', __('dashboard.manage_countries'))
 
 @section('content')
 <section class="content-header">
     <h1>
-        الدول
-        <small>عرض جميع الدول</small>
+        {{ __('dashboard.countries') }}
+        <small>{{ __('dashboard.all_countries') }}</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-        <li class="active">الدول</li>
+        <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> {{ __('dashboard.home') }}</a></li>
+        <li class="active">{{ __('dashboard.countries') }}</li>
     </ol>
 </section>
 
@@ -18,7 +18,7 @@
     <div class="row" style="margin-bottom: 10px;">
         <div class="col-xs-12">
             <a href="{{ route('admin.countries.create') }}" class="btn btn-success">
-                <i class="fa fa-plus"></i> إضافة دولة جديدة
+                <i class="fa fa-plus"></i> {{ __('dashboard.add_new_country') }}
             </a>
         </div>
     </div>
@@ -26,7 +26,7 @@
     @if(session('success'))
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> نجاح!</h4>
+        <h4><i class="icon fa fa-check"></i> {{ __('dashboard.success') }}!</h4>
         {{ session('success') }}
     </div>
     @endif
@@ -35,18 +35,18 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">قائمة الدول</h3>
+                    <h3 class="box-title">{{ __('dashboard.all_countries') }}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tr>
-                            <th>العلم</th>
-                            <th>الاسم بالعربية</th>
-                            <th>الاسم بالإنجليزية</th>
-                            <th>الاسم بالصينية</th>
-                            <th>رمز الدولة</th>
-                            <th>العمليات</th>
+                            <th>{{ __('dashboard.flag') }}</th>
+                            <th>{{ __('dashboard.name_ar') }}</th>
+                            <th>{{ __('dashboard.name_en') }}</th>
+                            <th>{{ __('dashboard.name_zh') }}</th>
+                            <th>{{ __('dashboard.country_code') }}</th>
+                            <th>{{ __('dashboard.actions') }}</th>
                         </tr>
                         @foreach($countries as $country)
                         <tr>
@@ -63,13 +63,13 @@
                             <td><span class="label label-primary">{{ strtoupper($country->flag_code) }}</span></td>
                             <td>
                                 <a href="{{ route('admin.countries.edit', $country->id) }}" class="btn btn-warning btn-xs">
-                                    <i class="fa fa-edit"></i> تعديل
+                                    <i class="fa fa-edit"></i> {{ __('dashboard.edit') }}
                                 </a>
                                 <form action="{{ route('admin.countries.destroy', $country->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('هل أنت متأكد من الحذف؟')">
-                                        <i class="fa fa-trash"></i> حذف
+                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('{{ __('dashboard.confirm_delete') }}')">
+                                        <i class="fa fa-trash"></i> {{ __('dashboard.delete') }}
                                     </button>
                                 </form>
                             </td>

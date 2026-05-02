@@ -1,19 +1,19 @@
 @extends('layouts.master')
 
-@section('title', 'إضافة نطاق عمل جغرافي')
+@section('title', __('dashboard.add_new_zone'))
 
 @section('content')
 <section class="content-header">
     <h1>
-        إضافة نطاق عمل جغرافي
-        <small>إنشاء سجل جديد</small>
+        {{ __('dashboard.add_new_zone') }}
+        <small>{{ __('dashboard.add_new_zone') }}</small>
     </h1>
 </section>
 
 <section class="content">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">بيانات النطاق</h3>
+            <h3 class="box-title">{{ __('dashboard.zone_data') }}</h3>
         </div>
         <form action="{{ route('admin.geographic-zones.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -22,41 +22,41 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group @error('name_ar') has-error @enderror">
-                            <label>الاسم بالعربية</label>
-                            <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}" placeholder="مثال: منطقة الخليج العربي" required>
+                            <label>{{ __('dashboard.name_ar') }}</label>
+                            <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}" placeholder="{{ __('dashboard.name_ar') }}" required>
                             @error('name_ar') <span class="help-block">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group @error('name_en') has-error @enderror">
-                            <label>الاسم بالإنجليزية</label>
-                            <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}" placeholder="e.g. Arabian Gulf Region" required>
+                            <label>{{ __('dashboard.name_en') }}</label>
+                            <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}" placeholder="{{ __('dashboard.name_en') }}" required>
                             @error('name_en') <span class="help-block">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group @error('name_zh') has-error @enderror">
-                            <label>الاسم بالصينية</label>
-                            <input type="text" name="name_zh" class="form-control" value="{{ old('name_zh') }}" placeholder="例如：阿拉伯湾地区" required>
+                            <label>{{ __('dashboard.name_zh') }}</label>
+                            <input type="text" name="name_zh" class="form-control" value="{{ old('name_zh') }}" placeholder="{{ __('dashboard.name_zh') }}" required>
                             @error('name_zh') <span class="help-block">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group @error('image') has-error @enderror">
-                    <label>صورة النطاق الجغرافي</label>
+                    <label>{{ __('dashboard.zone_image') }}</label>
                     <input type="file" name="image" class="form-control" accept="image/*">
                     @error('image') <span class="help-block">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="form-group @error('countries') has-error @enderror">
-                    <label>الدول التابعة للنطاق <small class="text-muted">(يمكن اختيار أكثر من دولة)</small></label>
+                    <label>{{ __('dashboard.associated_countries') }}</label>
                     <select name="countries[]" id="countries-select" class="form-control select2-countries" multiple>
                         @foreach($countries as $country)
                             <option value="{{ $country->id }}"
                                     data-flag="{{ asset('vendor/flag-icons/flags/4x3/' . $country->flag_code . '.svg') }}"
                                     {{ in_array($country->id, old('countries', [])) ? 'selected' : '' }}>
-                                {{ $country->name_ar }} — {{ $country->name_en }}
+                                {{ $country->{'name_'.app()->getLocale()} ?? $country->name_en }}
                             </option>
                         @endforeach
                     </select>
@@ -65,8 +65,8 @@
 
             </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary">حفظ</button>
-                <a href="{{ route('admin.geographic-zones.index') }}" class="btn btn-default">إلغاء</a>
+                <button type="submit" class="btn btn-primary">{{ __('dashboard.save') }}</button>
+                <a href="{{ route('admin.geographic-zones.index') }}" class="btn btn-default">{{ __('dashboard.cancel') }}</a>
             </div>
         </form>
     </div>
@@ -96,9 +96,9 @@ function formatCountry(option) {
 }
 $(function () {
     $('#countries-select').select2({
-        placeholder: 'ابحث واختر الدول...',
+        placeholder: '{{ __('dashboard.select_countries') }}',
         allowClear: true,
-        dir: 'rtl',
+        dir: '{{ app()->getLocale() == "ar" ? "rtl" : "ltr" }}',
         templateResult: formatCountry,
         templateSelection: formatCountry,
     });

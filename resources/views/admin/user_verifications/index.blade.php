@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'إعطاء توثيقات للمستخدمين')
+@section('title', __('dashboard.give_verifications'))
 
 @section('content')
 <section class="content-header">
   <h1>
-    إعطاء توثيقات
-    <small>إسناد صور التوثيق للمستخدمين حسب النوع</small>
+    {{ __('dashboard.give_verifications') }}
+    <small>{{ __('dashboard.assign_verifications') }}</small>
   </h1>
 </section>
 
@@ -23,14 +23,14 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th style="width: 50px;">الصورة</th>
-            <th>اسم المستخدم</th>
-            <th>النوع</th>
-            <th>الباقة</th>
-            <th>صورة الباقة</th>
-            <th>التقييم</th>
-            <th>التوثيقات الحالية</th>
-            <th style="width: 100px;">التحكم</th>
+            <th style="width: 50px;">{{ __('dashboard.image') }}</th>
+            <th>{{ __('dashboard.username') }}</th>
+            <th>{{ __('dashboard.type') }}</th>
+            <th>{{ __('dashboard.package') }}</th>
+            <th>{{ __('dashboard.package_image') }}</th>
+            <th>{{ __('dashboard.rating') }}</th>
+            <th>{{ __('dashboard.current_verifications') }}</th>
+            <th style="width: 100px;">{{ __('dashboard.actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -42,11 +42,16 @@
             </td>
             <td><strong>{{ $user->name }}</strong><br><small class="text-muted">{{ $user->email }}</small></td>
             <td>
-              <span class="label label-default">{{ $types[$user->type] ?? $user->type }}</span>
+              <span class="label label-default">
+                @if($user->type == 'client') {{ __('dashboard.client') }}
+                @elseif($user->type == 'company') {{ __('dashboard.company') }}
+                @elseif($user->type == 'factory') {{ __('dashboard.factory') }}
+                @else {{ $user->type }} @endif
+              </span>
             </td>
             <td>
               @if($user->package)
-                <span class="label label-success">{{ $user->package->title_ar }}</span>
+                <span class="label label-success">{{ $user->package->{'title_'.app()->getLocale()} ?? $user->package->title_en }}</span>
               @else
                 <span class="text-muted">-</span>
               @endif
@@ -70,7 +75,7 @@
             </td>
             <td>
               <a href="{{ route('admin.user-verifications.edit', $user->id) }}" class="btn btn-primary btn-sm btn-block">
-                <i class="fa fa-hand-pointer-o"></i> إعطاء
+                <i class="fa fa-hand-pointer-o"></i> {{ __('dashboard.give') }}
               </a>
             </td>
           </tr>
