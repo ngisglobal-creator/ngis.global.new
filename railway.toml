@@ -3,8 +3,9 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "docker-entrypoint.sh frankenphp run --config /app/Caddyfile"
+startCommand = "frankenphp run --config /app/Caddyfile"
 healthcheckPath = "/up"
-healthcheckTimeout = 100
+healthcheckTimeout = 120
+healthcheckInterval = 10
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
