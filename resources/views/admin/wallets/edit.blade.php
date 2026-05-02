@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'تعديل المحفظة: ' . $user->name)
+@section('title', __('dashboard.edit_wallet') . ': ' . $user->name)
 
 @section('content')
 <section class="content-header">
-  <h1>تعديل المحفظة: <strong>{{ $user->name }}</strong></h1>
+  <h1>{{ __('dashboard.edit_wallet') }}: <strong>{{ $user->name }}</strong></h1>
 </section>
 
 <section class="content">
@@ -22,17 +22,17 @@
             @method('PUT')
             
             <div class="form-group">
-              <label>قيمة الرصيد الحالية</label>
+              <label>{{ __('dashboard.current_balance_value') ?? 'Current Balance Value' }}</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-money"></i></span>
                 <input type="number" step="0.01" name="wallet_balance" class="form-control input-lg" value="{{ old('wallet_balance', $user->wallet_balance) }}" required placeholder="0.00">
               </div>
-              <p class="help-block">أدخل القيمة المالية الإجمالية التي تريد تخصيصها لهذا المستخدم.</p>
+              <p class="help-block">{{ __('dashboard.wallet_help_text') ?? 'Enter the total financial value you want to assign to this user.' }}</p>
             </div>
 
             <div class="box-footer text-center" style="background: transparent;">
-              <button type="submit" class="btn btn-warning btn-lg px-5 text-bold"><i class="fa fa-save"></i> حفظ الرصيد</button>
-              <a href="{{ route('admin.wallets.index') }}" class="btn btn-default btn-lg px-5">إلغاء</a>
+              <button type="submit" class="btn btn-warning btn-lg px-5 text-bold"><i class="fa fa-save"></i> {{ __('dashboard.save_balance') ?? 'Save Balance' }}</button>
+              <a href="{{ route('admin.wallets.index') }}" class="btn btn-default btn-lg px-5">{{ __('dashboard.cancel') }}</a>
             </div>
           </form>
         </div>

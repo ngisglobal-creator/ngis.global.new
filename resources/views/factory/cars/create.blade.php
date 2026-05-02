@@ -1,6 +1,6 @@
 @extends('factory.layouts.master')
 
-@section('title', 'إضافة سيارة جديدة')
+@section('title', __('dashboard.add_new_car'))
 
 @section('content')
 <style>
@@ -38,8 +38,8 @@
 </style>
 <section class="content-header">
     <h1>
-        إضافة سيارة
-        <small>إضافة سيارة جديدة</small>
+        {{ __('dashboard.add_new_car') }}
+        <small>{{ __('dashboard.add_new_car') }}</small>
     </h1>
 </section>
 
@@ -49,23 +49,23 @@
             <div class="box box-primary" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                 <!-- Mode Selection Hero -->
                 <div id="mode_selection_hero" style="background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%); padding: 50px 20px; border-bottom: 2px solid #eee; text-align: center;">
-                    <h2 style="margin-top: 0; margin-bottom: 30px; font-weight: bold; color: #333;">اختر نوع النقل والتشكيل</h2>
+                    <h2 style="margin-top: 0; margin-bottom: 30px; font-weight: bold; color: #333;">{{ __('dashboard.choose_transport_type') }}</h2>
                     <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
                         <a href="{{ route('cars.create.light', ['custom_order_id' => request('custom_order_id')]) }}" id="btnHeroLight" class="btn mode-hero-btn" style="flex: 1; min-width: 280px; max-width: 450px; padding: 40px; font-size: 28px; font-weight: bold; border-radius: 20px; background: #eef7ff; color: #3c8dbc; border: 4px solid #3c8dbc; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(60, 141, 188, 0.1); text-decoration: none;">
                             <i class="fa fa-car" style="font-size: 50px; display: block; margin-bottom: 20px;"></i> 
-                            مركبات خفيفة
-                            <p style="font-size: 14px; font-weight: normal; margin-top: 15px; opacity: 0.8;">سيارات الصالون، الدفع الرباعي، والسيارات العائلية</p>
+                            {{ __('dashboard.light_vehicles') }}
+                            <p style="font-size: 14px; font-weight: normal; margin-top: 15px; opacity: 0.8;">{{ __('dashboard.light_vehicles_desc') }}</p>
                         </a>
                         
                         <a href="{{ route('cars.create.heavy', ['custom_order_id' => request('custom_order_id')]) }}" id="btnHeroHeavy" class="btn mode-hero-btn" style="flex: 1; min-width: 280px; max-width: 450px; padding: 40px; font-size: 28px; font-weight: bold; border-radius: 20px; background: #fff5e6; color: #e67e22; border: 4px solid #e67e22; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(230, 126, 34, 0.1); text-decoration: none;">
                             <i class="fa fa-truck" style="font-size: 50px; display: block; margin-bottom: 20px;"></i>
-                            مركبات ومعدات ثقيلة
-                            <p style="font-size: 14px; font-weight: normal; margin-top: 15px; opacity: 0.8;">شاحنات، باصات، ومعدات ثقيلة ومتخصصة</p>
+                            {{ __('dashboard.heavy_vehicles') }}
+                            <p style="font-size: 14px; font-weight: normal; margin-top: 15px; opacity: 0.8;">{{ __('dashboard.heavy_vehicles_desc') }}</p>
                         </a>
                 <div id="full_page_content" style="display: none; padding: 20px;">
                     <div style="text-align: left; margin-bottom: 20px;" class="no-print">
                         <button type="button" class="btn btn-default" onclick="returnToHero()" style="border-radius: 20px; font-weight: bold; border: 2px solid #ddd; transition: all 0.3s;">
-                            <i class="fa fa-undo"></i> تغيير نوع المركبة / العودة للقائمة
+                            <i class="fa fa-undo"></i> {{ __('dashboard.change_vehicle_type') }}
                         </button>
                     </div>
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="productForm">
@@ -74,23 +74,23 @@
                     <!-- Section 1: General Information -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc; border-radius: 12px 12px 0 0;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-info-circle text-primary"></i> المعلومات الأساسية</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-info-circle text-primary"></i> {{ __('dashboard.basic_info') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">القطاع</label>
+                                        <label style="font-weight: 600;">{{ __('dashboard.sector') }}</label>
                                         <button type="button" class="btn btn-link pull-left" style="font-size: 13px; padding: 0;" data-toggle="modal" data-target="#sectorModal">
-                                            <i class="fa fa-plus-circle"></i> إضافة قطاعات
+                                            <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_sectors') ?? 'Add Sectors' }}
                                         </button>
                                         <button type="button" class="btn btn-link pull-left" style="font-size: 13px; padding: 0 10px 0 0;" data-toggle="modal" data-target="#quickSectorModal">
-                                            <i class="fa fa-magic"></i> اضافة قطاع جديد
+                                            <i class="fa fa-magic"></i> {{ __('dashboard.add_new_sector') ?? 'Add New Sector' }}
                                         </button>
                                         <select name="sector_id" id="sector_id" class="form-control select2" required>
-                                            <option value="">اختر القطاع</option>
+                                            <option value="">{{ __('dashboard.select_sector') }}</option>
                                             @foreach($sectors as $sector)
-                                                <option value="{{ $sector->id }}">{{ $sector->name_ar }}</option>
+                                                <option value="{{ $sector->id }}">{{ $sector->{'name_'.app()->getLocale()} ?? $sector->name_ar }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -125,8 +125,8 @@
                             <div class="row" style="margin-top: 15px;">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">اسم السيارة</label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="أدخل اسم السيارة بدقة" required style="height: 45px; font-size: 16px;">
+                                        <label style="font-weight: 600;">{{ __('dashboard.car_name') }}</label>
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('dashboard.enter_car_name') }}" required style="height: 45px; font-size: 16px;">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -144,25 +144,25 @@
                     <!-- Box 1: Basic Vehicle Information -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-car text-blue"></i> المعلومات الأساسية للمركبة</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-car text-blue"></i> {{ __('dashboard.basic_info') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">الشركة المصنعة</label>
-                                        <input type="text" name="car_manufacturer" class="form-control" placeholder="مثال: تويوتا">
+                                        <label style="font-weight: 600;">{{ __('dashboard.car_manufacturer') }}</label>
+                                        <input type="text" name="car_manufacturer" class="form-control" placeholder="Toyota">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">الموديل</label>
-                                        <input type="text" name="car_model" class="form-control" placeholder="مثال: كامري">
+                                        <label style="font-weight: 600;">{{ __('dashboard.car_model') }}</label>
+                                        <input type="text" name="car_model" class="form-control" placeholder="Camry">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">سنة الصنع</label>
+                                        <label style="font-weight: 600;">{{ __('dashboard.car_year') }}</label>
                                         <input type="number" name="car_year" class="form-control" placeholder="2024">
                                     </div>
                                 </div>
@@ -170,12 +170,12 @@
                             <div class="row" style="margin-top: 15px;">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="font-weight: 600;">نوع المركبة</label>
+                                        <label style="font-weight: 600;">{{ __('dashboard.car_type') }}</label>
                                         <select name="car_type" class="form-control select2">
-                                            <option value="car">سيارة</option>
-                                            <option value="truck">شاحنة</option>
-                                            <option value="bus">حافلة</option>
-                                            <option value="bike">دراجة</option>
+                                            <option value="car">{{ __('dashboard.car') ?? 'Car' }}</option>
+                                            <option value="truck">{{ __('dashboard.truck') ?? 'Truck' }}</option>
+                                            <option value="bus">{{ __('dashboard.bus') ?? 'Bus' }}</option>
+                                            <option value="bike">{{ __('dashboard.bike') ?? 'Bike' }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@
                     <!-- Box 2: Technical Specifications -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-cogs text-grey"></i> المواصفات الفنية</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-cogs text-grey"></i> {{ __('dashboard.technical_specs') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="row">
@@ -428,7 +428,7 @@
                     <!-- Section 2: Description (Moved Up) -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-file-text-o text-warning"></i> وصف السيارة</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-file-text-o text-warning"></i> {{ __('dashboard.car_description') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 25px;">
                             <div class="form-group">
@@ -440,7 +440,7 @@
                     <!-- Section 3: Pricing & Details (Moved Down) -->
                     <div class="box box-solid box-default" style="border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px;">
                         <div class="box-header with-border" style="background: #fcfcfc;">
-                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-money text-success"></i> السعر وتفاصيل</h3>
+                            <h3 class="box-title" style="font-weight: bold; color: #333;"><i class="fa fa-money text-success"></i> {{ __('dashboard.pricing_and_details') }}</h3>
                         </div>
                         <div class="box-body" style="padding: 20px;">
                             <input type="hidden" name="upload_mode" id="upload_mode" value="special">
@@ -521,12 +521,12 @@
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-md-6">
                                     <div class="alert alert-info" style="background: #f0f7ff !important; color: #3c8dbc !important; border: 1px dashed #3c8dbc;">
-                                        <i class="fa fa-info-circle"></i> <strong>معادلة الحساب:</strong> يتم ضرب (الطول × العرض × الارتفاع) للحصول على حجم الكرتونة، ثم يضرب في عدد الوحدات للحصول على حجم الكرتونة CBM الإجمالي.
+                                        <i class="fa fa-info-circle"></i> <strong>{{ __('dashboard.calc_formula') ?? 'Calculation Formula' }}:</strong> {{ __('dashboard.calc_formula_desc') ?? 'Multiply (Length x Width x Height) to get the carton volume, then multiply by the number of units to get the total carton CBM.' }}
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <div style="padding: 10px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;">
-                                        <span style="font-weight: bold; color: #666;">تكلفة الحد الأدنى (MOQ):</span>
+                                        <span style="font-weight: bold; color: #666;">{{ __('dashboard.min_order_quantity') ?? 'Minimum Order Quantity (MOQ)' }}:</span>
                                         <input type="text" id="min_order_quantity" class="form-control english-nums" placeholder="100" style="display: inline-block; width: 100px; height: 30px; margin-right: 10px;">
                                     </div>
                                 </div>
@@ -718,7 +718,7 @@
 
                     <div style="text-align: center; margin-bottom: 50px;" class="no-print">
                         <button type="button" id="btnAddToList" class="btn btn-warning" style="width: 300px; height: 55px; border-radius: 30px; font-size: 20px; font-weight: bold; box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);">
-                            <i class="fa fa-plus-circle"></i> إضافة المنتج للقائمة
+                            <i class="fa fa-plus-circle"></i> {{ __('dashboard.add_product_to_list') }}
                         </button>
                     </div>
                 </form>
@@ -728,7 +728,7 @@
                     <div class="col-md-12">
                         <div class="box box-solid" style="border: 2px solid #3c8dbc; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px;">
                             <div class="box-header with-border" style="background: #eef7ff;">
-                                <h3 class="box-title" style="font-weight: bold; color: #3c8dbc;"><i class="fa fa-list"></i> قائمة المنتجات المُضافة</h3>
+                                <h3 class="box-title" style="font-weight: bold; color: #3c8dbc;"><i class="fa fa-list"></i> {{ __('dashboard.added_products_list') }}</h3>
                             </div>
                             <div class="box-body no-padding">
                                 <div class="table-responsive">
@@ -755,10 +755,10 @@
                             </div>
                             <div class="box-footer text-center no-print" style="padding: 20px; background: #fcfcfc;">
                                 <button type="button" class="btn btn-default btn-lg" onclick="window.print()" style="margin-left: 15px; border-radius: 30px; font-weight: bold; padding: 10px 30px;">
-                                    <i class="fa fa-print"></i> طباعة القائمة كمعاينة
+                                    <i class="fa fa-print"></i> {{ __('dashboard.print_preview') ?? 'Print Preview' }}
                                 </button>
                                 <button type="button" class="btn btn-success btn-lg" id="btnSaveAll" style="border-radius: 30px; font-weight: bold; padding: 10px 40px; box-shadow: 0 5px 15px rgba(0,166,90,0.3);">
-                                    <i class="fa fa-check-circle"></i> حفظ جميع المنتجات ورفعها للسيرفر
+                                    <i class="fa fa-check-circle"></i> {{ __('dashboard.save_all_and_upload') }}
                                 </button>
                             </div>
                         </div>

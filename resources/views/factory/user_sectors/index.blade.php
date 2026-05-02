@@ -1,12 +1,12 @@
 @extends('factory.layouts.master')
 
-@section('title', 'اختيار القطاعات')
+@section('title', __('dashboard.select_sectors'))
 
 @section('content')
 <section class="content-header">
     <h1>
-        اختيار القطاعات
-        <small>القطاعات التي تعمل بها</small>
+        {{ __('dashboard.select_sectors') }}
+        <small>{{ __('dashboard.sectors_you_work_in') }}</small>
     </h1>
 </section>
 
@@ -14,7 +14,7 @@
     @if(session('success'))
         <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> نجاح!</h4>
+            <h4><i class="icon fa fa-check"></i> {{ __('dashboard.success') }}!</h4>
             {{ session('success') }}
         </div>
     @endif
@@ -23,10 +23,10 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">بياناتي والقطاعات</h3>
+                    <h3 class="box-title">{{ __('dashboard.my_data_and_sectors') }}</h3>
                     <div class="box-tools">
                         <a href="{{ route('user-sectors.create') }}" class="btn btn-sm btn-success">
-                            <i class="fa fa-plus"></i> تعديل اختيار القطاعات
+                            <i class="fa fa-plus"></i> {{ __('dashboard.edit_sector_selection') }}
                         </a>
                     </div>
                 </div>
@@ -46,9 +46,9 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>اسم القطاع (بالعربي)</th>
-                                <th>اسم القطاع (بالإنجليزي)</th>
-                                <th>الإجراءات</th>
+                                <th>{{ __('dashboard.sector_name_ar') }}</th>
+                                <th>{{ __('dashboard.sector_name_en') }}</th>
+                                <th>{{ __('dashboard.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,18 +59,18 @@
                                     <td>{{ $sector->name_en }}</td>
                                     <td>
                                         <form action="{{ route('user-sectors.destroy', $sector->id) }}" method="POST" 
-                                              onsubmit="return confirm('هل أنت متأكد من إزالة هذا القطاع من قائمتك؟');">
+                                              onsubmit="return confirm('{{ __('dashboard.confirm_delete') }}');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-xs">
-                                                <i class="fa fa-trash"></i> حذف
+                                                <i class="fa fa-trash"></i> {{ __('dashboard.delete') }}
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">لم تقم باختيار أي قطاعات بعد.</td>
+                                    <td colspan="4" class="text-center">{{ __('dashboard.no_sectors_selected') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

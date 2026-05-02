@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'إدارة المحافظ')
+@section('title', __('dashboard.wallets_management'))
 
 @section('content')
 <section class="content-header">
-  <h1>إدارة المحافظ</h1>
+  <h1>{{ __('dashboard.wallets_management') }}</h1>
 </section>
 
 <section class="content">
@@ -13,7 +13,7 @@
       <div class="info-box bg-aqua">
         <span class="info-box-icon"><i class="fa fa-google-wallet"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">إجمالي أرصدة المحافظ</span>
+          <span class="info-box-text">{{ __('dashboard.total_wallet_balances') }}</span>
           <span class="info-box-number" style="font-family: 'Arial', sans-serif; direction: ltr;">
             {{ number_format($totalBalance, 2, '.', '') }}
           </span>
@@ -24,20 +24,20 @@
 
   <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">جميع المستخدمين</h3>
+      <h3 class="box-title">{{ __('dashboard.all_users') }}</h3>
     </div>
     <div class="box-body">
       <div class="table-responsive">
         <table class="table table-bordered table-striped datatable">
           <thead>
             <tr>
-              <th>الصورة</th>
-              <th>الاسم</th>
-              <th>النوع</th>
-              <th>نطاقات العمل</th>
-              <th>البلد</th>
-              <th>الرصيد الحالى</th>
-              <th>العمليات</th>
+              <th>{{ __('dashboard.image') }}</th>
+              <th>{{ __('dashboard.name') }}</th>
+              <th>{{ __('dashboard.type') }}</th>
+              <th>{{ __('dashboard.business_zones') }}</th>
+              <th>{{ __('dashboard.country') }}</th>
+              <th>{{ __('dashboard.current_balance') }}</th>
+              <th>{{ __('dashboard.actions') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -51,16 +51,16 @@
               <td>
                 @if($user->country && $user->country->geographicZones->count() > 0)
                   @foreach($user->country->geographicZones as $zone)
-                    <span class="label label-info">{{ $zone->name_ar }}</span>
+                    <span class="label label-info">{{ $zone->{'name_'.app()->getLocale()} ?? $zone->name_ar }}</span>
                   @endforeach
                 @else
-                  <span class="text-muted">غير محدد</span>
+                  <span class="text-muted">{{ __('dashboard.not_specified') }}</span>
                 @endif
               </td>
               <td>
                 @if($user->country)
                   <img src="{{ asset('vendor/flag-icons/flags/4x3/' . $user->country->flag_code . '.svg') }}" style="width: 20px; vertical-align: middle;">
-                  {{ $user->country->name_ar }}
+                  {{ $user->country->{'name_'.app()->getLocale()} ?? $user->country->name_ar }}
                 @else
                   -
                 @endif
@@ -72,7 +72,7 @@
               </td>
               <td>
                 <a href="{{ route('admin.wallets.edit', $user->id) }}" class="btn btn-warning btn-xs">
-                  <i class="fa fa-edit"></i> تعديل المحفظة
+                  <i class="fa fa-edit"></i> {{ __('dashboard.edit_wallet') }}
                 </a>
               </td>
             </tr>
@@ -96,7 +96,7 @@
       'info'        : true,
       'autoWidth'   : false,
       'language': {
-          "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Arabic.json"
+          "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/{{ app()->getLocale() == 'ar' ? 'Arabic' : (app()->getLocale() == 'zh' ? 'Chinese' : 'English') }}.json"
       }
     });
   });
